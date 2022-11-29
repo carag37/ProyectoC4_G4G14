@@ -12,7 +12,7 @@ const CreateSubject = () => {
         <input placeholder = "Horario" />
         <textarea placeholder = "Descripción" />
 
-        <button>Crear Cuenta</button>
+        <button>Crear Materia</button>
         <Link to={"/"}>Regresar</Link>
 
         </div>

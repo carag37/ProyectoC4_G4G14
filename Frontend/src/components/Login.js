@@ -11,7 +11,7 @@ const Login = () => {
             <input placeholder = "Email" />
             <input type = "password" placeholder = "Contraseña" />
             <button>Ingresar</button>
-            <Link to={"/crear-cuenta"}>Crear Cuenta</Link>
+            <Link to={"/crear-materia"}>Crear Materia</Link>
         </div>
     )
 
