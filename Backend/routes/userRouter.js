@@ -1,27 +1,20 @@
 import express from "express";
-import { createUser, deleteUser, readUser, updateUser } from "../controllers/userController.js";
+import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario } from "../controllers/usuarioController.js";
 
-const userRouter = express.Router()
+
+const router = express.Router()
 
 //Crear
 //POST
-userRouter.post("/", (req, res) =>{
-    createUser(req, res)
-})
+router.post("/", crearUsuario)
 //Leer
 //GET
-userRouter.get("/", (req, res) =>{
-    readUser(req, res)
-})
+router.get("/", leerUsuario)
 //Actualizar
 //PUT
-userRouter.put("/", (req, res) =>{
-    updateUser(req, res)
-})
+router.put("/", actualizarUsuario)
 //Eliminar
 //DELETE
-userRouter.delete("/", (req, res) =>{
-    deleteUser(req, res)
-})
+router.delete("/", borrarUsuario)
 
-export default userRouter;
+export default router
