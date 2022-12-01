@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const conectarDB = async () => {
 try{
     const connection = await mongoose.connect(
-        "mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/?retryWrites=true&w=majority",
+        "mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/calificAPP-db?retryWrites=true&w=majority",
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,      
