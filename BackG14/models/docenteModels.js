@@ -6,6 +6,7 @@ const DocenteSchema = mongoose.Schema({
     nombre: { type: String, required: true, trim: true},
     direccion: { type: String, required: true, trim: true},
     telefono: { type: Number, required: true, trim: true},
+    estado:{type:String, required:true, trim:true},
    // email: { type: String, required: true, trim: true, unique: true},
     materia:{ type: mongoose.Schema.Types.ObjectId, ref: "Materia"},
     mensaje: {type: mongoose.Schema.Types.ObjectId, ref: "Mensaje"},

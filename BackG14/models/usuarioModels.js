@@ -6,6 +6,7 @@ const UsuariosSchema = mongoose.Schema({
     email: { type: String, required: true, trim: true, unique: true},
     password:{ type: String, required: true, trim: true},
     tipoUsuario:{ type: mongoose.Schema.Types.ObjectId, ref: "TipoUsuario" },
+    estado:{type:String, required:true, trim:true},
     registro: { type: Date, default: Date.now()},
 });
 

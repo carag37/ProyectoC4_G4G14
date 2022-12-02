@@ -5,8 +5,7 @@ const mongoose = require("mongoose");
 const AcudienteSchema = mongoose.Schema({
     nombre: { type: String, required: true, trim: true},
     parentezco: { type: String, required: true, trim: true, unique: true},
-    materia:{ type: mongoose.Schema.Types.ObjectId, ref: "Materia"},
-    mensaje:{ type: mongoose.Schema.Types.ObjectId, ref: "Mensaje" },
+    estado:{type:String, required:true, trim:true},
     usuarioSistema:{ type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
 });
 
