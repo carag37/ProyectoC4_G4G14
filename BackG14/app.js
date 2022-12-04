@@ -4,6 +4,7 @@ import usuarioRoutes from "./routes/usuarioRoutes.js";
 import materiaRoutes from "./routes/materiaRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import alumnoRoutes from "./routes/alumnoRoutes.js";
+import docenteRoutes from "./routes/docenteRoutes.js";
 
 /*const express = require("express");
 const mongoose = require("mongoose");
@@ -27,7 +28,7 @@ app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/materias", materiaRoutes);
 app.use("/api/admins", adminRoutes);
 app.use("/api/alumnos", alumnoRoutes);
-
+app.use("api/docentes", docenteRoutes);
 
 app.listen(4000, () => {
     console.log("Servidor corriendo en el puerto 4000");
