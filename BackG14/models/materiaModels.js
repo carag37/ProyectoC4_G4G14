@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
-//import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 
 const MateriaSchema = mongoose.Schema({
@@ -12,4 +12,5 @@ const MateriaSchema = mongoose.Schema({
 //definir el modelo
 //export default mongoose.model("Materia", MateriaSchema)
 
-module.exports = mongoose.model("Materia", MateriaSchema);
+//module.exports = mongoose.model("Materia", MateriaSchema);
+export default mongoose.model("Materia", MateriaSchema);

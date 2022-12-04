@@ -1,19 +1,21 @@
-const express = require("express");
+/*const express = require("express");
 const router = express.Router();
-const usuarioController = require("../controllers/usuarioController");
+const usuarioController = require("../controllers/usuarioController");*/
 
-/*
+
 import express from "express";
 const router = express.Router();
-import usuarioController from "../controllers/usuarioController"; */
+//import usuarioController from "../controllers/usuarioController.js"; 
 
-router.get("/", usuarioController.leerUsuario);
+import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario } from "../controllers/usuarioController.js";
 
-router.post( "/", usuarioController.crearUsuario);
+router.get("/", leerUsuario);
 
-router.put("/:id", usuarioController.actualizarUsuario);
+router.post( "/", crearUsuario);
 
-router.delete("/:id", usuarioController.borrarUsuario);
+router.put("/:id", actualizarUsuario);
 
-//export default router;
-module.exports = router;
+router.delete("/:id", borrarUsuario);
+
+export default router;
+//module.exports = router;

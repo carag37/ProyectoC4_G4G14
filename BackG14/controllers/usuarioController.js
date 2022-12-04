@@ -1,8 +1,9 @@
-const Usuario = require("../models/usuarioModels");
+//const Usuario = require("../models/usuarioModels");
 
-//import Usuario from "../models/usuario";
+import Usuario from "../models/usuarioModels.js";
 
-exports.leerUsuario = async (req, res ) => {
+async function leerUsuario (req,res) {
+//exports.leerUsuario = async (req, res ) => {
     try{
         const usuario = await Usuario.find();
         res.json({usuario});
@@ -11,8 +12,9 @@ exports.leerUsuario = async (req, res ) => {
     }   
 }
 
-exports.crearUsuario = async (req, res ) => {
-    const {email, password, tipoUsuario} =req.body;
+async function crearUsuario (req,res) {
+//exports.crearUsuario = async (req, res ) => {
+    const {email, password, estado} =req.body;
     try{
         let usuario = await Usuario.findOne({email});
         if (usuario){
@@ -29,7 +31,8 @@ exports.crearUsuario = async (req, res ) => {
     
 }
 
-exports.actualizarUsuario = async (req, res ) => {
+async function actualizarUsuario (req,res) {
+//exports.actualizarUsuario = async (req, res ) => {
     const {id} = req.params;
     const usuario = await Usuario.findById(id);
 
@@ -41,12 +44,13 @@ exports.actualizarUsuario = async (req, res ) => {
     usuario.nombre = req.body.nombre || usuario.nombre;
     usuario.password = req.body.password || usuario.password;
     usuario.email = req.body.email || usuario.email;
-    usuario.tipoUsuario =req.body.tipoUsuario || usuario.tipoUsuario;
+    usuario.estado =req.body.estado || usuario.estado;
     usuario.save();
     res.json({usuario});
 }
 
-exports.borrarUsuario = async (req, res ) => {
+async function borrarUsuario (req,res) {
+//exports.borrarUsuario = async (req, res ) => {
     const {id} = req.params;
     const usuario = await Usuario.findById(id);
 
@@ -62,3 +66,5 @@ exports.borrarUsuario = async (req, res ) => {
     console.log(error);
   } 
 }
+
+export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario}
