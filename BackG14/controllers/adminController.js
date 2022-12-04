@@ -1,5 +1,5 @@
 //const Admin = require("../models/adminModels");
-import Admin from "../models/adminModels";
+import Admin from "../models/adminModels.js";
 
 async function leerAdmin (req,res) {
 //exports.leerAdmin = async (req, res ) => {

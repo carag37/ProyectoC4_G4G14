@@ -1,6 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
+import materiaRoutes from "./routes/materiaRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import alumnoRoutes from "./routes/alumnoRoutes.js";
 
 /*const express = require("express");
 const mongoose = require("mongoose");
@@ -11,7 +14,8 @@ mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gv
     if (err) {
         console.log(err);
     } else{
-        console.log("Se ha conectado a la base de datos.");
+       
+        console.log("Se ha conectado a la base de datos MongoDB");
     }
 })
 
@@ -20,6 +24,10 @@ const app = express();
 app.use(express.json({ extended : true }));
 //rutas o routes
 app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/materias", materiaRoutes);
+app.use("/api/admins", adminRoutes);
+app.use("/api/alumnos", alumnoRoutes);
+
 
 app.listen(4000, () => {
     console.log("Servidor corriendo en el puerto 4000");

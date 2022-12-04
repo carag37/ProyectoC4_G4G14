@@ -1,6 +1,6 @@
 //const Alumno = require("../models/alumnoModels");
 
-import Admin from "../models/adminModels";
+import Alumno from "../models/alumnoModels.js";
 
 async function leerAlumno (req,res) {
 //exports.leerAlumno = async (req, res ) => {

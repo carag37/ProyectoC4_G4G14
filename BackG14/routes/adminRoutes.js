@@ -4,15 +4,15 @@
 
 import express from "express";
 const router = express.Router();
-import adminController from "../controllers/adminControllers.js"; 
+import { leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin } from "../controllers/adminController.js"; 
 
-router.get("/", adminController.leerAdministrador);
+router.get("/", leerAdmin);
 
-router.post( "/", adminController.crearAdministrador);
+router.post( "/", crearAdmin);
 
-router.put("/:id", adminController.actualizarAdministrador);
+router.put("/:id", actualizarAdmin);
 
-router.delete("/:id", adminController.borrarAdministrador);
+router.delete("/:id", borrarAdmin);
 
-module.exports = router;
-//export default router;
+//module.exports = router;
+export default router;

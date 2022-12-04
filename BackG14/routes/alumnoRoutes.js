@@ -5,15 +5,15 @@
 import express from "express";
 const router = express.Router();
 //import alumnoController from "../controllers/alumnoController.js"; 
-import { leerAlumno, crearAlumno, actualizarAlumno, borrarAlumno } from "../controllers/usuarioController.js";
+import { leerAlumno, crearAlumno, actualizarAlumno, borrarAlumno } from "../controllers/alumnoController.js";
 
-router.get("/", alumnoController.leerAlumno);
+router.get("/", leerAlumno);
 
-router.post( "/", alumnoController.crearAlumno);
+router.post( "/", crearAlumno);
 
-router.put("/:id", alumnoController.actualizarAlumno);
+router.put("/:id", actualizarAlumno);
 
-router.delete("/:id", alumnoController.borrarAlumno);
+router.delete("/:id", borrarAlumno);
 
 //module.exports = router;
 export default router;
