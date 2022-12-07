@@ -14,10 +14,10 @@ async function leerAdmin (req,res) {
 
 async function crearAdmin (req,res) {
 //exports.crearAdmin = async (req, res ) => {
-    const {nombre,direccion,telefono,estado} =req.body;
+    const {nombre,direccion,telefono,estado,usuarioSistema} =req.body;
 
     try{
-        let admin = await Admin.findOne({descripcion});
+        let admin = await Admin.findOne({usuarioSistema});
         if (admin){
             return res.status(400).json({msg:" El administrador ya existe"});
         }

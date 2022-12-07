@@ -1,6 +1,5 @@
-//const Usuario = require("../models/usuarioModels");
-
 import Usuario from "../models/usuarioModels.js";
+import bcrypt from "bcrypt"
 
 async function leerUsuario (req,res) {
 //exports.leerUsuario = async (req, res ) => {
@@ -13,8 +12,9 @@ async function leerUsuario (req,res) {
 }
 
 async function crearUsuario (req,res) {
-//exports.crearUsuario = async (req, res ) => {
-    const {email, password, estado} =req.body;
+    const { password, email, estado } = req.body;  
+    
+   // const {email, password, estado} =req.body;
     try{
         let usuario = await Usuario.findOne({email});
         if (usuario){
@@ -22,6 +22,9 @@ async function crearUsuario (req,res) {
         }
         
         usuario = new Usuario(req.body);
+         //hash
+         usuario.password = await bcrypt.hash(password, 10);
+
         const usuarioGuardado = await usuario.save();
         res.json(usuarioGuardado);
 
@@ -46,6 +49,7 @@ async function actualizarUsuario (req,res) {
     usuario.email = req.body.email || usuario.email;
     usuario.estado =req.body.estado || usuario.estado;
     usuario.save();
+    usuario.password = await bcrypt.hash(usuario.password, 10);  //verificar si es igual password nuevo = encriptado
     res.json({usuario});
 }
 
