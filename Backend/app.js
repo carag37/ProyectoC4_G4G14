@@ -1,7 +1,8 @@
 import express from "express"
 import userRouter from "./routes/userRouter.js";
 import materiaRouter from "./routes/materiaRouter.js";
-import calificacionRouter from "./routes/calificacionRouter.js";
+import boletinRouter from "./routes/boletinRouter.js";
+import notaRouter from "./routes/notaRouter.js";
 import conectarDB from "./config/db.js";
 
 //const conectarDB = require("./config/db");
@@ -19,4 +20,5 @@ app.listen(port, ()=>{
 app.use(express.json())
 app.use("/api/usuarios", userRouter)
 app.use("/api/materias", materiaRouter)
-app.use("/api/calificaciones", calificacionRouter)
+app.use("/api/boletines", boletinRouter)
+app.use("/api/notas", notaRouter)

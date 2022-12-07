@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const CalificacionSchema = mongoose.Schema ({
+const BoletinSchema = mongoose.Schema ({
     //_id:
     nombre: { type: String, required: true, trim: true},
     alumno: { type: mongoose.Schema.Types.ObjectId, ref: "alumnos"},
@@ -10,4 +10,4 @@ const CalificacionSchema = mongoose.Schema ({
     
 })
 
-export default mongoose.model("calificaciones", CalificacionSchema)
+export default mongoose.model("boletines", BoletinSchema)
