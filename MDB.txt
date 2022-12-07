@@ -1,0 +1,9 @@
+Compass:
+mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/test
+
+App Backend:
+mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/?retryWrites=true&w=majority
+
+user:calificAPP
+
+pass:rootcalificAPP
