@@ -2,19 +2,19 @@ import express from "express";
 import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario } from "../controllers/usuarioController.js";
 
 
-const router = express.Router()
+const userRouter = express.Router()
 
 //Crear
 //POST
-router.post("/", crearUsuario)
+userRouter.post("/", crearUsuario)
 //Leer
 //GET
-router.get("/", leerUsuario)
+userRouter.get("/:nombre/:edad", leerUsuario)
 //Actualizar
 //PUT
-router.put("/", actualizarUsuario)
+userRouter.patch("/:email", actualizarUsuario)  //put para cambiar todos los valores, patch para cambiar algunos o todos
 //Eliminar
 //DELETE
-router.delete("/", borrarUsuario)
+userRouter.delete("/:email", borrarUsuario)
 
-export default router
+export default userRouter

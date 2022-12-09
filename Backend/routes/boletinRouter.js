@@ -1,20 +1,20 @@
 import express from "express";
 import { crearBoletin, borrarBoletin, leerBoletin, actualizarBoletin } from "../controllers/boletinController.js";
 
-const router = express.Router()
+const boletinRouter = express.Router()
 
 //Crear
 //Crear
 //POST
-router.post("/", crearBoletin)
+boletinRouter.post("/", crearBoletin)
 //Leer
 //GET
-router.get("/", leerBoletin)
+boletinRouter.get("/", leerBoletin)
 //Actualizar
 //PUT
-router.put("/", actualizarBoletin)
+boletinRouter.put("/", actualizarBoletin)
 //Eliminar
 //DELETE
-router.delete("/", borrarBoletin)
+boletinRouter.delete("/", borrarBoletin)
 
-export default router;
+export default boletinRouter;

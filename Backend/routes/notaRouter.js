@@ -1,20 +1,20 @@
 import express from "express";
 import { crearNota, borrarNota, leerNota, actualizarNota } from "../controllers/notaController.js";
 
-const router = express.Router()
+const notaRouter = express.Router()
 
 //Crear
 //Crear
 //POST
-router.post("/", crearNota)
+notaRouter.post("/", crearNota)
 //Leer
 //GET
-router.get("/", leerNota)
+notaRouter.get("/", leerNota)
 //Actualizar
 //PUT
-router.put("/", actualizarNota)
+notaRouter.put("/", actualizarNota)
 //Eliminar
 //DELETE
-router.delete("/", borrarNota)
+notaRouter.delete("/", borrarNota)
 
-export default router;
+export default notaRouter;
