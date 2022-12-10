@@ -1,61 +1,105 @@
-import Curso from "../models/cursoModels.js";
+import CursoSchema from "../models/cursoModels.js";
 
-async function leerCurso(req, res) {
-    try{
-        const curso = await Curso.find();
-        res.json({curso});
-    }catch(error){
-        console.log(error);
-    }   
-}
+//--------------------------CREATE--------------------------------------------
 
 async function crearCurso(req, res) {
-    const {descripcion} = req.body;
-    try{
-        let curso = await Curso.findOne({descripcion});
-        if (curso){
-            return res.status(400).json({msg:" El curso ya existe"});
-        }
+
+    const { descripcion, materia } = req.body;
+    
+    let docCurso;
+
+    try {
+        docCurso = await CursoSchema.create({
+                    
+            "descripcion": descripcion,
+            "materia": materia,
+
+        })
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    res.status(201);  //código de algo creado
+    res.json(docCurso); //envío el objeto creado como un JSON
+}
+
+//--------------------------READ---------------------------------------------
+
+async function leerCurso(req, res) {
+
+    const { descripcion } = req.body
+    let docCurso;
+    console.log(descripcion)
+    try {
         
-        curso = new Curso(req.body);
-        const cursoGuardado = await curso.save();
-        res.json(cursoGuardado);
+        docCurso = await CursoSchema.find({
+            "descripcion": descripcion,
+        })
 
-    }catch(error){
-        console.log(error);
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
+    res.json(docCurso); //envío el objeto creado como un JSON
+}
+
+//-------------------------UPDATE-------------------------------------------
+
+async function actualizarCurso(req, res) {
+
+    const { descripcion, cambios } = req.body;
+    let docCurso;
+
+    try {
+        docCurso = await CursoSchema.updateOne({  //el updateone busca y edita un valor que debe ser único de elementos definidos en el modelo
+            "descripcion": descripcion  //Lo que está entre comillas se debe llamar igual al parámetro en la DB.
+        }, cambios, { runValidators: true })//{"edad":123})  //Primer parámetro para buscar, segundo parámetro para editar (objeto Json). //Método 2
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+
+    if (docCurso.matchedCount == 0) {
+        return res.status(400).json({ msg: "El curso " + descripcion + " no ha sido encontrado" });
     }
     
+    else { res.status(200).json({ msg: "El curso " + descripcion + " modificado correctamente" }) }
+
 }
 
-async function actualizarCurso(req, res ) {
-    const {id} = req.params;
-    const curso = await Curso.findById(id);
+//-------------------------DELETE-------------------------------------------
 
-    if(!curso){
-        return res.status(400).json({msg:" El curso no ha sido encontrada"});
+async function borrarCurso(req, res) {
 
+    const { descripcion } = req.body
+    let docCurso;
+
+    try {
+        docCurso = await CursoSchema.findOneAndDelete({  //el find one busca un valor que debe ser único, solo permite consultar con elementos que estén definidos en el modelo
+            "descripcion": descripcion
+        })
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
     }
-    
-    curso.descripcion = req.body.descripcion || curso.nombre;
-    curso.save();
-    res.json({curso});
+
+
+    if (!docCurso) {
+        return res.status(400).json({ msg: " El curso " + descripcion + " no ha sido encontrado" });
+    } else { res.status(200).json({ msg: "El curso " + descripcion + " eliminado correctamente" }) }
+
+
 }
 
-async function borrarCurso(req, res ) {
-    const {id} = req.params;
-    const curso = await Curso.findById(id);
-
-    if(!curso){
-        return res.status(400).json({msg:" El curso no ha sido encontrado"});
-
-    }
-    try{
-        await Curso.deleteOne({_id: req.params.id});
-        res.json({msg:"El curso ha sido  Eliminado"});
-
-    } catch(error){
-    console.log(error);
-  } 
-}
-
-export {leerCurso, crearCurso, actualizarCurso, borrarCurso}
+export { leerCurso, crearCurso, actualizarCurso, borrarCurso }

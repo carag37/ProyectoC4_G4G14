@@ -1,20 +1,20 @@
 import express from "express";
 import { leerMateria, crearMateria, actualizarMateria, borrarMateria } from "../controllers/materiaController.js";
 
-const router = express.Router()
+const materiaRoutes = express.Router()
 
 //Crear
 //Crear
 //POST
-router.post("/", crearMateria)
+materiaRoutes.post("/", crearMateria)
 //Leer
 //GET
-router.get("/", leerMateria)
+materiaRoutes.get("/", leerMateria)
 //Actualizar
 //PUT
-router.put("/:id", actualizarMateria)
+materiaRoutes.patch("/", actualizarMateria)
 //Eliminar
 //DELETE
-router.delete("/:id", borrarMateria)
+materiaRoutes.delete("/", borrarMateria)
 
-export default router;
+export default materiaRoutes;
