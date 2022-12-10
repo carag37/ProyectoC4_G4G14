@@ -12,7 +12,7 @@ materiaRouter.post("/", crearMateria)
 materiaRouter.get("/", leerMateria)
 //Actualizar
 //PUT
-materiaRouter.put("/", actualizarMateria)
+materiaRouter.patch("/", actualizarMateria)
 //Eliminar
 //DELETE
 materiaRouter.delete("/", borrarMateria)

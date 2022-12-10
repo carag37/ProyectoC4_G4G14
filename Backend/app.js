@@ -1,8 +1,10 @@
 import express from "express"
 import userRouter from "./routes/userRouter.js";
 import materiaRouter from "./routes/materiaRouter.js";
+import cursoRouter from "./routes/cursoRouter.js";
 import boletinRouter from "./routes/boletinRouter.js";
-import notaRouter from "./routes/notaRouter.js";
+import resumenRouter from "./routes/resumenRouter.js";
+import docenteRouter from "./routes/docenteRouter.js";
 import conectarDB from "./config/db.js";
 import testRouter from "./routes/testRouter.js";
 import loginRouter from "./routes/loginRouter.js";
@@ -24,7 +26,9 @@ app.use(express.json())
 //app.use(mwPrueba)
 app.use("/api/usuarios", userRouter)
 app.use("/api/materias", materiaRouter)
+app.use("/api/docentes", docenteRouter)
 app.use("/api/boletines", boletinRouter)
-app.use("/api/notas", notaRouter)
+app.use("/api/cursos", cursoRouter)
+app.use("/api/resumenes", resumenRouter)
 app.use("/api/test", testRouter)
 app.use("/api/login", loginRouter)

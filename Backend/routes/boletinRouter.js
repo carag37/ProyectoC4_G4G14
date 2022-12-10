@@ -12,7 +12,7 @@ boletinRouter.post("/", crearBoletin)
 boletinRouter.get("/", leerBoletin)
 //Actualizar
 //PUT
-boletinRouter.put("/", actualizarBoletin)
+boletinRouter.patch("/", actualizarBoletin)
 //Eliminar
 //DELETE
 boletinRouter.delete("/", borrarBoletin)

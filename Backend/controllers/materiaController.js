@@ -1,62 +1,107 @@
-import Materia from "../models/materiaModels.js";
+import MateriaSchema from "../models/materiaModels.js";
 
-async function leerMateria(req, res) {
-    try{
-        const materia = await Materia.find();
-        res.json({materia});
-    }catch(error){
-        console.log(error);
-    }   
-}
+//--------------------------CREATE--------------------------------------------
 
 async function crearMateria(req, res) {
-    const {nombre, curso} = req.body;
-    try{
-        let materia = await Materia.findOne({nombre});
-        if (materia){
-            return res.status(400).json({msg:" La materia ya existe"});
-        }
+
+    const { nombre, curso, docente } = req.body;
+    let docMateria;
+
+    try {
+        docMateria = await MateriaSchema.create({
+                    
+            "nombre": nombre,
+            "curso": curso,
+            "docente": docente
+
+        })
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    res.status(201);  //código de algo creado
+    res.json(docMateria); //envío el objeto creado como un JSON
+}
+
+//--------------------------READ---------------------------------------------
+
+async function leerMateria(req, res) {
+
+    const {nombre} = req.body
+
+
+    let docMateria;
+
+    try {
         
-        materia = new Materia(req.body);
-        const materiaGuardado = await materia.save();
-        res.json(materiaGuardado);
+        docMateria = await MateriaSchema.find({
+            "nombre": nombre,
+        })
 
-    }catch(error){
-        console.log(error);
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
+    res.json(docMateria); //envío el objeto creado como un JSON
+}
+
+//-------------------------UPDATE-------------------------------------------
+
+async function actualizarMateria(req, res) {
+
+    const { nombre, cambios } = req.body;
+    let docMateria;
+
+    try {
+        docMateria = await MateriaSchema.updateOne({  //el updateone busca y edita un valor que debe ser único de elementos definidos en el modelo
+            "nombre": nombre  //Lo que está entre comillas se debe llamar igual al parámetro en la DB.
+        }, cambios, { runValidators: true })//{"edad":123})  //Primer parámetro para buscar, segundo parámetro para editar (objeto Json). //Método 2
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+
+    if (docMateria.matchedCount == 0) {
+        return res.status(400).json({ msg: "La materia " + nombre + " no ha sido encontrado" });
     }
     
+    else { res.status(200).json({ msg: "La materia " + nombre + " modificado correctamente" }) }
+
 }
 
-async function actualizarMateria(req, res ) {
-    const {id} = req.params;
-    const materia = await Materia.findById(id);
+//-------------------------DELETE-------------------------------------------
 
-    if(!materia){
-        return res.status(400).json({msg:" La materia no ha sido encontrada"});
+async function borrarMateria(req, res) {
 
+    const { nombre } = req.body
+    let docMateria;
+
+    try {
+        docMateria = await MateriaSchema.findOneAndDelete({  //el find one busca un valor que debe ser único, solo permite consultar con elementos que estén definidos en el modelo
+            "nombre": nombre
+        })
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
     }
-    
-    materia.nombre = req.body.nombre || materia.nombre;
-    materia.curso = req.body.curso || materia.curso;
-    materia.save();
-    res.json({materia});
+
+
+    if (!docMateria) {
+        return res.status(400).json({ msg: " La materia" + nombre +"no ha sido encontrado" });
+    } else { res.status(200).json({ msg: "La materia " + nombre + " eliminado correctamente" }) }
+
+
 }
 
-async function borrarMateria(req, res ) {
-    const {id} = req.params;
-    const materia = await Materia.findById(id);
-
-    if(!materia){
-        return res.status(400).json({msg:" La materia no ha sido encontrada"});
-
-    }
-    try{
-        await Materia.deleteOne({_id: req.params.id});
-        res.json({msg:"Materia Eliminada"});
-
-    } catch(error){
-    console.log(error);
-  } 
-}
-
-export {leerMateria, crearMateria, actualizarMateria, borrarMateria}
+export { leerMateria, crearMateria, actualizarMateria, borrarMateria }
