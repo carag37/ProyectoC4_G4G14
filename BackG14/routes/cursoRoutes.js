@@ -1,13 +1,20 @@
 import express from "express";
-const router = express.Router();
-import { leerCurso, crearCurso, actualizarCurso, borrarCurso } from "../controllers/cursoController.js"; 
+import { leerCurso, crearCurso, actualizarCurso, borrarCurso } from "../controllers/cursoController.js";
 
-router.get("/", leerCurso);
+const cursoRoutes = express.Router()
 
-router.post( "/", crearCurso);
+//Crear
+//Crear
+//POST
+cursoRoutes.post("/", crearCurso)
+//Leer
+//GET
+cursoRoutes.get("/", leerCurso)
+//Actualizar
+//PUT
+cursoRoutes.patch("/", actualizarCurso)
+//Eliminar
+//DELETE
+cursoRoutes.delete("/", borrarCurso)
 
-router.patch("/:id", actualizarCurso);
-
-router.delete("/:id", borrarCurso);
-
-export default router;
+export default cursoRoutes;
