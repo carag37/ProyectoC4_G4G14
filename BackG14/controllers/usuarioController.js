@@ -12,18 +12,22 @@ async function leerUsuario (req,res) {
 }
 
 async function crearUsuario (req,res) {
-    const { password, email, estado } = req.body;  
+    const { password, email} = req.body;  
     
-   // const {email, password, estado} =req.body;
+    const salt = await bcrypt.genSalt(10);
+    //const passwordCrypt = await bcrypt.hash(password,salt);
+
     try{
+        //verificar si el correo ya existe
         let usuario = await Usuario.findOne({email});
         if (usuario){
-            return res.status(400).json({msg:" El usuario ya existe"});
+            return res.status(400).json({msg:"El usuario ya existe"});
         }
         
+
         usuario = new Usuario(req.body);
          //hash
-         usuario.password = await bcrypt.hash(password, 10);
+         usuario.password = await bcrypt.hash(password, salt);
 
         const usuarioGuardado = await usuario.save();
         res.json(usuarioGuardado);
@@ -49,7 +53,7 @@ async function actualizarUsuario (req,res) {
     usuario.email = req.body.email || usuario.email;
     usuario.estado =req.body.estado || usuario.estado;
     usuario.save();
-    usuario.password = await bcrypt.hash(usuario.password, 10);  //verificar si es igual password nuevo = encriptado
+    usuario.password = await bcryptjs.hash(usuario.password, 10);  //verificar si es igual password nuevo = encriptado
     res.json({usuario});
 }
 

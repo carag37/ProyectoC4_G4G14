@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import "./assets/global.css"
 import Login from './components/Login';
 import CrearCuenta from "./components/CrearCuenta";
 

@@ -1,4 +1,4 @@
-import userModel from "../models/usuarioModels.js";
+import Usuario from "../models/usuarioModels.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
@@ -7,73 +7,62 @@ import { config } from "dotenv";
 
 //const ACCESS_TOKEN = "b36d6185c3638eb5ea0b7ac017c36e3a4b5aef7eac566c491cad96b4cb3a25722ce4e1c09a338c23cadba5918e5eae629568dfe4a477c49008c1bc4d4c8ee0ce"
 
+async function login(req, res) {
 
-export default async function login(req, res) {
-
-    const { email, password } = req.headers;
-   // config({ path: "variables.env"});
+    const { email, password } = req.body;
+    config({ path: "variables.env"}); //funcion que llama al archivo de las variables de entorno
+    
+    
     try{
-
-        // Revisar que el correo exista
-        let usuario = await Usuario.findOne({ email });
-        //Revisar que los campos de email y password no esten vacios.
-        if (email == null || password == null) {
-            res.sendStatus(401)
-            return
+        // revisar que el correo exista
+        let usuario = await Usuario.findOne({email});
+        
+        if (usuario==null || password == null){
+            res.sendStatus(401);
+            return;
         }
 
-        //Validar que el password encriptado sea igual al password digitado por el usuario
-        const passwordOk = await bcryptjs.compare(password, usuario.password);
-
-        if (!passwordOk){
-           return res.status(404).json({msg: "password incorrecto"});
+        if (!usuario){
+            return res.status(400).json({ msg : "El usuario no existe"});
         }
 
-        let valido = {
-            usuario: {id : usuario.id},
-         };
-         //res.json(valido);
-          jwt.sign(
-                    valido,
-                    process.env.SECRETO,
-                 {
-                    //Determinar el tiempo de validez del token
-                    expiresIn: '30d', 
-                },
-            (error, token) =>{
-                if (error) throw error;
-                // mensaje de confirmación
-                res.json({token});
-            }
+        //validar el password
+        const passwordCorrecto = await bcrypt.compare(password, usuario.password);
+        //res.json(passwordCorrecto);
+    
 
-          );
-    }catch(error){
-        console.log(error);
-    }
-    if (nombre == null || password == null) {
-        res.sendStatus(401)
-        return
-    }
-    const usuario = await userModel.findOne({
-        nombre
-    })
-    if (usuario == null) {
-        res.sendStatus(401)
-        return
-    }
-    const valido = await bcrypt.compare(password, usuario.contraseña)
+        if (!passwordCorrecto){
+           return res.status(404).json({msg: "El Password es incorrecto"});
+        }
 
-    if (valido) {
-        const token = jwt.sign(nombre, ACCESS_TOKEN)
-        res.status(200).json({ token })
-    } else {
-        res.sendStatus(401)
-    }
+        // Si las validaciones son correctas entonces crear el token
 
+        let token = {
+           usuario: {id : usuario.id},
+        };
+
+         jwt.sign(
+           token,
+           process.env.CRYPT,
+           {
+               expiresIn: '30d', //Tiempo de expriracion del token
+           },
+           (error, token) =>{
+               if (error) throw error;
+               // mensaje de confirmación
+               res.json({token});
+           }
+
+         );
+
+
+   }catch(error){
+       console.log(error);
+   }
 }
 
-  // exports.usuarioAutenticado = async ( req, res) =>{
-    export  async function usuarioAutenticado ( req, res) {
+      
+   async function usuarioAutenticado ( req, res) {
     try{
         const usuario = await Usuario.findById(req.usuario.id);
         res.json({ usuario});
@@ -81,3 +70,5 @@ export default async function login(req, res) {
         res.status(403).json({ msg: "Hubo un error"});
     }
 }
+
+export {login, usuarioAutenticado}

@@ -1,5 +1,3 @@
-//const mongoose = require("mongoose");
-
 import mongoose from "mongoose";
 
 const AlumnoSchema = mongoose.Schema({
@@ -9,11 +7,10 @@ const AlumnoSchema = mongoose.Schema({
     telefono: { type: Number, required: true, trim: true},
     edad: { type: Number, required: true, trim: true},
     curso: { type: mongoose.Schema.Types.ObjectId, ref: "Curso"},
-    estado:{type:Boolean, required:true, trim:true},
+    //estado:{default: "True", type:Boolean, required:false, trim:true},
     acudiente: [{type: mongoose.Schema.Types.ObjectId, ref: "Acudiente"}],
     
 });
 
 //definir el modelo
 export default mongoose.model("Alumno", AlumnoSchema)
-//module.exports = mongoose.model("Alumno", AlumnoSchema);

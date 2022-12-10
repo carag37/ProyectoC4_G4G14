@@ -29,7 +29,7 @@ async function crearDocente(req,res){
 //Actualizar docente
 async function actualizarDocente(req,res){
     const {id}= req.params;
-    const docente = await Docente.findbyId(id);
+    const docente = await Docente.findById(id);
 
     if(!Docente){
         return res.status(400).json({msg:"El docente no ha sido encontrado"});
@@ -49,7 +49,7 @@ async function actualizarDocente(req,res){
 //Eliminar docente
 async function borrarDocente(req, res){
     const {id}= req.params;
-    const docente =await Docente.findbyId(id);
+    const docente =await Docente.findById(id);
 
     if(!docente){
         return res.status(400).json({msg:"El docente no ha sido encontrado"});

@@ -1,27 +1,46 @@
 import React from 'react';
-import Boton from './forms/Boton';
-import Input from './forms/Input';
-import Flex from './utils/Flex';
-import Gap from './utils/Gap';
-//import { link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 function Login() {
     return (  
-        <Flex padding="2rem" borderRadius="1rem">
-            <h1>Mis primeros pasos</h1>
-            <Gap direction="vertical">1rem</Gap>
-            <Input>Email</Input>
-            <Gap direction="vertical">0.5rem</Gap>
-            <Input type="password">Password</Input>
-            <Gap direction="vertical">3rem</Gap>
-            <Boton>Login</Boton>
-            <br>
-            </br>
-            <br></br>
-            <boton>Crear Cuenta</boton>
+        <main className ='container mx-auto mt-5 md:mt-20 p-5 md:flex md:justify-center'>
+            <div className ='md:w-2/3 lg:w-2/5'>
+                <h1> Inicio Sesion</h1>
+                <form className='my-10 bg-white shadow-orange-500 rounded-lg p-10' >
+                    <div className='my-5'>
+                        <label className='uppercase text-gray-600 block text-xl font-bold'>Email</label>
+                        <input
+                            type="email"
+                            placeholder='Email del usuario'
+                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
+                        />
+                        <label className='uppercase text-gray-600 block text-xl font-bold'>Password</label>
+                        <input
+                            type="password"
+                            placeholder='Password'
+                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
+                        />
+                        <input 
+                            type="submit"
+                            value="Iniciar Sesión"
+                            className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
+                        />
+
+                        <Link to={"/crear-cuenta"}
+                         className="block text-center my-5 text-violet-600 uppercase text-sm"
+                        >Crear Cuenta</Link>
+                        <Link to={"/cambiar-clave"}
+                         className="block text-center my-5 text-violet-600 uppercase text-sm"
+                        >Cambiar Contraseña</Link>
+
+                    </div>
+                </form>
             
-        </Flex>
+            </div>
+            
+            
+        </main>
     );
 }
 

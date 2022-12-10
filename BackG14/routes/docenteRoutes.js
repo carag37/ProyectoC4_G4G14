@@ -11,9 +11,9 @@ router.post("/", crearDocente)
 router.get("/", leerDocente)
 //Actualizar Docente
 //PUT
-router.put("/", actualizarDocente)
+router.put("/:id", actualizarDocente)
 //Eliminar Docente
 //DELETE
-router.delete("/",borrarDocente)
+router.delete("/:id",borrarDocente)
 
 export default router

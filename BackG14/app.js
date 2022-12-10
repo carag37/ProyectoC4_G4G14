@@ -8,6 +8,9 @@ import docenteRoutes from "./routes/docenteRoutes.js";
 import acudienteRoutes from "./routes/acudienteRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import cursoRoutes from  "./routes/cursoRoutes.js";
+import cors from "cors";
+//const cors =require("cors");
+
 
 mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/calificAPP-db?retryWrites=true&w=majority", (err)=>{
     if (err) {
@@ -18,18 +21,20 @@ mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gv
     }
 })
 
+
 const app = express();
+
+//Habilitar los cors
+app.use(cors());
 
 // habilitar express.json
 app.use(express.json({ extended : true }));
 
 //rutas o routes
-
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/materias", materiaRoutes);
 app.use("/api/admins", adminRoutes);
 app.use("/api/alumnos", alumnoRoutes);
-//app.use("/api/alumnosAcudiente", alumnoRoutes);
 app.use("/api/docentes", docenteRoutes);
 app.use("/api/acudientes", acudienteRoutes);
 app.use("/api/login", loginRoutes);

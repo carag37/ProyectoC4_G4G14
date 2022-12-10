@@ -4,7 +4,7 @@ import Acudiente from "../models/acudienteModels.js";
 
 //GET
 async function leerAlumno (req,res) {
-//exports.leerAlumno = async (req, res ) => {
+
     try{
         const alumno = await Alumno.find();
         res.json({alumno});
@@ -14,16 +14,22 @@ async function leerAlumno (req,res) {
     
 }
 
-async function crearAlumno (req,res) {                                //exports.crearAdmin = async (req, res ) => {  
-        const {idAlumno,nombre,direccion,telefono,edad,curso,estado} =req.body;
+async function crearAlumno (req,res) {                                  
+        const {idAlumno,nombre,direccion,telefono,edad,curso} =req.body;
     
+        //const alumnoId = req.body.idAlumno;
+        console.log(idAlumno);
+
         try{
-            let alumno = await Alumno.findOne({idAlumno});
+            /*const alumno = await Alumno.find({idAlumno});
+            console.log(alumno.id);
+
             if (alumno){
-                return res.status(400).json({msg:" El alumno ya existe"});
-            }
+                return res.status(400).json({msg:idAlumno+"El alumno ya existe"});
+            }*/
             
-            alumno = new Alumno(req.body);
+            const alumno = new Alumno(req.body);
+           // res.json(alumno);
             const alumnoGuardado = await alumno.save();
             res.json(alumnoGuardado);
     
@@ -39,12 +45,17 @@ async function crearAlumno (req,res) {                                //exports.
     const {id} = req.params;
 
     const alumno = await Alumno.findById(id);
-   // console.log(alumno.acudiente[0]);
+    const acudienteExiste =await Acudiente.findById(req.acudiente);
+   
+    // console.log(alumno.acudiente[0]);
     
     if(!alumno){
-        return res.status(400).json({msg:" El alumno no ha sido encontrado"});
+        return res.status(400).json({msg:"El alumno no ha sido encontrado"});
     }
-    
+
+    if(!acudienteExiste){
+        return res.status(400).json({msg:"El acudiente no ha sido encontrado"});
+    }
     alumno.idAlumno = req.body.idAlumno || alumno.idAlumno;
     alumno.nombre = req.body.nombre || alumno.nombre;
     alumno.direccion = req.body.direccion || alumno.direccion;
@@ -52,13 +63,20 @@ async function crearAlumno (req,res) {                                //exports.
     alumno.curso = req.body.curso || alumno.curso;
     alumno.estado =req.body.estado || alumno.estado;
     alumno.usuarioSistema = req.body.usuarioSistema || alumno.usuarioSistema;
+    console.log(alumno.acudiente.length);
+
+    alumno.acudiente.push({_id:req.body.acudiente})
+/*
     for (let i=0 ;i<= alumno.acudiente.length;i++){
-        if (alumno.acudiente[i] == req.body.acudiente){
+        if (alumno.acudiente[i] == req.body.acudiente){ 
             res.json({msg:"El acudiente ya existe"});
+        } else{
+            alumno.acudiente.push({_id:req.body.acudiente})
+            return;
         }
-    }
-        alumno.acudiente.push({_id:req.body.acudiente})
-        console.log(alumno.acudiente);
+
+    }*/
+        
     alumno.save();
    res.json({alumno});
 }

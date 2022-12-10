@@ -13,7 +13,7 @@ async function leerAcudiente (req,res) {
 
 async function crearAcudiente (req,res) {
 
-    const {nombre,direccion,telefono,parentesco,estado = 1,usuarioSistema} =req.body;
+    const {nombre,direccion,telefono,parentesco,usuarioSistema} =req.body;
 
     try{
         let acudiente = await Acudiente.findOne({usuarioSistema});
