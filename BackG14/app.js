@@ -9,6 +9,7 @@ import acudienteRoutes from "./routes/acudienteRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import cursoRoutes from  "./routes/cursoRoutes.js";
 import cors from "cors";
+import boletinRoutes from "./routes/boletinRoutes.js";
 //const cors =require("cors");
 
 
@@ -39,6 +40,7 @@ app.use("/api/docentes", docenteRoutes);
 app.use("/api/acudientes", acudienteRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/cursos",cursoRoutes);
+app.use("/api/boletines", boletinRoutes);
 
 app.listen(4000, () => {
     console.log("Servidor corriendo en el puerto 4000");
