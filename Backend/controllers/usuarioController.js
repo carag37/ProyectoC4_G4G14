@@ -1,5 +1,5 @@
 import UsuarioSchema from "../models/usuarioModels.js";
-
+import bcrypt from "bcrypt"
 //--------------------------CREATE--------------------------------------------
 
 async function crearUsuario(req, res) {
@@ -9,13 +9,17 @@ async function crearUsuario(req, res) {
     //const usuario = req.body; // Se puede llamar todo el body de la petición y enviarlo completo
     //const docUsuario = await UsuarioSchema.create(usuario)
     
+    const salt = await bcrypt.genSalt(10)
+    const passEncrypted = await bcrypt.hash(password, salt)
+    
+
     let docUsuario;
     try{
     docUsuario = await UsuarioSchema.create({
         "nombre":nombre,
         "edad":edad,
         "email":email,
-        "password":password,
+        "password":passEncrypted,
         "ciudad":ciudad,
         "notas":notas
     })
@@ -34,17 +38,24 @@ async function crearUsuario(req, res) {
 
 async function leerUsuario(req, res)  {
     
-    const {nombre, edad} = req.params //params por que viene desde la URL
+    const {nombre} = req //trae el nombre a partir del token desde el validateToken 
     let docUsuario;
      try{
-        /*el find solo permite consultar con elementos que estén definidos en el modelo, me encuentra todos los elementos que haya según lo que se defina
-        Lo que encuentre lo almacena en un Array, si se desea almacenar un único elemento se usa findOne*/
         docUsuario = await UsuarioSchema.find({  
             "nombre":nombre,
-            "edad":edad,
+            
         })
-    //   const usuario = await Usuario.find();
-    //     res.json({usuario});
+
+    // const {nombre, edad} = req.params //params por que viene desde la URL
+    // let docUsuario;
+    //  try{
+    //     /*el find solo permite consultar con elementos que estén definidos en el modelo, me encuentra todos los elementos que haya según lo que se defina
+    //     Lo que encuentre lo almacena en un Array, si se desea almacenar un único elemento se usa findOne*/
+    //     docUsuario = await UsuarioSchema.find({  
+    //         "nombre":nombre,
+    //         "edad":edad,
+    //     })
+
      }catch(error){
         res.status(400)
         res.json(error.message);
@@ -87,9 +98,12 @@ async function actualizarUsuario(req, res) {
 
     if(docUsuario.matchedCount==0){
          return res.status(400).json({msg:"El usuario " + email + " no ha sido encontrado"});
-     }else if(docUsuario.modifiedCount==0){
-         return res.status(400).json({msg:" Los datos de " + email + " no han sido modificados"});
-     }else{res.status(200).json({msg:"Usuario " + email + " modificado correctamente"})}
+    }
+    //  else if(docUsuario.modifiedCount<2){
+    //      //return res.status(400).json({msg:" Los datos de " + email + " no han sido modificados"});
+    //      return res.status(400).json(docUsuario)
+    //  }
+    else{res.status(200).json({msg:"Usuario " + email + " modificado correctamente"})}
 
     //res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     //res.json(docUsuario); //envío el objeto creado como un JSON
