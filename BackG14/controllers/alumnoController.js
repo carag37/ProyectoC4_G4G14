@@ -49,13 +49,13 @@ async function crearAlumno (req,res) {
    
     // console.log(alumno.acudiente[0]);
     
-    if(!alumno){
+ /*   if(!alumno){
         return res.status(400).json({msg:"El alumno no ha sido encontrado"});
     }
 
     if(!acudienteExiste){
         return res.status(400).json({msg:"El acudiente no ha sido encontrado"});
-    }
+    }*/
     alumno.idAlumno = req.body.idAlumno || alumno.idAlumno;
     alumno.nombre = req.body.nombre || alumno.nombre;
     alumno.direccion = req.body.direccion || alumno.direccion;
@@ -65,7 +65,7 @@ async function crearAlumno (req,res) {
     alumno.usuarioSistema = req.body.usuarioSistema || alumno.usuarioSistema;
     console.log(alumno.acudiente.length);
 
-    alumno.acudiente.push({_id:req.body.acudiente})
+    alumno.acudiente.push({_id:req.body.acudiente});
 /*
     for (let i=0 ;i<= alumno.acudiente.length;i++){
         if (alumno.acudiente[i] == req.body.acudiente){ 

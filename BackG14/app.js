@@ -10,8 +10,6 @@ import loginRoutes from "./routes/loginRoutes.js";
 import cursoRoutes from  "./routes/cursoRoutes.js";
 import cors from "cors";
 import boletinRoutes from "./routes/boletinRoutes.js";
-//const cors =require("cors");
-
 
 mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/calificAPP-db?retryWrites=true&w=majority", (err)=>{
     if (err) {
@@ -22,12 +20,9 @@ mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gv
     }
 })
 
-
 const app = express();
-
 //Habilitar los cors
 app.use(cors());
-
 // habilitar express.json
 app.use(express.json({ extended : true }));
 
