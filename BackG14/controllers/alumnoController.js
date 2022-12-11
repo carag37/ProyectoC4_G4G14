@@ -53,7 +53,7 @@ async function crearAlumno (req,res) {
         return res.status(400).json({msg:"El alumno no ha sido encontrado"});
     }
 
-    if(!acudienteExiste){
+    /*if(!acudienteExiste){
         return res.status(400).json({msg:"El acudiente no ha sido encontrado"});
     }*/
     alumno.idAlumno = req.body.idAlumno || alumno.idAlumno;
@@ -63,7 +63,22 @@ async function crearAlumno (req,res) {
     alumno.curso = req.body.curso || alumno.curso;
     alumno.estado =req.body.estado || alumno.estado;
     alumno.usuarioSistema = req.body.usuarioSistema || alumno.usuarioSistema;
-    console.log(alumno.acudiente.length);
+    const flag = alumno.acudiente.includes(req.body.acudiente)
+        
+       if(req.body.acudiente == undefined){
+            alumno.acudiente=alumno.acudiente; 
+            res.json({alumno}); 
+        }else 
+         if (flag==true)
+         res.json({msg:"El acudiente ya existe"});
+         else {
+            alumno.acudiente.push({_id:req.body.acudiente});
+         //console.log(docente.materias);
+         res.json({alumno});
+         }  
+      alumno.save();
+    
+/*    console.log(alumno.acudiente.length);
 
     alumno.acudiente.push({_id:req.body.acudiente});
 /*
@@ -75,10 +90,10 @@ async function crearAlumno (req,res) {
             return;
         }
 
-    }*/
+    }
         
     alumno.save();
-   res.json({alumno});
+   res.json({alumno});*/
 }
 
 async function borrarAlumno (req,res) {
