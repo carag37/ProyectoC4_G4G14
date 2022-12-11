@@ -17,15 +17,20 @@ async function crearMateria(req, res) {
 
         for (let i = 0; i < curso.length; i++) {
             try {
-                cursoV[i] = await CursoSchema.find({ "descripcion": curso[i], })
+                cursoV[i] = await CursoSchema.find({ "descripcion": curso[i] })
             } catch (error) { return res.status(400).json({ msg: "El curso " + curso[i] + " no existe" }) }
         }
     }
 
     let idCurso =[]
-    for (let i = 0; i < cursoV.length; i++) { idCurso.push(cursoV[i][0]._id) }
+    console.log(cursoV)
+    for (let i = 0; i < cursoV.length; i++) {
+        if(cursoV[i][0]==null){return res.status(400).json({ msg: "El curso " + curso[i] + " no existe"})}
+         idCurso.push(cursoV[i][0]._id)
+        
+        }
 
-    console.log(idDocente)
+    
 
     if (idDocente != null) {
         try {
