@@ -1,22 +1,50 @@
 import MateriaSchema from "../models/materiaModels.js";
+import CursoSchema from "../models/cursoModels.js";
+import DocenteSchema from "../models/docenteModels.js";
 
 //--------------------------CREATE--------------------------------------------
 
 async function crearMateria(req, res) {
 
-    const { nombre, curso, docente } = req.body;
+    const { nombre, curso, idDocente } = req.body;
+    let cursoV = [];
+    let docenteV
     let docMateria;
+
+
+
+    if (curso != null) {
+
+        for (let i = 0; i < curso.length; i++) {
+            try {
+                cursoV[i] = await CursoSchema.find({ "descripcion": curso[i], })
+            } catch (error) { return res.status(400).json({ msg: "El curso " + curso[i] + " no existe" }) }
+        }
+    }
+
+    let idCurso =[]
+    for (let i = 0; i < cursoV.length; i++) { idCurso.push(cursoV[i][0]._id) }
+
+    console.log(idDocente)
+
+    if (idDocente != null) {
+        try {
+            docenteV = await DocenteSchema.find({ "_id": idDocente })
+        } catch (error) { return res.status(400).json({ msg: "El docente " + idDocente + " no existe" }) }
+    }
+
 
     try {
         docMateria = await MateriaSchema.create({
-                    
+
             "nombre": nombre,
-            "curso": curso,
-            "docente": docente
+            "curso": idCurso,
+            "docente": idDocente,
 
         })
     } catch (error) {
         res.status(400)
+        if (error.code == 11000) { return res.json({ msg: "La materia " + nombre + " ya existe" }) }
         res.json(error.message);
         return  //return para evitar enviar 2 respuestas por ejecución
     }
@@ -29,13 +57,12 @@ async function crearMateria(req, res) {
 
 async function leerMateria(req, res) {
 
-    const {nombre} = req.body
-
-
+    const { nombre } = req.body
     let docMateria;
 
+
     try {
-        
+
         docMateria = await MateriaSchema.find({
             "nombre": nombre,
         })
@@ -46,6 +73,8 @@ async function leerMateria(req, res) {
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
+    if (docMateria.length == 0) { return res.status(400).json({ msg: "El Curso no existe" }); }
+
     res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     res.json(docMateria); //envío el objeto creado como un JSON
 }
@@ -55,27 +84,71 @@ async function leerMateria(req, res) {
 async function actualizarMateria(req, res) {
 
     const { nombre, cambios } = req.body;
-    let docMateria;
 
-    try {
-        docMateria = await MateriaSchema.updateOne({  //el updateone busca y edita un valor que debe ser único de elementos definidos en el modelo
-            "nombre": nombre  //Lo que está entre comillas se debe llamar igual al parámetro en la DB.
-        }, cambios, { runValidators: true })//{"edad":123})  //Primer parámetro para buscar, segundo parámetro para editar (objeto Json). //Método 2
+    let docMateria = await MateriaSchema.find({ "nombre": nombre })
 
-    } catch (error) {
-        res.status(400)
-        res.json(error.message);
+    if (docMateria.length == 0) { return res.status(400).json({ msg: "La materia " + nombre + " no existe" }); }
 
-        return  //return para evitar enviar 2 respuestas por ejecución
-    }
+    if (cambios == null) { return res.status(200).json({ msg: "No se solicitaron cambios" }); }
 
-
-    if (docMateria.matchedCount == 0) {
-        return res.status(400).json({ msg: "La materia " + nombre + " no ha sido encontrado" });
-    }
     
-    else { res.status(200).json({ msg: "La materia " + nombre + " modificado correctamente" }) }
+    docMateria[0].nombre = cambios.nombre || docMateria[0].nombre  //en caso de que exista se actualiza la descripción
+    
+    let docenteV
 
+    if (cambios.docente != null) {
+        try {
+            docenteV = await DocenteSchema.find({ "_id": cambios.docente })
+        } catch (error) { return res.status(400).json({ msg: "El docente " + cambios.docente + " no existe" }) }
+    }
+
+    docMateria[0].docente = cambios.docente || docMateria[0].docente
+
+    let cursoV = [];
+
+    if (cambios.curso != null) {
+        for (let i = 0; i < cambios.curso.length; i++) {
+            try {
+                cursoV[i] = await CursoSchema.find({ "_id": cambios.curso[i] })
+
+            } catch (error) { return res.status(400).json({ msg: "El curso " + cambios.curso[i] + " no existe" }) }
+
+            if (cursoV[i].length == 0) { return res.status(400).json({ msg: "El curso " + cambios.curso[i] + " no existe" }) }
+        }
+
+        let curso = []
+        let contador = 0
+        let mensaje = ""
+
+
+        for (let i = 0; i < cambios.curso.length; i++) {
+            for (let j = 0; j < docMateria[0].curso.length; j++) {
+                //console.log(cambios.curso[i])
+                //console.log(docMateria[0].curso[j].toString())
+                if (cambios.curso[i].toString() == docMateria[0].curso[j].toString()) { contador = contador + 1; }
+                //console.log(contador)
+            }
+
+            if (contador == 0) {
+                curso.push(cambios.curso[i])
+            } else {
+                mensaje = mensaje + cambios.curso[i] + " ";
+                contador = 0
+            }
+
+        }
+
+        console.log(mensaje + " ya en materia")
+
+        for (let i = 0; i < curso.length; i++) {
+            let mats = curso[i]
+            docMateria[0].curso.push(mats)
+        }
+
+    }
+
+    docMateria[0].save();
+    res.status(200).json({ docMateria })
 }
 
 //-------------------------DELETE-------------------------------------------
@@ -98,8 +171,8 @@ async function borrarMateria(req, res) {
 
 
     if (!docMateria) {
-        return res.status(400).json({ msg: " La materia" + nombre +"no ha sido encontrado" });
-    } else { res.status(200).json({ msg: "La materia " + nombre + " eliminado correctamente" }) }
+        return res.status(400).json({ msg: " El materia " + nombre + " no ha sido encontrado" });
+    } else { res.status(200).json({ msg: "El materia " + nombre + " eliminado correctamente" }) }
 
 
 }
