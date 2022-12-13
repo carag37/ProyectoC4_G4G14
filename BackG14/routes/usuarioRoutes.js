@@ -13,7 +13,7 @@ router.get("/", leerUsuario);
 
 router.post( "/", crearUsuario);
 
-router.put("/:id", actualizarUsuario);
+router.patch("/:id", actualizarUsuario);
 
 router.delete("/:id", borrarUsuario);
 

@@ -1,5 +1,5 @@
 import express  from "express";
-import { leerDocente, crearDocente, actualizarDocente, borrarDocente } from "../controllers/docenteController.js";
+import { leerDocente,leerDocentes, crearDocente, actualizarDocente, borrarDocente } from "../controllers/docenteController.js";
 
 const router=express.Router()
 
@@ -8,12 +8,15 @@ const router=express.Router()
 router.post("/", crearDocente)
 //Visualizar Docente
 //GET
-router.get("/", leerDocente)
+router.get("/:id", leerDocente)
+router.get("/", leerDocentes)
+
+
 //Actualizar Docente
 //PUT
-router.put("/", actualizarDocente)
+router.patch("/:id", actualizarDocente)
 //Eliminar Docente
 //DELETE
-router.delete("/",borrarDocente)
+router.delete("/:id",borrarDocente)
 
 export default router

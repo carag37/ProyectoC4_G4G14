@@ -10,7 +10,7 @@ router.get("/", leerAdmin);
 
 router.post( "/", crearAdmin);
 
-router.put("/:id", actualizarAdmin);
+router.patch("/:id", actualizarAdmin);
 
 router.delete("/:id", borrarAdmin);
 
