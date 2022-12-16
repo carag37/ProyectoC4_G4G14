@@ -19,7 +19,7 @@ async function crearAcudiente (req,res) {
         let acudiente = await Acudiente.findOne({usuarioSistema});
         console.log(acudiente);
         if (acudiente){
-            return res.status(400).json({msg:" El acudiente ya existe"});
+            return res.status(400).json({msg:"El acudiente ya existe"});
         }
         
         acudiente = new Acudiente(req.body);
@@ -58,7 +58,7 @@ async function borrarAcudiente (req,res) {
     const acudiente = await Acudiente.findById(id);
     
     if(!acudiente){
-        return res.status(400).json({msg:" El acudiente no ha sido encontrado"});
+        return res.status(400).json({msg:"El acudiente no ha sido encontrado"});
 
     }
     try{

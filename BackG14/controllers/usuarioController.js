@@ -39,7 +39,7 @@ async function crearUsuario (req,res) {
 }
 
 async function actualizarUsuario (req,res) {
-//exports.actualizarUsuario = async (req, res ) => {
+
     const {id} = req.params;
     const usuario = await Usuario.findById(id);
 
@@ -53,12 +53,12 @@ async function actualizarUsuario (req,res) {
     usuario.email = req.body.email || usuario.email;
     usuario.estado =req.body.estado || usuario.estado;
     usuario.save();
-    usuario.password = await bcryptjs.hash(usuario.password, 10);  //verificar si es igual password nuevo = encriptado
+    usuario.password = await bcrypt.hash(usuario.password, 10);  //verificar si es igual password nuevo = encriptado
     res.json({usuario});
 }
 
 async function borrarUsuario (req,res) {
-//exports.borrarUsuario = async (req, res ) => {
+
     const {id} = req.params;
     const usuario = await Usuario.findById(id);
 

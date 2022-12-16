@@ -17,13 +17,13 @@ async function login(req, res) {
         // revisar que el correo exista
         let usuario = await Usuario.findOne({email});
         
-        if (usuario==null || password == null){
+       /* if (usuario==null || password == null){
             res.sendStatus(401);
             return;
-        }
+        }*/
 
         if (!usuario){
-            return res.status(400).json({ msg : "El usuario no existe"});
+            return res.status(400).json({ msg : 'El usuario no existe'});
         }
 
         //validar el password

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
-import crud from '../utilities/crud.js';
+import crud from '../utils/crud.js';
+import Header from './Header';
+import Menu from './Menu';
 
 
 function CrearCuenta () {
@@ -12,7 +14,7 @@ function CrearCuenta () {
         nombre:'',
         email:'',
         password:'',
-        tipoUsuario:'Administrador',
+        tipoUsuario:'Acudiente',
     
     })
 
@@ -39,6 +41,7 @@ function CrearCuenta () {
           const mensaje = response.msg;
           console.log(mensaje);
           if(mensaje === 'El usuario ya existe'){
+            const mensaje ="El usuario ya existe";
             swal({
                 title: 'Error',
                 text: mensaje,
@@ -76,11 +79,15 @@ function CrearCuenta () {
             nombre:'',
             email:'',
             password:'',
-            tipoUsuario:'',
+            tipoUsuario:'Acudiente',
         
           })
-          //redireccionar a la pantalla de login
-          navigate("/");
+          //redireccionar a la pantalla de admin
+          navigate("/crear-acudiente");
+          /*if(tipoUsuario==='Acudiente'){
+            navigate("/crear-acudiente")
+          }*/
+
         }
       
     
@@ -93,12 +100,20 @@ function CrearCuenta () {
 
 
     return(
-        <main className='container mx-auto mt-5 md:mt-20 p-5 md:flex md:justify-center'>
-            <div className='md:w-2/3 lg:w-2/5'>
-                <h1 className="text-black font-display text-5xl tracking-tight text-transparent">
-                    Crear Cuenta
-                </h1>
 
+      <>
+        <Header/>
+          <div className='md:flex md:min-h-screen'>
+            <Menu/>
+            <main className='flex-1'>
+              <div className='mt-10 flex justify-center'>
+                  <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
+                    Crear Cuenta
+                  </h1>
+              </div>
+
+       <div className='mt-10 flex justify-center' >
+        
             <form 
                 onSubmit={onSubmit}
                 className='my-10 bg-white shadow rounded-lg p-10'
@@ -182,12 +197,17 @@ function CrearCuenta () {
              className="bg-blue-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
             />
             <Link 
-            to={"/"}
+            to={"/admin"}
             className="block text-center my-5 text-blue-600 uppercase text-sm"
             >Regresar</Link>
          </form>
+        </div>
+       </main> 
+    
       </div>
-   </main> 
+
+     </>
     );
 }
+
 export default CrearCuenta;

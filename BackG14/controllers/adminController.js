@@ -19,7 +19,7 @@ async function crearAdmin (req,res) {
     try{
         let admin = await Admin.findOne({usuarioSistema});
         if (admin){
-            return res.status(400).json({msg:" El administrador ya existe"});
+            return res.status(400).json({msg:"El administrador ya existe"});
         }
         
         admin = new Admin(req.body);
@@ -56,7 +56,7 @@ async function borrarAdmin (req,res) {
     const admin = await Admin.findById(id);
     
     if(!admin){
-        return res.status(400).json({msg:" El administrador no ha sido encontrado"});
+        return res.status(400).json({msg:"El administrador no ha sido encontrado"});
 
     }
     try{
