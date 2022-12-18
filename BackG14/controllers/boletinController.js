@@ -1,6 +1,7 @@
 import BoletinSchema from "../models/boletinModels.js";
 import AlumnoSchema from "../models/alumnoModels.js";
 import MateriaSchema from "../models/materiaModels.js";
+import { usuarioAutenticado } from "./loginController.js";
 
 //--------------------------CREATE--------------------------------------------
 
@@ -28,7 +29,8 @@ async function crearBoletin(req, res) {
             "materia": materia,
             "notas": notas,
             "alumno": alumno,
-            "observaciones": observaciones
+            "observaciones": observaciones,
+            "creador": req.usuario.id
 
         })
     } catch (error) {
