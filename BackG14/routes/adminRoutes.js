@@ -1,18 +1,18 @@
-// const express = require("express");
-// const router = express.Router();
-// const adminController = require("../controllers/adminControllers");
-
 import express from "express";
+import loginMiddleware from "../middleware/loginMiddleware.js";
+import { leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin, leerAdminUser } from "../controllers/adminController.js";
+
 const router = express.Router();
-import { leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin } from "../controllers/adminController.js"; 
+ 
 
-router.get("/", leerAdmin);
+router.get("/", loginMiddleware, leerAdmin);
+router.get("/:id", loginMiddleware,leerAdminUser);
 
-router.post( "/", crearAdmin);
+router.post( "/", loginMiddleware,crearAdmin);
 
-router.patch("/:id", actualizarAdmin);
+router.patch("/:id", loginMiddleware,actualizarAdmin);
 
-router.delete("/:id", borrarAdmin);
+router.delete("/:id",loginMiddleware, borrarAdmin);
 
 //module.exports = router;
 export default router;

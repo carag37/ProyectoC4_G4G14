@@ -2,7 +2,7 @@ import Usuario from "../models/usuarioModels.js";
 import bcrypt from "bcrypt"
 
 async function leerUsuario (req,res) {
-//exports.leerUsuario = async (req, res ) => {
+
     try{
         const usuario = await Usuario.find();
         res.json({usuario});
@@ -11,8 +11,16 @@ async function leerUsuario (req,res) {
     }   
 }
 
+async function leerUserId (req,res) {
+    
+    const {id} = req.params;
+    const usuario = await Usuario.find().where("_id").equals(id);
+    res.json(usuario);
+        
+    }
+
 async function crearUsuario (req,res) {
-    const { password, email} = req.body;  
+    const { cedula, nombre, password, email} = req.body;  
     
     const salt = await bcrypt.genSalt(10);
     //const passwordCrypt = await bcrypt.hash(password,salt);
@@ -44,10 +52,10 @@ async function actualizarUsuario (req,res) {
     const usuario = await Usuario.findById(id);
 
     if(!usuario){
-        return res.status(400).json({msg:" El usuario no ha sido encontrado"});
+        return res.status(400).json({msg:"El usuario no ha sido encontrado"});
 
     }
-    
+    usuario.cedula = req.body.cedula || usuario.cedula; 
     usuario.nombre = req.body.nombre || usuario.nombre;
     usuario.password = req.body.password || usuario.password;
     usuario.email = req.body.email || usuario.email;
@@ -75,4 +83,4 @@ async function borrarUsuario (req,res) {
   } 
 }
 
-export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario}
+export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario,leerUserId }

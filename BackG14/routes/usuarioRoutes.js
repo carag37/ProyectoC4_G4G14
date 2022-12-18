@@ -1,14 +1,17 @@
 import express from "express";
+import loginMiddleware from "../middleware/loginMiddleware.js";
 const router = express.Router(); 
 
-import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario } from "../controllers/usuarioController.js";
+import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario, leerUserId  } from "../controllers/usuarioController.js";
 
-router.get("/", leerUsuario);
+router.get("/", loginMiddleware,leerUsuario);
+router.get("/:id", loginMiddleware,leerUserId);
 
 router.post( "/", crearUsuario);
 
-router.patch("/:id", actualizarUsuario);
+router.patch("/:id", loginMiddleware,actualizarUsuario);
 
-router.delete("/:id", borrarUsuario);
+
+router.delete("/:id", loginMiddleware,borrarUsuario);
 
 export default router;

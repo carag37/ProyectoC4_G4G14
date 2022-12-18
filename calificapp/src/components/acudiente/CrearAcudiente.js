@@ -1,43 +1,50 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import crud from '../utils/crud.js';
+import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
+import Header from '../Header';
+import Menu from '../Menu';
 
 
-function CrearAdmin() {
+function CrearAcudiente() {
 
     const navigate = useNavigate();
 
     //variables de entorno, son las que van a capturar lo que se escriba en las cajas
-    const [admin, setAdmin] = useState({
+    const [acudiente, setAcudiente] = useState({
+        cedula:'',
         nombre:'',
         direccion:'',
         telefono:'',
+        parentesco:'',
     })
 
-    const {nombre,direccion,telefono} = admin;
+    const {cedula,nombre,direccion,telefono, parentesco} = acudiente;
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
         //setUsuario funcion que se pone en las variables de entorno
-        setAdmin({
-        ...admin,
+        setAcudiente({
+        ...acudiente,
         [e.target.name]: e.target.value  //asigna el valor a la variable
        })
     }
 
-    const nuevoAdmin = async() =>{
+    const nuevoAcudiente = async() =>{
         const data = {
-            nombre: admin.nombre,
-            direccion: admin.direccion,
-            telefono: admin.telefono
+            cedula: acudiente.cedula,
+            nombre: acudiente.nombre,
+            direccion: acudiente.direccion,
+            telefono: acudiente.telefono,
+            parentesco: acudiente.parentesco
           }
-          console.log(data);
-        const response =await crud.POST(`/api/admins`,data);
+
+        console.log(data);
+        const response =await crud.POST(`/api/acudientes`,data);
         const mensaje = response.msg; 
         console.log(mensaje);
-        if(mensaje === "El administrador ya existe"){
-            const mensaje = "El administrador ya existe";
+        if(mensaje === "El acudiente ya existe"){
+            const mensaje = "El acudiente ya existe";
             swal({
                 title: 'Error',
                 text: mensaje,
@@ -70,33 +77,54 @@ function CrearAdmin() {
                   }
                 });      
                }
-               setAdmin({
+               setAcudiente({
                 nombre:'',
                 direccion:'',
                 telefono:'',
+                parentesco:'',
             
               })
-              //redireccionar a la pantalla de login
-              navigate("/login"); 
+              //redireccionar a la pantalla de admin
+              navigate("/admin"); 
 
         }
     
       
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
-        nuevoAdmin();      //funcion que genera el evento del boton
+        nuevoAcudiente();      //funcion que genera el evento del boton
       }
 
         
     return (  
-        <main className ='container mx-auto mt-5 md:mt-20 p-5 md:flex md:justify-center'>
-            <div className ='md:w-2/3 lg:w-2/5'>
-                <h1> Usuario Administrador</h1>
+      
+    <>
+      <Header/>
+        <div className='md:flex md:min-h-screen'>
+          <Menu/>
+          <main className='flex-1'>
+            <div className='mt-10 flex justify-center'>
+                <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
+                  Crear Cuenta
+                </h1>
+            </div>
+
+         <div className='mt-10 flex justify-center' >
                 <form 
                     className='my-10 bg-white shadow-orange-500 rounded-lg p-10' 
                     onSubmit={onSubmit}
                 >
                     <div className='my-5'>
+                        <label className='uppercase text-gray-600 block text-xl font-bold'>Cédula</label>
+                        <input
+                            type="number"
+                            id="cedula"
+                            name="cedula"
+                            placeholder='Digite la Cedula'
+                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
+                            value={cedula}
+                            onChange={onChange}
+                        />
                         <label className='uppercase text-gray-600 block text-xl font-bold'>Nombre</label>
                         <input
                             type="text"
@@ -122,20 +150,32 @@ function CrearAdmin() {
                             type="number"
                             id="telefono"
                             name="telefono"
-                            placeholder='Digite el nombre'
+                            placeholder='Digite el teléfono'
                             className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
                             value={telefono}
                             onChange={onChange}
                         />
+                        
+                        <label className='uppercase text-gray-600 block text-xl font-bold'>Parentesco</label>
+                        <input
+                            type="text"
+                            id="parentesco"
+                            name="parentesco"
+                            placeholder='Digite el parentesco'
+                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
+                            value={parentesco}
+                            onChange={onChange}
+                        />
+
                         <input 
                             type="submit"
-                            value="Usuario Administrador"
+                            value="Crear Acudiente"
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
 
-                        <Link to={"/"}
+                        <Link to={"/admin"}
                            className="block text-center my-5 text-violet-600 uppercase text-sm"
-                        >Home</Link>
+                        >Regresar</Link>
                     </div>
                 </form>
             
@@ -143,7 +183,9 @@ function CrearAdmin() {
             
             
         </main>
+      </div>
+  </>   
     );
 }
 
-export default CrearAdmin;
+export default CrearAcudiente;

@@ -31,7 +31,7 @@ function Login() {
             password: usuario.password
           }
           console.log(data);
-        const response =await crud.POST('/api/login',data);
+        const response =await crud.POST(`/api/login`,data);
         const mensaje = response.msg; 
         console.log(mensaje);
         if(mensaje === 'El usuario no existe'){
@@ -122,7 +122,7 @@ function Login() {
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
 
-                        <Link to={"/crear-cuenta"}
+                        <Link to={"/crear-inicio"}
                          className="block text-center my-5 text-violet-600 uppercase text-sm"
                         >Crear Cuenta</Link>
                         <Link to={"/cambiar-clave"}

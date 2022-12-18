@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
 import crud from '../utils/crud.js';
-import Header from './Header';
-import Menu from './Menu';
 
 
-function CrearCuenta () {
+function CrearInicio () {
     const navigate = useNavigate(); 
   
     //variables de entorno, son las que van a capturar lo que se escriba en las cajas
@@ -19,7 +17,8 @@ function CrearCuenta () {
     
     })
 
-    const {cedula, nombre, email, password, tipoUsuario} = usuario;
+    const {cedula,nombre, email, password, tipoUsuario} = usuario;
+    //const tipo= document.getElementById("Administrador").checked;
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
@@ -27,18 +26,19 @@ function CrearCuenta () {
         setUsuario({
          ...usuario,
         [e.target.name]: e.target.value  //asigna el valor a la variable
-        
         })
         console.log(usuario);
     }
  
+
     const crearCuenta = async() =>{
         //variables que van al back
         const data = {
             cedula: usuario.cedula,
             nombre: usuario.nombre,
             email: usuario.email,
-            password: usuario.password
+            password: usuario.password,
+            tipoUsuario:usuario.tipoUsuario
           }
           console.log(data);
           const response = await crud.POST(`/api/usuarios`, data);
@@ -84,39 +84,26 @@ function CrearCuenta () {
             nombre:'',
             email:'',
             password:'',
-            tipoUsuario:'',
+            tipoUsuario:'' ,
         
           })
-          if (tipoUsuario === 'Administrador'){
-            navigate("/crear-admin");  
-          }else if(tipoUsuario === 'Acudiente'){
-            navigate("/crear-acudiente");
-          }else {
-            navigate("/crear-Docente");
-          }
+          
+          //redireccionar a la pantalla de login
+          navigate("/login");
           
 
         }
-      
-    
-
 
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
         crearCuenta();      //funcion que genera el evento del boton
       }
 
-
     return(
 
-      <>
-        <Header/>
           <div className='md:flex md:min-h-screen'>
-            <Menu/>
+            
             <main className='flex-1'>
-              <div>
-
-              </div>
               <div className='mt-10 flex justify-center'>
                   <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
                     Crear Cuenta
@@ -129,8 +116,7 @@ function CrearCuenta () {
                 onSubmit={onSubmit}
                 className='my-10 bg-white shadow rounded-lg p-10'
             >
-           
-              <div className='my-5'>
+           <div className='my-5'>
                 <label className='uppercase text-gray-600 block text-xl font-bold' >Cedula</label>
                 <input
                     type="number"
@@ -140,7 +126,7 @@ function CrearCuenta () {
                     className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
                     value={cedula}
                     onChange={onChange}
-                />
+                />  
                 <label className='uppercase text-gray-600 block text-xl font-bold' >Nombre</label>
                 <input
                     type="nombre"
@@ -185,42 +171,42 @@ function CrearCuenta () {
                 />
                 <br></br>
                 <br></br>
-                <div>
-                    <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Administrador
-                    </label>
-                    <input 
-                        id="administrador" 
-                        type="radio" 
-                        value={tipoUsuario} 
-                        name="administrador" 
-                        onChange={onChange}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                              
-                    <label for="docente" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Docente
-                    </label>
-                    <input 
-                        checked id="docente" 
-                        type="radio" 
-                        value={tipoUsuario}
-                        name="docente" 
-                        onChange={onChange}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label for="acudiente" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Acudiente
-                    </label>
-                    <input 
-                        id="acudiente" 
-                        type="radio" 
-                        value={tipoUsuario}
-                        name="acudiente"
-                        onChange={onChange} 
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                </div>
+                      <div className = "value">
+                        <input 
+                          checked id="Administrador" 
+                          type="radio" 
+                          name="tipoUsuario"
+                          value={tipoUsuario} 
+                          onChange={onChange}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                          Administrador
+                        </label>
+                        <input 
+                          id="Docente" 
+                          type="radio" 
+                          name="tipoUsuario"
+                          value={"Docente"}
+                          onChange={onChange}
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                          Docente
+                        </label>
+                        
+                        <input 
+                          id="acudiente" 
+                          type="radio" 
+                          value={"acudiente"}
+                          name="Acudiente"
+                          onChange={onChange} 
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                         Acudiente
+                        </label>
+                      </div> 
            </div>
 
            <input 
@@ -228,9 +214,8 @@ function CrearCuenta () {
              value="Crear Cuenta"
              className="bg-blue-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
             />
-          
             <Link 
-            to={"/admin"}
+            to={"/login"}
             className="block text-center my-5 text-blue-600 uppercase text-sm"
             >Regresar</Link>
          </form>
@@ -238,9 +223,7 @@ function CrearCuenta () {
        </main> 
     
       </div>
-
-     </>
     );
 }
 
-export default CrearCuenta;
+export default CrearInicio;

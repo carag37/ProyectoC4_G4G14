@@ -11,6 +11,15 @@ async function leerAcudiente (req,res) {
     
 }
 
+
+async function leerAcudienteId (req,res) {
+    
+    const {id} = req.params;
+    const acudiente = await Acudiente.find().where("_id").equals(id);
+    res.json(acudiente);
+        
+    }
+
 async function crearAcudiente (req,res) {
 
     const {nombre,direccion,telefono,parentesco,usuarioSistema} =req.body;
@@ -71,4 +80,4 @@ async function borrarAcudiente (req,res) {
     } 
 }
 
-export {leerAcudiente, crearAcudiente, actualizarAcudiente, borrarAcudiente}
+export {leerAcudiente, crearAcudiente, actualizarAcudiente, borrarAcudiente, leerAcudienteId}

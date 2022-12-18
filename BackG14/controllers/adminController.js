@@ -1,4 +1,3 @@
-//const Admin = require("../models/adminModels");
 import Admin from "../models/adminModels.js";
 
 async function leerAdmin (req,res) {
@@ -12,9 +11,16 @@ async function leerAdmin (req,res) {
     
 }
 
+async function leerAdminUser (req,res) {
+    
+    const {id} = req.params;
+    const admin = await Admin.find().where("usuarioSistema").equals(id);
+    res.json(admin);
+        
+    }
 async function crearAdmin (req,res) {
-//exports.crearAdmin = async (req, res ) => {
-    const {nombre,direccion,telefono,estado,usuarioSistema} =req.body;
+
+    const {cedula,nombre,direccion,telefono,estado,usuarioSistema} =req.body;
 
     try{
         let admin = await Admin.findOne({usuarioSistema});
@@ -33,15 +39,16 @@ async function crearAdmin (req,res) {
 }
 
 async function actualizarAdmin (req,res) {
-//exports.actualizarAdmin = async (req, res ) => {
+
     const {id} = req.params;
     //console.log(id);
     const admin = await Admin.findById(id);
 
     if(!admin){
-        return res.status(400).json({msg:" El administrador no ha sido encontrado"});
+        return res.status(400).json({msg:"El administrador no ha sido encontrado"});
 
     }
+    admin.cedula = req.body.cedula || admin.cedula;
     admin.nombre = req.body.nombre || admin.nombre;
     admin.direccion = req.body.direccion || admin.direccion;
     admin.telefono = req.body.telefono || admin.telefono;
@@ -51,7 +58,7 @@ async function actualizarAdmin (req,res) {
 }
 
 async function borrarAdmin (req,res) {
-//exports.borrarAdmin = async (req, res ) => {
+
     const {id} = req.params;
     const admin = await Admin.findById(id);
     
@@ -69,4 +76,4 @@ async function borrarAdmin (req,res) {
     } 
 }
 
-export {leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin}
+export {leerAdmin, crearAdmin, actualizarAdmin, leerAdminUser, borrarAdmin}
