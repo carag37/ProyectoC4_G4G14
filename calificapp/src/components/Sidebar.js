@@ -11,7 +11,7 @@ const Sidebar = () => { //nombre del archivo
             <div className="">
             
             <Link 
-                to={"/crear-cuenta-in"}
+                to={"/menu-usuarios"}
             className="bg-blue-600 block w-full text-center p-4 text-slate-200 hover:bg-blue-500 text-3xl font-bold">
             Cuentas</Link>
             <Link 

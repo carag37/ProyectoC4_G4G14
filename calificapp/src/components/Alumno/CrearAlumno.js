@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import crud from '../utils/crud.js';
+import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
-import Header from './Header';
-import Menu from './Menu';
+import Header from '../Header';
+import Sidebar from '../Sidebar';
 
 
 function CrearAlumno() {
@@ -12,6 +12,7 @@ function CrearAlumno() {
 
     //variables de entorno, son las que van a capturar lo que se escriba en las cajas
     const [alumno, setAlumno] = useState({
+        idAlumno:'',
         nombre:'',
         direccion:'',
         telefono:'',
@@ -19,7 +20,7 @@ function CrearAlumno() {
         curso:'',
     })
 
-    const {nombre,direccion,telefono, edad} = alumno;   //revisar Curso
+    const {idAlumno,nombre,direccion,telefono, edad} = alumno;   //revisar Curso
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
@@ -30,8 +31,9 @@ function CrearAlumno() {
        })
     }
 
-    const nuevoAlumno = async() =>{
+    const crearAlumno = async() =>{
         const data = {
+            idAlumno: alumno.idAlumno,
             nombre: alumno.nombre,
             direccion: alumno.direccion,
             telefono: alumno.telefono,
@@ -76,6 +78,7 @@ function CrearAlumno() {
                 });      
                }
                setAlumno({
+                idAlumno:'',
                 nombre:'',
                 direccion:'',
                 edad:'',
@@ -83,14 +86,14 @@ function CrearAlumno() {
             
               })
               //redireccionar a la pantalla de login
-              navigate("/admin"); 
+              navigate("/home-alumno"); 
 
         }
     
       
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
-        nuevoAlumno();      //funcion que genera el evento del boton
+        crearAlumno();      //funcion que genera el evento del boton
       }
 
         
@@ -98,7 +101,7 @@ function CrearAlumno() {
       <>
       <Header/>
         <div className='md:flex md:min-h-screen'>
-          <Menu/>
+          <Sidebar/>
           <main className='flex-1'>
             <div className='mt-10 flex justify-center'>
                 <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
@@ -112,6 +115,16 @@ function CrearAlumno() {
                     onSubmit={onSubmit}
                 >
                     <div className='my-5'>
+                    <label className='uppercase text-gray-600 block text-xl font-bold'>ID</label>
+                        <input
+                            type="number"
+                            id="idAlumno"
+                            name="idAlumno"
+                            placeholder='Digite el ID del Alumno'
+                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
+                            value={idAlumno}
+                            onChange={onChange}
+                        />
                         <label className='uppercase text-gray-600 block text-xl font-bold'>Nombre</label>
                         <input
                             type="text"
@@ -147,14 +160,14 @@ function CrearAlumno() {
                             type="number"
                             id="edad"
                             name="edad"
-                            placeholder='Digite el nombre'
+                            placeholder='Digite la edad'
                             className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
                             value={edad}
                             onChange={onChange}
                         />
                         <input 
                             type="submit"
-                            value="Alumno"
+                            value="Crear Alumno"
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
 

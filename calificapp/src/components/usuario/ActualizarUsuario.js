@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import Header from '../Header.js';
-import Menu from '../Menu.js'; 
+import Sidebar from '../Sidebar.js';
 import crud from '../../utils/crud.js';
 import {useNavigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert'; 
@@ -21,6 +21,7 @@ const ActualizarUsuario = () => {
 
       })
       const cargarUsuario = async () =>{
+
         const response = await crud.GET(`/api/usuarios/${idUsuario}`);
         console.log(response);
         setUsuario(response.usuario);
@@ -47,7 +48,7 @@ const ActualizarUsuario = () => {
           tipoUsuario: usuario.tipoUsuario,
           estado: usuario.estado
         }
-       //console.log(data, idCategoria);
+       console.log(data, idUsuario);
           const response = await crud.PATCH(`/api/usuarios/${idUsuario}`, data);
           console.log(response);
           const mensaje1 = "El usuario se actualizo correctamente";
@@ -65,7 +66,7 @@ const ActualizarUsuario = () => {
               }
             }
           });
-          navigate("/admin");
+          navigate("/home-usuario");
          
       }
     
@@ -80,7 +81,7 @@ const ActualizarUsuario = () => {
     <>
       <Header/>
       <div className='md:flex md:min-h-screen'>
-        <Menu/>
+        <Sidebar/>
         <main className='flex-1'>
         <div className='mt-10 flex justify-center'>
         <h1 className= 'text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>

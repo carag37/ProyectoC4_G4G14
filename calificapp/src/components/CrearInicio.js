@@ -1,102 +1,128 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import swal from 'sweetalert';
-import crud from '../utils/crud.js';
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import swalt from 'sweetalert/dist/sweetalert.min.js';
+import crud from '../utils/crud';
 
 
-function CrearInicio () {
-    const navigate = useNavigate(); 
-  
-    //variables de entorno, son las que van a capturar lo que se escriba en las cajas
-    const [usuario, setUsuario] = useState({
+
+
+const CrearInicio = () => {
+    const navigate = useNavigate();
+    const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
         cedula:'',
-        nombre:'',
-        email:'',
-        password:'',
-        tipoUsuario:'',
-    
+        nombre: '',
+        email: '',
+        password: '',
+        confirmar: '',
+        tipoUsuario: ''
     })
 
-    const {cedula,nombre, email, password, tipoUsuario} = usuario;
-    //const tipo= document.getElementById("Administrador").checked;
+    const { cedula, nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
 
-    //funcion que permite leer el evento dentro del formulario
-    const onChange = (e) =>{  
-    //setUsuario funcion que se pone en las variables de entorno
-        setUsuario({
-         ...usuario,
-        [e.target.name]: e.target.value  //asigna el valor a la variable
-        })
-        console.log(usuario);
+    const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
+
+        setUsuario({    //el useState me limita a cambiar los valores de la variable por acá
+            ...usuario, //lo voy a cambiar con lo que se cargue en usuario
+            [e.target.name]: e.target.value  //target es una propiedad de Js que me lee todo lo que trae
+        })   //Cargo todo el usuario en la e
     }
- 
 
-    const crearCuenta = async() =>{
-        //variables que van al back
-        const data = {
-            cedula: usuario.cedula,
-            nombre: usuario.nombre,
-            email: usuario.email,
-            password: usuario.password,
-            tipoUsuario:usuario.tipoUsuario
-          }
-          console.log(data);
-          const response = await crud.POST(`/api/usuarios`, data);
-          const mensaje = response.msg;
-          console.log(mensaje);
-          if(mensaje === 'El usuario ya existe'){
-            const mensaje ="El usuario ya existe";
-            swal({
+    const crearInicio = async () => {
+        //los dos pasword deben ser iguales
+        if (password !== confirmar) {
+            console.log("Las contraseñas no coinciden")
+            const mensaje = "Las contraseñas no coinciden.";
+
+            new swalt({
                 title: 'Error',
                 text: mensaje,
                 icon: 'error',
-                buttons:{
-                  confirm:{
-                    text:'OK',
-                    value: true,
-                    visible: true,
-                    className: 'btn btn-danger',
-                    closeModal: true
-                  }
+                button: {
+                    confirm: {
+                        text: 'OK',
+                        value: true,
+                        visible: true,
+                        className: 'btn btn-danger',
+                        closeModal: true
+                    }
                 }
-              })
-          }else{
-            const mensaje = "El usuario fue creado correctamente";
-          swal({
-            title: 'Información',
-            text: mensaje,
-            icon: 'success',
-            buttons:{
-              confirm:{
-                text:'OK',
-                value: true,
-                visible: true,
-                className: 'btn btn-primary',
-                closeModal: true
-              }
+
+            })
+
+        } else {
+            const data = {
+                cedula: usuario.cedula,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                password: usuario.password,
+                tipoUsuario: usuario.tipoUsuario
+
             }
-          });      
-         }
+            console.log(data);
+            const response = await crud.POST('/api/usuarios', data)
+            const mensaje_res = response.msg;
+            //console.log(mensaje);
+            if (mensaje_res === "El usuario ya existe") {
+                let mensaje = mensaje_res;
 
-          
-          setUsuario({
-            cedula:'',
-            nombre:'',
-            email:'',
-            password:'',
-            tipoUsuario:'' ,
-        
-          })
-          
-          //redireccionar a la pantalla de login
-          navigate("/login");
-          
+                new swalt({
+                    title: 'Error',
+                    text: mensaje,
+                    icon: 'error',
+                    button: {
+                        confirm: {
+                            text: 'OK',
+                            value: true,
+                            visible: true,
+                            className: 'btn btn-danger',
+                            closeModal: true
+                        }
+                    }
 
+                })
+
+            } else {
+
+                let mensaje = "El usuario fue creado correctamente";
+
+                new swalt({
+                    title: 'Información',
+                    text: mensaje,
+                    icon: 'success',
+                    button: {
+                        confirm: {
+                            text: 'OK',
+                            value: true,
+                            visible: true,
+                            className: 'btn btn-primary',
+                            closeModal: true
+                        }
+                    }
+
+                })
+
+                setUsuario({  //limpiar las cajas
+                    cedula:'',
+                    nombre: '',
+                    email: '',
+                    password: '',
+                    confirmar: '',
+                    tipoUsuario: ''
+                })
+
+                //redireccionar a la pantalla de Login
+
+                navigate("/login")
+
+
+            }
         }
+
+    }
 
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
-        crearCuenta();      //funcion que genera el evento del boton
+        crearInicio();      //funcion que genera el evento del boton
       }
 
     return(
@@ -159,6 +185,17 @@ function CrearInicio () {
                     value={password}
                     onChange={onChange}
                 />
+                <label className="text-2xl font-bold uppercase text-gray-600 block">Confirme Contraseña</label>
+                   <input
+                      type="password"
+                      id="confirmar"
+                      name="confirmar"
+                      placeholder="Confirme su contraseña"
+                      className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600 "
+                      value={confirmar}
+                      onChange={onChange}
+
+                />
                 <label className='uppercase text-gray-600 block text-xl font-bold' >Tipo de Usuario</label>
                 <input
                     type="tipoUsuario"
@@ -169,44 +206,7 @@ function CrearInicio () {
                     value={tipoUsuario}
                     onChange={onChange}
                 />
-                <br></br>
-                <br></br>
-                      <div className = "value">
-                        <input 
-                          checked id="Administrador" 
-                          type="radio" 
-                          name="tipoUsuario"
-                          value={tipoUsuario} 
-                          onChange={onChange}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                          Administrador
-                        </label>
-                        <input 
-                          id="Docente" 
-                          type="radio" 
-                          name="tipoUsuario"
-                          value={"Docente"}
-                          onChange={onChange}
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                          Docente
-                        </label>
-                        
-                        <input 
-                          id="acudiente" 
-                          type="radio" 
-                          value={"acudiente"}
-                          name="Acudiente"
-                          onChange={onChange} 
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                        />
-                        <label  className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                         Acudiente
-                        </label>
-                      </div> 
+                 
            </div>
 
            <input 

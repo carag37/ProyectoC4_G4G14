@@ -25,6 +25,8 @@ import HomeAcudiente from './components/Acudiente/HomeAcudiente.js'
 
 //Alumno
 import CrearAlumno from './components/Alumno/CrearAlumno.js';
+import ActualizarAlumno from './components/Alumno/ActualizarAlumno.js';
+import HomeAlumno from './components/Alumno/HomeAlumno.js';
 
 //Materia
 import MenuMateria from "./components/Materia/MenuMateria";
@@ -56,7 +58,7 @@ function App() {
 
                 <Route path="/menu-usuarios" exact element={<MenuUsuarios/>} />
                 <Route path="/crear-cuentaIn" exact element={<CrearCuentaIn/>} />
-                <Route path="/home-usuarios" exact element={<HomeUsuario/>} />
+                <Route path="/home-usuario" exact element={<HomeUsuario/>} />
                 <Route path="/actualizar-usuario/:idUsuario" exact element= {<ActualizarUsuario/>} />
                 <Route path="/actualizar-usuario/:tipoUsuario" exact element= {<ActualizarUsuario/>} />
 
@@ -67,26 +69,28 @@ function App() {
                 <Route path="/home-admin" exact element= {<HomeAdmin/>} />
                 
                 
-                <Route path="/home-acudiente/:usuarioSistema" exact element= {<HomeAcudiente/>} />
-                <Route path="/crear-acudiente" exact element={<CrearAcudiente />} />
+                <Route path="/home-acudiente" exact element= {<HomeAcudiente/>} />
+                <Route path="/crear-acudiente" exact element={<CrearAcudiente/>} />
 
                 
-                <Route path="/crear-alumno" exact element={<CrearAlumno />} />
+                <Route path="/crear-alumno" exact element={<CrearAlumno/>} />
+                <Route path="/home-alumno" exact element={<HomeAlumno/>} />
+                <Route path="/actualizar-alumno/:id" exact element={<ActualizarAlumno/>} />
                 
-                <Route path="/menu-materia" exact element={<MenuMateria />} />
-                <Route path="/crear-materia" exact element={<CrearMateria />} />
-                <Route path="/ver-materia" exact element={<VerMateria />} />
-                <Route path="/actualizar-materia" exact element={<ActualizarMateria />} />
+                <Route path="/menu-materia" exact element={<MenuMateria/>} />
+                <Route path="/crear-materia" exact element={<CrearMateria/>} />
+                <Route path="/ver-materia" exact element={<VerMateria/>} />
+                <Route path="/actualizar-materia" exact element={<ActualizarMateria/>} />
 
-                <Route path="/menu-curso" exact element={<MenuCurso />} />
-                <Route path="/crear-curso" exact element={<CrearCurso />} />
-                <Route path="/ver-curso" exact element={<VerCurso />} />
-                <Route path="/actualizar-curso" exact element={<ActualizarCurso />} />
+                <Route path="/menu-curso" exact element={<MenuCurso/>} />
+                <Route path="/crear-curso" exact element={<CrearCurso/>} />
+                <Route path="/ver-curso" exact element={<VerCurso/>} />
+                <Route path="/actualizar-curso" exact element={<ActualizarCurso/>} />
 
-                <Route path="/menu-boletin" exact element={<MenuBoletin />} />
-                <Route path="/crear-boletin" exact element={<CrearBoletin />} />
-                <Route path="/ver-boletin" exact element={<VerBoletin />} />
-                <Route path="/actualizar-boletin" exact element={<ActualizarBoletin />} />
+                <Route path="/menu-boletin" exact element={<MenuBoletin/>} />
+                <Route path="/crear-boletin" exact element={<CrearBoletin/>} />
+                <Route path="/ver-boletin" exact element={<VerBoletin/>} />
+                <Route path="/actualizar-boletin" exact element={<ActualizarBoletin/>} />
             </Routes>
         </Router>
 

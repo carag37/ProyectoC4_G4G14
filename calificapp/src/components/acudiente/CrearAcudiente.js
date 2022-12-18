@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
-import Header from '../Header';
-import Menu from '../Menu';
+import Header from '../Header.js';
+import Sidebar from '../Sidebar.js';
 
 
 function CrearAcudiente() {
@@ -101,7 +101,7 @@ function CrearAcudiente() {
     <>
       <Header/>
         <div className='md:flex md:min-h-screen'>
-          <Menu/>
+          <Sidebar/>
           <main className='flex-1'>
             <div className='mt-10 flex justify-center'>
                 <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
@@ -173,7 +173,7 @@ function CrearAcudiente() {
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
 
-                        <Link to={"/admin"}
+                        <Link to={"/home-admin"}
                            className="block text-center my-5 text-violet-600 uppercase text-sm"
                         >Regresar</Link>
                     </div>

@@ -14,7 +14,10 @@ function Home() {
             <img src={Academia} alt="Academia Infantil" className="mt-10 mx-auto"/>
             </h1>
 
-            <Link className="text-gray-300 mt-10 p-5  hover:bg-gray-500 block text-center border rounded-lg text-3xl font-bold" to={"/login"}>Ingrese al Sistema</Link>
+            <Link className="text-gray-300 mt-10 p-5  hover:bg-gray-500 block text-center border rounded-lg text-3xl font-bold" 
+                to={"/login"}
+                >Ingrese al Sistema
+            </Link>
         </div>
     </main>
     

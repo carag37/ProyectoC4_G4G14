@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
-import { Link, useNavigate, useParams} from 'react-router-dom';
-import Header from '../Header';
-import Menu from '../Menu';
-import crud from '../../utils/crud';
-import ConsultarAdmin from './ConsultarAdmin.js';
+import { Link, useNavigate} from 'react-router-dom';
+import Header from '../Header.js';
+import Sidebar from '../Sidebar.js';
+import crud from '../../utils/crud.js';
+//import ConsultarAdmin from  './ConsultarAdmin.js'
 import swal from 'sweetalert'; 
 
 
@@ -66,62 +66,69 @@ const HomeAdmin = () => {
 
 
   return (
-      <>
-      <Header/>
-      <div className='md:flex md:min-h-screen'>
-        <Menu/>
-            <main className= 'flex-1'>
-              <div className='mt-10 flex justify-center'>
-              <h1 className="block text-center my-5 text-violet-600 uppercase text-sm">
-                Listado de Usuarios Administradores
-                </h1>
-                </div>  
-              
-            <div className='p-12'>
-            <table className="table table-bordered">
-                <thead className='bg-white'>
-                  <tr>
-                    <th style={{ width: '20%' }}>Cedula</th>
-                    <th style={{ width: '20%' }}>Nombre</th>
-                    <th style={{ width: '20%' }}>Direccion</th>
-                    <th style={{ width: '20%' }}>Telefono</th>
-                    <th style={{ width: '20%' }}>Estado</th>
-                  </tr>
-                </thead>
+    <>
+    <Header/>
+    <div className='md:flex md:min-h-screen'>
+        <Sidebar/>
+        <div>
+            <Link 
+                to={`/crear-admin`}
+                className="bg-blue-600 p-3  text-white uppercase font-bold   text-center rounded-lg"
+                >Crear Alumno
+            </Link>
+        </div>
         
-                <tbody className="bg-white">
-                  {
-                    admin.map(
-                    item =>
-                        <tr key={item._id}>
-                            <td className="text-center">{item.cedula}</td>
-                            <td  className="text-center">{item.nombre}</td>
-                            <td  className="text-center">{item.direccion}</td>
-                            <td className="text-center" >{item.telefono}</td>
-                            <td className="text-center" >{item.estado}</td>
-                            <td>    
-                                <Link 
-                                 to={`/actualizar-admin/${item._id}`}
-                                 className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
-                                >Editar</Link>&nbsp;&nbsp;
-                            </td>
-                            <td>  
-                                <button  
-                                    onClick={()=>borrarAdmin(item._id)}
-                                    className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
-                                >Eliminar</button>
-                            </td>
-                        </tr>
-                        )
-                    }
-                </tbody>
+        <main className= 'flex-1'>
+            <h1 className= 'text-4xl text-blue-600 font-bold text-center mb-9 md:mb-0'>
+                Listado de Administradores
+            </h1>
+            <br></br>
+            
+            <table className="table table-bordered">
+            <thead className='bg-white'>
+              <tr>
+                <th style={{ width: '25%' }}>Cedula</th>
+                <th style={{ width: '25%' }}>Nombre</th>
+                <th style={{ width: '25%' }}>Direccion</th>
+                <th style={{ width: '25%' }}>Telefono</th>
+                
+              </tr>
+            </thead>
+    
+            <tbody className="bg-white">
+              {
+                admin.map(
+                item =>
+                    <tr key={item._id}>
+                        <td className="text-center">{item.idAdmin}</td>
+                        <td  className="text-center">{item.cedula}</td>
+                        <td  className="text-center">{item.nombre}</td>
+                        <td  className="text-center">{item.direccion}</td>
+                        <td className="text-center" >{item.telefono}</td>
+                        
+                        <td>    
+                            <Link
+                             to={`/actualizar-admin/${item._id}`}
+                             className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
+                            >Editar</Link>
+                        </td>
+                        <td>  
+                            <button  
+                                onClick={()=>borrarAdmin(item._id)}
+                                className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
+                            >Eliminar</button>
+                        </td>
+                    </tr>
+                )
+                }
+            </tbody>
             </table>
-            </div> 
-            </main>
-      </div>   
-
-      </>
-  );
+        </main>
+    </div>      
+</>
+   
+);
 }
+
 
 export default HomeAdmin;

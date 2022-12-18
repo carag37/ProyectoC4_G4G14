@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
 import Header from '../Header.js';
-import Menu from '../Menu.js';
+import Sidebar from '../Sidebar';
 
 
 function CrearAdmin() {
@@ -17,11 +17,10 @@ function CrearAdmin() {
         nombre:'',
         direccion:'',
         telefono:'',
-        estado:'',
         usuarioSistema:'',
     })
 
-    const {cedula, nombre, direccion,telefono, estado} = admin;
+    const {cedula, nombre, direccion,telefono} = admin;
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
@@ -33,13 +32,12 @@ function CrearAdmin() {
        })
     }
 
-    const nuevoAdmin = async() =>{
+    const crearAdmin = async() =>{
         const data = {
-          cedula: admin.cedula,
-          nombre: nombre.nombre,
+            cedula: admin.cedula,
+            nombre: nombre.nombre,
             direccion: admin.direccion,
             telefono: admin.telefono,
-            estado: "true",
             usuarioSistema:usuarioSistema
           }
           console.log(data);
@@ -80,21 +78,22 @@ function CrearAdmin() {
                   }
                 });      
                }
-               /*setAdmin({
+               setAdmin({
+                cedula:'',
                 nombre:'',
                 direccion:'',
                 telefono:'',
             
-              })*/
+              })
               //redireccionar a la pantalla de login
-              navigate(`/home-admin/${usuarioSistema}`); 
+              navigate(`/home-admin`); 
 
         }
     
       
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
-        nuevoAdmin();      //funcion que genera el evento del boton
+        crearAdmin();      //funcion que genera el evento del boton
       }
 
         
@@ -102,7 +101,7 @@ function CrearAdmin() {
     <>
       <Header/>
         <div className='md:flex md:min-h-screen'>
-          <Menu/>
+          <Sidebar/>
           <main className='flex-1'>
             <div className='mt-10 flex justify-center'>
                 <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
@@ -159,17 +158,7 @@ function CrearAdmin() {
                             value={telefono}
                             onChange={onChange}
                         />
-                        <label className='uppercase text-gray-600 block text-xl font-bold'>Estado</label>
-                        <input
-                            type="boolean"
-                            id="estado"
-                            name="estado"
-                            placeholder='Estado'
-                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                            value={estado}
-                            onChange={onChange}
-                        />
-
+                        
                         <input 
                             type="submit"
                             value="Usuario Administrador"

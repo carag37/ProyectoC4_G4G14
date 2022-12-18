@@ -6,7 +6,7 @@ const AdminSchema = mongoose.Schema({
     direccion: { type: String, required: true, trim: true},
     telefono: { type: Number, required: true, trim: true},
     estado:{default: "true", type:Boolean, required:true, trim:true},
-    usuarioSistema:{ type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
+    usuarioSistema:{type: mongoose.Schema.Types.ObjectId, ref: "Usuario" },
 });
 
 export default mongoose.model("Admin", AdminSchema)
