@@ -21,14 +21,20 @@ const Admin = () => {
 
   return (
     <>
-        <Header/>
-        <div className='md:flex md:min-h-screen'>
-            <Menu/>
-            <h1> LISTADO DE USUARIOS</h1>
+        <Header className="-z-10" />
+        <div className="z-0 md:flex md:min-h-screen">
+            <Sidebar/>
+            <main className="flex-1 text-slate-50 text-3xl mt-8 p-5 block text-center">
+                Bienvenido 
+            </main>
             
         </div>
         
-    </>
+        
+        
+        </>
+
+        
     );
 }
 
