@@ -1,213 +1,218 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import swal from 'sweetalert';
-import crud from '../utils/crud.js';
-import Header from './Header';
-import Menu from './Menu';
+import React, { useState } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import swalt from 'sweetalert/dist/sweetalert.min.js';
+import crud from '../utils/crud';
 
 
-function CrearCuenta () {
-    const navigate = useNavigate(); 
-  
-    //variables de entorno, son las que van a capturar lo que se escriba en las cajas
-    const [usuario, setUsuario] = useState({
-        nombre:'',
-        email:'',
-        password:'',
-        tipoUsuario:'Acudiente',
-    
+
+
+const CrearCuenta = () => {
+    const navigate = useNavigate();
+    const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
+        nombre: '',
+        email: '',
+        password: '',
+        confirmar: '',
+        tipoUsuario: ''
     })
 
-    const {nombre, email, password, tipoUsuario} = usuario;
+    const { nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
 
-    //funcion que permite leer el evento dentro del formulario
-    const onChange = (e) =>{  
-    //setUsuario funcion que se pone en las variables de entorno
-        setUsuario({
-         ...usuario,
-        [e.target.name]: e.target.value  //asigna el valor a la variable
-        })
+    const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
+
+        setUsuario({    //el useState me limita a cambiar los valores de la variable por acá
+            ...usuario, //lo voy a cambiar con lo que se cargue en usuario
+            [e.target.name]: e.target.value  //target es una propiedad de Js que me lee todo lo que trae
+        })   //Cargo todo el usuario en la e
     }
- 
-    const crearCuenta = async() =>{
-        //variables que van al back
-        const data = {
-            nombre: usuario.nombre,
-            email: usuario.email,
-            password: usuario.password
-          }
-          console.log(data);
-          const response = await crud.POST(`/api/usuarios`, data);
-          const mensaje = response.msg;
-          console.log(mensaje);
-          if(mensaje === 'El usuario ya existe'){
-            const mensaje ="El usuario ya existe";
-            swal({
+
+    const crearCuenta = async () => {
+        //los dos pasword deben ser iguales
+        if (password !== confirmar) {
+            console.log("Las contraseñas no coinciden")
+            const mensaje = "Las contraseñas no coinciden.";
+
+            new swalt({
                 title: 'Error',
                 text: mensaje,
                 icon: 'error',
-                buttons:{
-                  confirm:{
-                    text:'OK',
-                    value: true,
-                    visible: true,
-                    className: 'btn btn-danger',
-                    closeModal: true
-                  }
+                button: {
+                    confirm: {
+                        text: 'OK',
+                        value: true,
+                        visible: true,
+                        className: 'btn btn-danger',
+                        closeModal: true
+                    }
                 }
-              })
-          }else{
-            const mensaje = "El usuario fue creado correctamente";
-          swal({
-            title: 'Información',
-            text: mensaje,
-            icon: 'success',
-            buttons:{
-              confirm:{
-                text:'OK',
-                value: true,
-                visible: true,
-                className: 'btn btn-primary',
-                closeModal: true
-              }
+
+            })
+
+        } else {
+            const data = {
+                nombre: usuario.nombre,
+                email: usuario.email,
+                password: usuario.password,
+                tipoUsuario: usuario.tipoUsuario
+
             }
-          });      
-         }
+            console.log(data);
+            const response = await crud.POST('/api/usuarios', data)
+            const mensaje_res = response.msg;
+            //console.log(mensaje);
+            if (mensaje_res === "El usuario ya existe") {
+                let mensaje = mensaje_res;
 
-          
-          setUsuario({
-            nombre:'',
-            email:'',
-            password:'',
-            tipoUsuario:'Acudiente',
-        
-          })
-          //redireccionar a la pantalla de admin
-          navigate("/crear-acudiente");
-          /*if(tipoUsuario==='Acudiente'){
-            navigate("/crear-acudiente")
-          }*/
+                new swalt({
+                    title: 'Error',
+                    text: mensaje,
+                    icon: 'error',
+                    button: {
+                        confirm: {
+                            text: 'OK',
+                            value: true,
+                            visible: true,
+                            className: 'btn btn-danger',
+                            closeModal: true
+                        }
+                    }
 
+                })
+
+            } else {
+
+                let mensaje = "El usuario fue creado correctamente";
+
+                new swalt({
+                    title: 'Información',
+                    text: mensaje,
+                    icon: 'success',
+                    button: {
+                        confirm: {
+                            text: 'OK',
+                            value: true,
+                            visible: true,
+                            className: 'btn btn-primary',
+                            closeModal: true
+                        }
+                    }
+
+                })
+
+                setUsuario({  //limpiar las cajas
+                    nombre: '',
+                    email: '',
+                    password: '',
+                    confirmar: '',
+                    tipoUsuario: ''
+                })
+
+                //redireccionar a la pantalla de Login
+
+                navigate("/login")
+
+
+             }
         }
-      
-    
+
+    }
 
 
-    const onSubmit = (e) => {
-       e.preventDefault();  //no deja que la pagina se recargue
-        crearCuenta();      //funcion que genera el evento del boton
-      }
+    const onSubmit = (e) => {  //lo que se ejecuta cuando se presiona el botón
+        e.preventDefault(); //evita que la página se cargue constantemente.
+        crearCuenta();   //nueva función para crear un arreglo de data para enviar al Back
+    }
 
 
-    return(
 
-      <>
-        <Header/>
-          <div className='md:flex md:min-h-screen'>
-            <Menu/>
-            <main className='flex-1'>
-              <div className='mt-10 flex justify-center'>
-                  <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
-                    Crear Cuenta
-                  </h1>
-              </div>
+    return (
 
-       <div className='mt-10 flex justify-center' >
-        
-            <form 
-                onSubmit={onSubmit}
-                className='my-10 bg-white shadow rounded-lg p-10'
-            >
-           <div className='my-5'>
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Nombre</label>
-                <input
-                    type="nombre"
-                    id="nombre"
-                    name="nombre"
-                    placeholder='Ingrese su nombre'
-                    className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                    value={nombre}
-                    onChange={onChange}
-                />
-             
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder='Ingrese el E-Mail'
-                    className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                    value={email}
-                    onChange={onChange}
-                />
+        <main className="containter mx-auto mt-5 md:mt-20 p- md:flex md:justify-center">
+            <div className="md:w-2/3 lg:w-2/5">
+                <h1 className="text-3xl block text-center font-bold text-slate-200">
+                    CalificAPP - Crear Cuenta
+                </h1>
 
-                <label className='uppercase text-gray-600 block text-xl font-bold' >password</label>
-                <input
-                    type="password"
-                    id="password"   
-                    name="password"
-                    placeholder='Ingrese el Password'
-                    className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                    value={password}
-                    onChange={onChange}
-                />
-                <br></br>
-                <br></br>
-                <div>
-                    <label for="administrador" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Administrador
-                    </label>
-                    <input 
-                        id="administrador" 
-                        type="radio" 
-                        value={tipoUsuario} 
-                        name="administrador" 
-                        onChange={onChange}
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                              
-                    <label for="docente" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Docente
-                    </label>
-                    <input 
-                        checked id="docente" 
-                        type="radio" 
-                        value={tipoUsuario}
-                        name="docente" 
-                        onChange={onChange}
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                    <label for="acudiente" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Acudiente
-                    </label>
-                    <input 
-                        id="acudiente" 
-                        type="radio" 
-                        value={tipoUsuario}
-                        name="acudiente"
-                        onChange={onChange} 
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    />
-                </div>
-           </div>
+                <form onSubmit={onSubmit} className="my-10 bg-white shadow-blue-300 rounded-lg p-6">
 
-           <input 
-             type="submit"  //para crear la accion y lleve al link
-             value="Crear Cuenta"
-             className="bg-blue-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
-            />
-            <Link 
-            to={"/admin"}
-            className="block text-center my-5 text-blue-600 uppercase text-sm"
-            >Regresar</Link>
-         </form>
-        </div>
-       </main> 
-    
-      </div>
+                    <div className="my-5">
 
-     </>
-    );
+                        <label className="text-2xl font-bold uppercase text-slate-600 block">Nombre</label>
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            placeholder="Nombre de usuario"
+                            className="w-full text-2xl mt-1 p-2 border rounded-lg bg-slate-200 "
+                            value={nombre}
+                            onChange={onChange}
+                        />
+
+
+                        <label className="text-2xl font-bold uppercase text-slate-600 block">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Email de usuario"
+                            className="w-full text-2xl mt-1 p-2 border rounded-lg bg-slate-200 "
+                            value={email}
+                            onChange={onChange}
+                        />
+
+                        <label className="text-2xl font-bold uppercase text-slate-600 block">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Ingrese su contraseña"
+                            className="w-full text-2xl mt-1 p-2 border rounded-lg bg-slate-200 "
+                            value={password}
+                            onChange={onChange}
+
+                        />
+
+                        <label className="text-2xl font-bold uppercase text-slate-600 block">Confirme Contraseña</label>
+                        <input
+                            type="password"
+                            id="confirmar"
+                            name="confirmar"
+                            placeholder="Confirme su contraseña"
+                            className="w-full text-2xl mt-1 p-2 border rounded-lg bg-slate-200 "
+                            value={confirmar}
+                            onChange={onChange}
+
+                        />
+
+                        <label className="text-2xl font-bold uppercase text-slate-600 block">Tipo Usuario</label>
+                        <input
+                            type="text"
+                            id="tipoUsuario"
+                            name="tipoUsuario"
+                            placeholder="Tipo Usuario"
+                            className="w-full text-2xl mt-1 p-2 border rounded-lg bg-slate-200 "
+                            value={tipoUsuario}
+                            onChange={onChange}
+
+                        />
+
+                    </div>
+
+                    <input type="submit" value="Crear Cuenta" className="bg-blue-600 mb-3 text-2xl w-full p-2 border rounded-lg hover:cursor-pointer hover:bg-blue-500 text-slate-200 font-bold uppercase" />
+
+                    <Link className="text-slate-600 mb-3 hover:text-slate-500 block text-center text-sm font-bold uppercase"  to={"/login"}>Regresar</Link>
+
+                </form>
+
+
+
+            </div>
+        </main>
+
+
+
+    )
+
 }
 
 export default CrearCuenta;
