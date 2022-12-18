@@ -23,6 +23,7 @@ async function crearCurso(req, res) {
 
             "descripcion": descripcion,
             "materia": materia,
+            "creador": req.usuario.id
 
         })
     } catch (error) {

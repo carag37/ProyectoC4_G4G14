@@ -1,10 +1,9 @@
 import back from './back.js';
 
 class crud{
-    async GET(resource,body){
+    async GET(resource){
+        
         const token = localStorage.getItem("token");
-    
-
         let bearer;
         if (token === "") {
             bearer = "";
@@ -22,7 +21,6 @@ class crud{
         const url = `${back.api.baseURL}${resource}`
         //const url = `${"http://localhost:4000"}${resource}`       
         let response = (await (await fetch(url, data)).json())
-        console.log(response);
         return response
 
 
@@ -32,10 +30,14 @@ class crud{
 
         const token = localStorage.getItem("token");
         let bearer;
-        if(token === ""){
+        if(token===""){
+
             bearer = "";
-        }else{
-            bearer = `${token}`; //Temple String
+        
+        }else {
+
+            bearer=`${token}`
+
         }
 
         const data={
@@ -45,8 +47,8 @@ class crud{
                 'Content-Type':'application/json',
                 'x-auth-token': bearer
             }
-
         }
+
         const url= `${back.api.baseURL}${resource}`
        // console.log(url);
         let response = (await (await fetch(url,data)).json())
@@ -108,6 +110,7 @@ class crud{
 
         const data = {
             method: 'DELETE',
+            body: JSON.stringify(body),
             headers: {
                 'Content-Type': 'application/json',
                 'x-auth-token': bearer

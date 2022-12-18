@@ -1,6 +1,7 @@
 import MateriaSchema from "../models/materiaModels.js";
 import CursoSchema from "../models/cursoModels.js";
 import DocenteSchema from "../models/docenteModels.js";
+import { usuarioAutenticado } from "./loginController.js";
 
 //--------------------------CREATE--------------------------------------------
 
@@ -45,6 +46,7 @@ async function crearMateria(req, res) {
             "nombre": nombre,
             "curso": idCurso,
             "docente": idDocente,
+            "creador": req.usuario.id
 
         })
     } catch (error) {
@@ -56,6 +58,7 @@ async function crearMateria(req, res) {
 
     res.status(201);  //código de algo creado
     res.json(docMateria); //envío el objeto creado como un JSON
+    console.log(docMateria)
 }
 
 //--------------------------READ---------------------------------------------
@@ -78,11 +81,35 @@ async function leerMateria(req, res) {
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
-    if (docMateria.length == 0) { return res.status(400).json({ msg: "El Curso no existe" }); }
+    if (docMateria.length == 0) { return res.status(400).json({ msg: "La Materia no existe" }); }
 
     res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     res.json(docMateria); //envío el objeto creado como un JSON
 }
+
+//-----------------------LEER TODAS-----------------------------------------
+
+async function leerMaterias(req, res) {
+
+    let docMateria;
+
+
+    try {
+
+        docMateria = await MateriaSchema.find()
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    if (docMateria.length == 0) { return res.status(400).json({ msg: "No hay Materias" }); }
+
+    res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
+    res.json(docMateria); //envío el objeto creado como un JSON
+}
+
 
 //-------------------------UPDATE-------------------------------------------
 
@@ -160,12 +187,13 @@ async function actualizarMateria(req, res) {
 
 async function borrarMateria(req, res) {
 
-    const { nombre } = req.body
+    const { _id } = req.body
     let docMateria;
+    
 
     try {
         docMateria = await MateriaSchema.findOneAndDelete({  //el find one busca un valor que debe ser único, solo permite consultar con elementos que estén definidos en el modelo
-            "nombre": nombre
+            "_id": _id
         })
 
     } catch (error) {
@@ -174,12 +202,13 @@ async function borrarMateria(req, res) {
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
-
+    console.log(docMateria)
+    
     if (!docMateria) {
-        return res.status(400).json({ msg: " El materia " + nombre + " no ha sido encontrado" });
-    } else { res.status(200).json({ msg: "El materia " + nombre + " eliminado correctamente" }) }
+        return res.status(400).json({ msg: "La materia " + _id + " no ha sido encontrado" });
+    } else { res.status(200).json({ msg: "La materia " + _id + " eliminado correctamente" }) }
 
 
 }
 
-export { leerMateria, crearMateria, actualizarMateria, borrarMateria }
+export { leerMateria, crearMateria, actualizarMateria, borrarMateria, leerMaterias }

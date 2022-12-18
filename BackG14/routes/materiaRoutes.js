@@ -1,20 +1,22 @@
 import express from "express";
-import { leerMateria, crearMateria, actualizarMateria, borrarMateria } from "../controllers/materiaController.js";
+import { leerMateria, crearMateria, actualizarMateria, borrarMateria, leerMaterias } from "../controllers/materiaController.js";
+import loginMiddleware from "../middleware/loginMiddleware.js";
 
 const materiaRoutes = express.Router()
 
 //Crear
 //Crear
 //POST
-materiaRoutes.post("/", crearMateria)
+materiaRoutes.post("/", loginMiddleware, crearMateria)
 //Leer
 //GET
-materiaRoutes.get("/", leerMateria)
+materiaRoutes.get("/", loginMiddleware,  leerMateria)
+materiaRoutes.get("/all",  loginMiddleware,  leerMaterias)
 //Actualizar
 //PUT
-materiaRoutes.patch("/", actualizarMateria)
+materiaRoutes.patch("/", loginMiddleware, actualizarMateria)
 //Eliminar
 //DELETE
-materiaRoutes.delete("/", borrarMateria)
+materiaRoutes.delete("/", loginMiddleware, borrarMateria)
 
 export default materiaRoutes;

@@ -10,7 +10,9 @@ const BoletinSchema = mongoose.Schema ({
     "materia":{ type: mongoose.Schema.Types.ObjectId, required:true, ref: "materias"},
     "notas": {type:[Number], min:0, max:5, required:true},
     "alumno": { type: mongoose.Schema.Types.ObjectId, ref: "alumnos", required:true},
+    "creador":{ type: mongoose.Schema.Types.ObjectId, ref: "usuarios" },
     "observaciones": { type: String, maxLength:40, trim: true},
+    
 },{timestamps:true})
 
 export default mongoose.model("boletines", BoletinSchema)
