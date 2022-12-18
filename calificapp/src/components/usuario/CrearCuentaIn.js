@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import swalt from 'sweetalert/dist/sweetalert.min.js';
-import crud from '../../utils/crud';
-import Header from "../Header";
-import Sidebar from "../Sidebar";
+import crud from '../utils/crud';
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 
 
@@ -11,7 +11,6 @@ import Sidebar from "../Sidebar";
 const CrearCuenta = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
-        cedula:'',
         nombre: '',
         email: '',
         password: '',
@@ -19,7 +18,7 @@ const CrearCuenta = () => {
         tipoUsuario: ''
     })
 
-    const {cedula, nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
+    const { nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
 
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
@@ -53,7 +52,6 @@ const CrearCuenta = () => {
 
         } else {
             const data = {
-                cedula:usuario.cedula,
                 nombre: usuario.nombre,
                 email: usuario.email,
                 password: usuario.password,
@@ -104,15 +102,16 @@ const CrearCuenta = () => {
                 })
 
                 setUsuario({  //limpiar las cajas
-                    cedula:'',
                     nombre: '',
                     email: '',
                     password: '',
                     confirmar: '',
                     tipoUsuario: ''
                 })
-                //redireccionar a home usuarios
-                navigate("/home-usuarios")
+
+                //redireccionar a la pantalla de Login
+
+                navigate("/login")
 
 
             }
@@ -142,16 +141,6 @@ const CrearCuenta = () => {
 
                             <div className="mx-auto py-5 w-4/5">
 
-                                <label className="text-2xl font-bold uppercase text-gray-600 block">Cedula</label>
-                                <input
-                                    type="number"
-                                    id="cedula"
-                                    name="cedula"
-                                    placeholder="Digite la Cedula"
-                                    className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600 "
-                                    value={cedula}
-                                    onChange={onChange}
-                                />
                                 <label className="text-2xl font-bold uppercase text-gray-600 block">Nombre</label>
                                 <input
                                     type="text"
@@ -199,12 +188,12 @@ const CrearCuenta = () => {
 
                                 />
 
-                                <label className="text-2xl font-bold  text-gray-600 block">Digite: Administrador o Docente o Acudiente</label>
+                                <label className="text-2xl font-bold uppercase text-gray-600 block">Tipo Usuario</label>
                                 <input
                                     type="text"
                                     id="tipoUsuario"
                                     name="tipoUsuario"
-                                    placeholder="Administrador | Docente | Acudiente"
+                                    placeholder="Tipo Usuario"
                                     className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600 "
                                     value={tipoUsuario}
                                     onChange={onChange}
@@ -213,21 +202,23 @@ const CrearCuenta = () => {
 
                             </div>
 
-                            <input type="submit" 
-                                value="Crear Cuenta" 
-                                className="bg-blue-600 mt-5 text-2xl w-3/5 p-3 border rounded-xl hover:notasr-pointer hover:bg-blue-500 text-white font-bold uppercase" 
-                            />
+                            <input type="submit" value="Crear Cuenta" className="bg-blue-600 mt-5 text-2xl w-3/5 p-3 border rounded-xl hover:notasr-pointer hover:bg-blue-500 text-white font-bold uppercase" />
 
-                            <Link className="text-gray-700 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" 
-                                to={"/Admin"}
-                                >Regresar
-                            </Link>
+                            <Link className="text-gray-700 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/login"}>Regresar</Link>
+
                         </form>
+
+
+
                     </div>
                 </main>
             </div>
-        </>
-    )
-}
 
-export default CrearCuenta;
+
+
+        </>
+
+
+    )
+
+}
