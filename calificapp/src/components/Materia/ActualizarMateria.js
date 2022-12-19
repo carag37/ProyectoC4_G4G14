@@ -1,11 +1,26 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom'; //, useNavigate 
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import crud from "../../utils/crud";
 import swalt from 'sweetalert/dist/sweetalert.min.js';
 
 const ActualizarMateria = () => {
+
+    const {idMateria} = useParams()
+    //console.log(idMateria)
+
+    const cargarCategoria = async () => {
+        const response = await crud.GET(`/api/materias/one/${idMateria}`);
+        //console.log(response)
+        setMateria(response)
+    }
+
+    useEffect(() => {
+        cargarCategoria();
+    })
+
+
     const navigate = useNavigate();
     const [materia, setMateria] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
         nombre: '',
@@ -47,10 +62,12 @@ const ActualizarMateria = () => {
             })
 
         } else {
+            
+            const cambios = {nombre: materia.nombreN, curso: [materia.curso], idDocente: materia.docente}
+
             const data = {
                 nombre: materia.nombre,
-                cambios: { nombre: materia.nombreN, curso: [materia.curso], idDocente: materia.docente }
-
+                cambios: cambios
             }
 
             console.log(data);
@@ -61,7 +78,7 @@ const ActualizarMateria = () => {
             navigate("/admin")
 
 
-            let mensaje = "La materia fue creada correctamente";
+            let mensaje = "La materia fue editada correctamente";
 
             new swalt({
                 title: 'Información',

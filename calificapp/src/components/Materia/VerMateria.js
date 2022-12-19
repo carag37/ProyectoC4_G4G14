@@ -27,7 +27,7 @@ const VerMateria = () => {
     const cargarMaterias = async () => {
 
         const response = await crud.GET('/api/materias/all');
-    console.log(response)
+        //console.log(response)
         //const mensaje_res = response.msg;
         setMaterias(response)
     }
@@ -37,7 +37,7 @@ const VerMateria = () => {
         cargarMaterias();
     })
 
-    const borrarMateria = async (IdCategoria, nombre) => {
+    const borrarMateria = async (IdMateria, nombre) => {
 
         swalt({
             title: "Está seguro?",
@@ -50,7 +50,7 @@ const VerMateria = () => {
                 if (willDelete) {
 
                     const data = {
-                        "_id": IdCategoria,
+                        "_id": IdMateria,
                     }
 
                     const response = crud.DELETE('/api/materias', data)
@@ -85,17 +85,16 @@ const VerMateria = () => {
 
     }
 
-    const editarMateria = async (IdCategoria, nombre) => {
+    const editarMateria = async (IdMateria, nombre) => {
 
 
         const data = {
-            "_id": IdCategoria,
+            "_id": IdMateria,
             "nombre": nombre
         }
 
         console.log(data)
-        navigate("/actualizar-materia")
-
+        navigate(`/actualizar-materia/${IdMateria}`)
 
 
     }
@@ -138,7 +137,7 @@ const VerMateria = () => {
 
                         <div className="mx-10">
                             <table className="rounded-xl border" >
-                            <thead className='bg-slate-400'>
+                                <thead className='bg-slate-400'>
                                     <tr>
                                         <th style={{ width: '20%' }}>Id</th>
                                         <th style={{ width: '20%' }}>Nombre</th>
@@ -157,15 +156,15 @@ const VerMateria = () => {
                                                     <td>{item.curso + " "}</td>
                                                     <td>{item.docente} </td>
                                                     <td>
-                                                    <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                        <button onClick={() => editarMateria(item._id, item.nombre)} 
-                                                        className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
-                                                            Editar
-                                                        </button>
-                                                        <button onClick={() => borrarMateria(item._id, item.nombre)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
-                                                            Eliminar
-                                                        </button>
-                                                    </div>
+                                                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                            <button onClick={() => editarMateria(item._id, item.nombre)}
+                                                                className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
+                                                                Editar
+                                                            </button>
+                                                            <button onClick={() => borrarMateria(item._id, item.nombre)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
+                                                                Eliminar
+                                                            </button>
+                                                        </div>
                                                     </td>
 
                                                 </tr>

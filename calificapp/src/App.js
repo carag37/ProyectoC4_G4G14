@@ -80,7 +80,7 @@ function App() {
                 <Route path="/menu-materia" exact element={<MenuMateria/>} />
                 <Route path="/crear-materia" exact element={<CrearMateria/>} />
                 <Route path="/ver-materia" exact element={<VerMateria/>} />
-                <Route path="/actualizar-materia" exact element={<ActualizarMateria/>} />
+                <Route path="/actualizar-materia/:idMateria" exact element={<ActualizarMateria />} />
 
                 <Route path="/menu-curso" exact element={<MenuCurso/>} />
                 <Route path="/crear-curso" exact element={<CrearCurso/>} />
