@@ -75,6 +75,12 @@ async function leerMateria(req, res) {
             "nombre": nombre,
         })
 
+        console.log(docMateria)
+
+       // docDocente = await CursoSchema.find({docMateria.curso})
+
+
+
     } catch (error) {
         res.status(400)
         res.json(error.message);
@@ -98,6 +104,8 @@ async function leerMaterias(req, res) {
 
         docMateria = await MateriaSchema.find()
 
+
+
     } catch (error) {
         res.status(400)
         res.json(error.message);
@@ -105,6 +113,9 @@ async function leerMaterias(req, res) {
     }
 
     if (docMateria.length == 0) { return res.status(400).json({ msg: "No hay Materias" }); }
+
+    //docCurso = await CursoSchema.find(docMateria.curso[0])
+    //console.log(docMateria[0].curso[0])
 
     res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     res.json(docMateria); //envío el objeto creado como un JSON

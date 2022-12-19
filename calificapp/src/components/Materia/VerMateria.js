@@ -27,7 +27,7 @@ const VerMateria = () => {
     const cargarMaterias = async () => {
 
         const response = await crud.GET('/api/materias/all');
-        //console.log(response)
+    console.log(response)
         //const mensaje_res = response.msg;
         setMaterias(response)
     }
@@ -45,60 +45,60 @@ const VerMateria = () => {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
+        })
+            .then((willDelete) => {
+                if (willDelete) {
 
-                const data = {
-                    "_id": IdCategoria,               
-                }
-                
-                const response = crud.DELETE('/api/materias', data)
-    
-                //if(response.msg === "La materia " + IdCategoria + " eliminado correctamente"){
-                if(response){
-                    console.log("ok")
-    
-                    new swalt({
-                                title: 'Información',
-                                text: "La materia " + nombre + " eliminada correctamente",
-                                icon: 'success',
-                                button: {
-                                    confirm: {
-                                        text: 'OK',
-                                        value: true,
-                                        visible: true,
-                                        className: 'btn btn-primary',
-                                        closeModal: true
-                                    }
+                    const data = {
+                        "_id": IdCategoria,
+                    }
+
+                    const response = crud.DELETE('/api/materias', data)
+
+                    //if(response.msg === "La materia " + IdCategoria + " eliminado correctamente"){
+                    if (response) {
+                        console.log("ok")
+
+                        new swalt({
+                            title: 'Información',
+                            text: "La materia " + nombre + " eliminada correctamente",
+                            icon: 'success',
+                            button: {
+                                confirm: {
+                                    text: 'OK',
+                                    value: true,
+                                    visible: true,
+                                    className: 'btn btn-primary',
+                                    closeModal: true
                                 }
-                            })
-                }
+                            }
+                        })
+                    }
 
-            //   swalt("La Materia " + nombre + " seleccionada se ha eliminado!", {
-            //     icon: "success",
-            //   });
-            } else {
-              swalt("Materia " + nombre + " no ha sido eliminada");
-            }
-          });
-    
+                    //   swalt("La Materia " + nombre + " seleccionada se ha eliminado!", {
+                    //     icon: "success",
+                    //   });
+                } else {
+                    swalt("Materia " + nombre + " no ha sido eliminada");
+                }
+            });
+
     }
 
     const editarMateria = async (IdCategoria, nombre) => {
 
-           
+
         const data = {
             "_id": IdCategoria,
-            "nombre": nombre               
+            "nombre": nombre
         }
 
         console.log(data)
-        navigate("/actualizar-materia")        
-       
+        navigate("/actualizar-materia")
 
 
-}
+
+    }
 
     //[] Vacío solo se ejecuta una vez el useEffect antes de renderizar 
 
@@ -119,54 +119,67 @@ const VerMateria = () => {
 
     return (
         <>
-            <Header className="-z-10" />
-            <div className="z-0 md:flex md:min-h-screen">
+            <Header />
+            <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="flex-1 text-slate-200 text-3xl mt-8 p-5 w-1/3 text-center">
+                <main className='flex-1'>
                     <div>
+                        <div className="mt-10 mx-5" >
+                            <Link
+                                to={`/crear-Acudiente`}
+                                className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
+                            >Crear Materia
+                            </Link>
+                        </div>
 
-                        <h1> Materia</h1>
-                        <h3> Listado de Materias</h3>
+                        <h1 className='text-4xl mt-10 text-slate-200 font-bold text-center mb-9 md:mb-0'>
+                            Listado de Materias
+                        </h1>
 
-                        <table className="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th style={{ width: '25%' }}>Id</th>
-                                    <th style={{ width: '25%' }}>Nombre</th>
-                                    <th style={{ width: '25%' }}>Curso</th>
-                                    <th style={{ width: '25%' }}>Docente</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-slate-200 text-slate-700 text-sm">
-                                {
-                                    materia.map(
-                                        item =>
-                                            <tr key={item._id}>
-                                                <td>{item._id}</td>
-                                                <td>{item.nombre}</td>
-                                                <td>{item.curso}</td>
-                                                <td>{item.docente} </td>
-                                                <td>
-                                                    <button onClick={()=>editarMateria(item._id, item.nombre)}>
-                                                       Editar 
-                                                    </button>
-                                                    <button onClick={()=>borrarMateria(item._id, item.nombre)}>
-                                                        Eliminar 
-                                                    </button>
-                                                 
-                                                </td>
+                        <div className="mx-10">
+                            <table className="rounded-xl border" >
+                            <thead className='bg-slate-400'>
+                                    <tr>
+                                        <th style={{ width: '20%' }}>Id</th>
+                                        <th style={{ width: '20%' }}>Nombre</th>
+                                        <th style={{ width: '20%' }}>Curso</th>
+                                        <th style={{ width: '20%' }}>Docente</th>
+                                        <th style={{ width: '20%' }}>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody className=" bg-slate-300 rounded-t-xl border">
+                                    {
+                                        materia.map(
+                                            item =>
+                                                <tr key={item._id}>
+                                                    <td>{item._id}</td>
+                                                    <td>{item.nombre}</td>
+                                                    <td>{item.curso + " "}</td>
+                                                    <td>{item.docente} </td>
+                                                    <td>
+                                                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                        <button onClick={() => editarMateria(item._id, item.nombre)} 
+                                                        className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
+                                                            Editar
+                                                        </button>
+                                                        <button onClick={() => borrarMateria(item._id, item.nombre)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
+                                                            Eliminar
+                                                        </button>
+                                                    </div>
+                                                    </td>
 
-                                            </tr>
+                                                </tr>
 
 
-                                    )
+                                        )
 
 
-                                }
+                                    }
 
-                            </tbody>
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
 
                         <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-materia"}>Regresar</Link>
 
