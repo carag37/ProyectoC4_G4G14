@@ -27,7 +27,7 @@ const ActualizarAdmin = () => {
       }
       useEffect(() =>{ 
         cargarAdmin();
-      },[]);
+      });
 
       
     let {cedula, nombre, direccion, telefono, estado } = admin;

@@ -39,36 +39,50 @@ const VerMateria = () => {
 
     const borrarMateria = async (IdCategoria, nombre) => {
 
-           
-            const data = {
-                "_id": IdCategoria,               
-            }
-            
-            const response = await crud.DELETE('/api/materias', data)
+        swalt({
+            title: "Está seguro?",
+            text: "Una vez eliminada, no podrás recuperar la información de la Materia: " + nombre,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
 
-            if(response.msg === "La materia " + IdCategoria + " eliminado correctamente"){
-
-                console.log("ok")
-
-                new swalt({
-                            title: 'Información',
-                            text: "La materia " + nombre + " eliminada correctamente",
-                            icon: 'success',
-                            button: {
-                                confirm: {
-                                    text: 'OK',
-                                    value: true,
-                                    visible: true,
-                                    className: 'btn btn-primary',
-                                    closeModal: true
+                const data = {
+                    "_id": IdCategoria,               
+                }
+                
+                const response = crud.DELETE('/api/materias', data)
+    
+                //if(response.msg === "La materia " + IdCategoria + " eliminado correctamente"){
+                if(response){
+                    console.log("ok")
+    
+                    new swalt({
+                                title: 'Información',
+                                text: "La materia " + nombre + " eliminada correctamente",
+                                icon: 'success',
+                                button: {
+                                    confirm: {
+                                        text: 'OK',
+                                        value: true,
+                                        visible: true,
+                                        className: 'btn btn-primary',
+                                        closeModal: true
+                                    }
                                 }
-                            }
-                        })
+                            })
+                }
+
+            //   swalt("La Materia " + nombre + " seleccionada se ha eliminado!", {
+            //     icon: "success",
+            //   });
+            } else {
+              swalt("Materia " + nombre + " no ha sido eliminada");
             }
-                    
-           
-
-
+          });
+    
     }
 
     const editarMateria = async (IdCategoria, nombre) => {

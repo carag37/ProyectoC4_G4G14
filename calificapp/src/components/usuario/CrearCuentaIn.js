@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import swalt from 'sweetalert/dist/sweetalert.min.js';
-import crud from '../utils/crud';
-import Header from "./Header";
-import Sidebar from "./Sidebar";
+import crud from '../../utils/crud';
+import Header from "../Header";
+import Sidebar from "../Sidebar";
 
 
 
 
-const CrearCuenta = () => {
+const CrearCuentaIn = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
         nombre: '',
@@ -222,3 +222,6 @@ const CrearCuenta = () => {
     )
 
 }
+
+
+export default CrearCuentaIn;

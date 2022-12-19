@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, Navigate } from 'react-router-dom'; //, useNavigate 
+import { Link, useNavigate } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import crud from "../../utils/crud";
 import swalt from 'sweetalert/dist/sweetalert.min.js';
 
 const ActualizarMateria = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const [materia, setMateria] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
         nombre: '',
         nombreN: '',
@@ -24,7 +24,7 @@ const ActualizarMateria = () => {
         })   //Cargo todo el usuario en la e
     }
 
-    const actualizarMateria = async () => {
+    const actualizarMateria = async (nombre) => {
 
         if (nombre === "") {
             console.log("Debe diligenciar el campo de nombre")
@@ -58,7 +58,7 @@ const ActualizarMateria = () => {
             const response = await crud.PATCH('/api/materias', data)
             const mensaje_res = response.msg;
             console.log(mensaje_res);
-            Navigate("/admin")
+            navigate("/admin")
 
 
             let mensaje = "La materia fue creada correctamente";
@@ -85,9 +85,6 @@ const ActualizarMateria = () => {
                 curso: '',
                 docente: '',
             })
-
-
-
 
         }
 

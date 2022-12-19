@@ -24,11 +24,11 @@ const ActualizarUsuario = () => {
 
         const response = await crud.GET(`/api/usuarios/${idUsuario}`);
         console.log(response);
-        setUsuario(response.usuario);
+        setUsuario(response);
       }
       useEffect(() =>{ 
         cargarUsuario();
-      },[]);
+      });
 
       
     let {cedula, nombre, password, tipoUsuario, estado} = usuario;

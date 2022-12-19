@@ -36,7 +36,7 @@ const HomeAcudiente = () => {
   //console.log(productos);
     useEffect(() => {
       cargarAcudiente();
-    },[]);
+    });
 
   return (
       <>
