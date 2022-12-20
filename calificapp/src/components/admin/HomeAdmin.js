@@ -30,7 +30,7 @@ const HomeAdmin = () => {
 
   const cargarAdmins = async () => {
     const response = await crud.GET(`/api/admins`);
-    console.log(response);
+    //console.log(response.admin);
     setAdmins(response.admin);
   }
 
@@ -76,7 +76,7 @@ const HomeAdmin = () => {
 
           <div className="mt-10 mx-5" >
             <Link
-              to={`/crear-admin`}
+              to={`/home-usuario`}
               className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
             >Crear Administrador
             </Link>
@@ -93,7 +93,6 @@ const HomeAdmin = () => {
             <thead className='bg-slate-400'>
               <tr>
                 <th style={{ width: '25%' }}>idAdmin</th>
-                {/* <th style={{ width: '25%' }}>Cedula</th> */}
                 <th style={{ width: '25%' }}>Nombre</th>
                 <th style={{ width: '25%' }}>Direccion</th>
                 <th style={{ width: '25%' }}>Telefono</th>
@@ -109,7 +108,6 @@ const HomeAdmin = () => {
                   item =>
                     <tr key={item._id}>
                       <td className="text-center p-1">{item._id}</td>
-                      {/* <td  className="text-center">{item.cedula}</td> */}
                       <td className="text-center p-1">{item.nombre}</td>
                       <td className="text-center p-1">{item.direccion}</td>
                       <td className="text-center p-1" >{item.telefono}</td>

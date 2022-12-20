@@ -11,15 +11,16 @@ async function leerAcudiente (req,res) {
     
 }
 
-
 async function leerAcudienteId (req,res) {
     
-    const {id} = req.params;
-    const acudiente = await Acudiente.find().where("_id").equals(id);
-    res.json(acudiente);
-        
+    const {id} = req.params
+    try{
+        const acudiente = await Acudiente.findById(id);
+        res.json({acudiente});
+    }catch(error){
+        console.log(error);
     }
-
+}
 async function crearAcudiente (req,res) {
 
     const {nombre,direccion,telefono,parentesco,usuarioSistema} =req.body;
@@ -51,6 +52,7 @@ async function actualizarAcudiente (req,res) {
         return res.status(400).json({msg:" El administrador no ha sido encontrado"});
 
     }
+    
     acudiente.nombre = req.body.nombre || acudiente.nombre;
     acudiente.direccion = req.body.direccion || acudiente.direccion;
     acudiente.telefono = req.body.telefono || acudiente.telefono;

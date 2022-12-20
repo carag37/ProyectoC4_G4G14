@@ -3,7 +3,6 @@ import { Link, useNavigate} from 'react-router-dom';
 import Header from '../Header.js';
 import Sidebar from '../Sidebar.js';
 import crud from '../../utils/crud.js';
-//import swal from 'sweetalert'; 
 //import ConsultarAcudiente from './ConsultarAcudiente';
 import swal from 'sweetalert';
 
@@ -89,16 +88,13 @@ const HomeAcudiente = () => {
             <thead className='bg-slate-400'>
               <tr>
                 <th style={{ width: '10%' }}>idAcudiente</th>
-                {/* <th style={{ width: '25%' }}>Cedula</th> */}
                 <th style={{ width: '10%' }}>Nombre</th>
                 <th style={{ width: '10%' }}>Direccion</th>
                 <th style={{ width: '10%' }}>Telefono</th>
                 <th style={{ width: '10%' }}>Alumno</th>
                 <th style={{ width: '10%' }}>Parentezco</th>
                 {/* <th style={{ width: '10%' }}>Estado</th> */}
-                <th style={{ width: '10%' }}>UsuarioSistema</th>
-
-                <th style={{ width: '25%' }}>Acciones</th>
+                <th style={{ width: '40%' }}>Acciones</th>
 
 
               </tr>
@@ -111,7 +107,6 @@ const HomeAcudiente = () => {
                   item =>
                     <tr key={item._id}>
                       <td className="text-center p-1">{item._id}</td>
-                      {/* <td  className="text-center">{item.cedula}</td> */}
                       <td className="text-center p-1">{item.nombre}</td>
                       <td className="text-center p-1">{item.direccion}</td>
                       <td className="text-center p-1" >{item.telefono}</td>
@@ -119,7 +114,6 @@ const HomeAcudiente = () => {
                       <td className="text-center p-1" >{item.parentesco}</td>
               
                       {/* <td className="text-center p-1" >{item.estado}</td> */}
-                      <td className="text-center p-1" >{item.usuarioSistema}</td>
 
 
                       <td>

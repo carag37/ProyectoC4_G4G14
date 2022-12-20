@@ -172,7 +172,7 @@ function CrearAlumno() {
                         />
 
                         <Link 
-                          to={"/admin"}
+                          to={"/home-alumno"}
                           className="block text-center my-5 text-blue-600 uppercase text-sm"
                           >Regresar
                         </Link>

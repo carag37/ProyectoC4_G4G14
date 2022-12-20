@@ -25,7 +25,7 @@ const HomeAlumno = () => {
 
   const cargarAlumnos = async () => {
       const response = await crud.GET(`/api/alumnos`);
-      //console.log(response);
+      console.log(response);
       setAlumno(response.alumno);
   }
 
@@ -78,8 +78,9 @@ const HomeAlumno = () => {
                 </h1>
                 <br></br>
                 
-                <table className="table table-bordered">
-                <thead className='bg-white'>
+                <div className = "mx-10">
+                    <table className = "rounded-xl border" >
+                    <thead className='bg-slate-400'>
                   <tr>
                     <th style={{ width: '20%' }}>ID</th>
                     <th style={{ width: '20%' }}>Nombre</th>
@@ -94,7 +95,7 @@ const HomeAlumno = () => {
                     alumno.map(
                     item =>
                         <tr key={item._id}>
-                            <td className="text-center">{item.idAlumno}</td>
+                            <td className="text-center">{item._id}</td>
                             <td  className="text-center">{item.nombre}</td>
                             <td  className="text-center">{item.direccion}</td>
                             <td  className="text-center">{item.telefono}</td>
@@ -122,6 +123,7 @@ const HomeAlumno = () => {
                     }
                 </tbody>
                 </table>
+                </div>
             </main>
         </div>      
     </>

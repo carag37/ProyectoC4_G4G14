@@ -81,8 +81,7 @@ const ConsultarUsuario = () => {
             <table className="rounded-xl border" >
               <thead className='bg-slate-400'>
                 <tr>
-                  <th style={{ width: '25%' }}>Cedula</th>
-                  <th style={{ width: '25%' }}>Nombre</th>
+                  <th style={{ width: '50%' }}>Nombre</th>
                   <th style={{ width: '25%' }}>Email</th>
                   <th style={{ width: '25%' }}>Tipo</th>
                 </tr>
@@ -93,7 +92,6 @@ const ConsultarUsuario = () => {
                   usuario.map(
                     item =>
                       <tr key={item._id}>
-                        <td className="text-center">{item.cedula}</td>
                         <td className="text-center">{item.nombre}</td>
                         <td className="text-center">{item.email}</td>
                         <td className="text-center" >{item.tipoUsuario}</td>

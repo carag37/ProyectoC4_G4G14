@@ -3,6 +3,9 @@ import React from 'react'
 export const ConsultarAdmin = ({admin}) => {
 
     const {cedula,nombre, direccion, telefono} = admin;
+
+
+    
     return(
         <div
             className='border-r p-5 flex justify-between items-center'

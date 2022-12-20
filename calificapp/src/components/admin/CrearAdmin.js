@@ -9,18 +9,20 @@ import Sidebar from '../Sidebar';
 function CrearAdmin() {
 
     const navigate = useNavigate();
-    const {usuarioSistema} = useParams();
+
+    const {idUsuario} = useParams();
+    console.log(idUsuario);
+
 
     //variables de entorno, son las que van a capturar lo que se escriba en las cajas
     const [admin, setAdmin] = useState({
-        cedula:'',
         nombre:'',
         direccion:'',
         telefono:'',
         usuarioSistema:'',
     })
 
-    const {cedula, nombre, direccion,telefono} = admin;
+    const {nombre, direccion,telefono} = admin;
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
@@ -34,12 +36,12 @@ function CrearAdmin() {
 
     const crearAdmin = async() =>{
         const data = {
-            cedula: admin.cedula,
-            nombre: nombre.nombre,
+            nombre: nombre,
             direccion: admin.direccion,
             telefono: admin.telefono,
-            usuarioSistema:usuarioSistema
+            usuarioSistema: idUsuario,
           }
+          console.log(idUsuario);
           console.log(data);
         const response =await crud.POST(`/api/admins`,data);
         const mensaje = response.msg; 
@@ -78,13 +80,7 @@ function CrearAdmin() {
                   }
                 });      
                }
-               setAdmin({
-                cedula:'',
-                nombre:'',
-                direccion:'',
-                telefono:'',
-            
-              })
+               
               //redireccionar a la pantalla de login
               navigate(`/home-admin`); 
 
@@ -116,16 +112,7 @@ function CrearAdmin() {
                     onSubmit={onSubmit}
                 >
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600 block text-xl font-bold'>Cedula</label>
-                        <input
-                            type="number"
-                            id="cedula"
-                            name="cedula"
-                            placeholder='Digite la cedula'
-                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                            value={cedula}
-                            onChange={onChange}
-                        />
+                        
                         <label className='uppercase text-gray-600 block text-xl font-bold'>Nombre</label>
                         <input
                             type="text"

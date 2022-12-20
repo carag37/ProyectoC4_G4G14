@@ -13,24 +13,23 @@ const ActualizarAdmin = () => {
     console.log(idAdmin);
     
     const [admin, setAdmin] = useState({
-        cedula:'',
         nombre:'',
         direccion:'',
         telefono:'',
-        estado:'true',
+        estado:'',
         
       })
       const cargarAdmin = async () =>{
         const response = await crud.GET(`/api/admins/${idAdmin}`);
-        console.log(response);
+        console.log(response.admin);
         setAdmin(response.admin);
       }
       useEffect(() =>{ 
         cargarAdmin();
-      });
+      },[]);
 
       
-    let {cedula, nombre, direccion, telefono, estado } = admin;
+    let { nombre, direccion, telefono, estado } = admin;
 
       const onChange = (e) =>{
         setAdmin({
@@ -41,11 +40,10 @@ const ActualizarAdmin = () => {
 
       const actualizarAdmin = async () =>{
         const data = {
-            cedula:admin.cedula,
             nombre: admin.nombre,
             direccion: admin.direccion,
             telefono: admin.telefono,
-            estado:true
+            estado: admin.estado
         }
        //console.log(data, idAdmin);
           const response = await crud.PATCH(`/api/admins/${idAdmin}`, data);
@@ -63,9 +61,13 @@ const ActualizarAdmin = () => {
                 className: 'btn btn-primary',
                 closeModal: true
               }
+              
             }
+            
           });
-          navigate("/admin");
+          
+          navigate("/home-admin");
+          window.location.reload();
          
       }
     
@@ -83,7 +85,7 @@ const ActualizarAdmin = () => {
             <Sidebar/>
                 <main className='flex-1'>
                     <div className='mt-10 flex justify-center'>
-                    <h1 className="inline bg-gradient-to-r from-indigo-200 via-violet-700 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
+                    <h1 className= 'text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
                         Actualizar Usuario Administrador
                     </h1>
         </div>
@@ -94,17 +96,7 @@ const ActualizarAdmin = () => {
               onSubmit={onSubmit}
         >
         <div className='my-5'>
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Cedula</label>
-                <input
-                  type="number"
-                  id="cedula"
-                  name="cedula"
-                  placeholder='cedula'
-                  className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                 value={cedula}
-                  //onChange={onChange}
-                />
-
+                
               <label className='uppercase text-gray-600 block text-xl font-bold' >Nombre</label>
                 <input
                   type="text"

@@ -13,7 +13,6 @@ const ActualizarUsuario = () => {
     console.log(idUsuario);
     
     const [usuario, setUsuario] = useState({
-        cedula:'',
         nombre:'',
         password:'',
         tipoUsuario:'',
@@ -23,15 +22,15 @@ const ActualizarUsuario = () => {
       const cargarUsuario = async () =>{
 
         const response = await crud.GET(`/api/usuarios/${idUsuario}`);
-        console.log(response);
-        setUsuario(response);
+        console.log(response.usuario);
+        setUsuario(response.usuario);
       }
       useEffect(() =>{ 
         cargarUsuario();
-      });
+      },[]);
 
       
-    let {cedula, nombre, password, tipoUsuario, estado} = usuario;
+    let { nombre, password, tipoUsuario, estado} = usuario;
 
       const onChange = (e) =>{
         setUsuario({
@@ -42,13 +41,12 @@ const ActualizarUsuario = () => {
 
       const actualizarUsuario = async () =>{
         const data = {
-          cedula:usuario.cedula,
           nombre: usuario.nombre,
           password: usuario.password,
           tipoUsuario: usuario.tipoUsuario,
           estado: usuario.estado
         }
-       console.log(data, idUsuario);
+          console.log(data, idUsuario);
           const response = await crud.PATCH(`/api/usuarios/${idUsuario}`, data);
           console.log(response);
           const mensaje1 = "El usuario se actualizo correctamente";
@@ -95,16 +93,7 @@ const ActualizarUsuario = () => {
               onSubmit={onSubmit}
             >
               <div className='my-5'>
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Cedula</label>
-                <input
-                  type="number"
-                  id="cedula"
-                  name="cedula"
-                  placeholder='Digite la cedula'
-                  className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                 value={cedula}
-                  onChange={onChange}
-                />
+                
                 <label className='uppercase text-gray-600 block text-xl font-bold' >Nombre</label>
                 <input
                   type="text"

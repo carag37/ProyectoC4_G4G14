@@ -29,6 +29,7 @@ const CrearCuentaIn = () => {
     }
 
     const crearCuenta = async () => {
+        
         //los dos pasword deben ser iguales
         if (password !== confirmar) {
             console.log("Las contraseñas no coinciden")

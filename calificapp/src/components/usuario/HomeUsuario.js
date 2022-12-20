@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../Header';
+import Sidebar from '../Sidebar';
 import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
-import Sidebar from '../Sidebar';
+
 
 
 const HomeUsuario = () => {
@@ -25,7 +26,7 @@ const HomeUsuario = () => {
 
   const cargarUsuarios = async () => {
     const response = await crud.GET(`/api/usuarios`);
-    //console.log(response);
+    console.log(response.usuario);
     setUsuario(response.usuario);
   }
 
@@ -69,7 +70,7 @@ const HomeUsuario = () => {
 
           <div className="mt-10 mx-5" >
             <Link
-              to={`/crear-cuentaIn`}
+              to={`/crear-cuenta`}
               className="bg-blue-600 p-3  text-slate-200 uppercase font-bold   text-center rounded-lg"
             >Crear Usuario
             </Link>
@@ -84,11 +85,10 @@ const HomeUsuario = () => {
             <table className="rounded-xl border" >
               <thead className='bg-slate-400'>
                 <tr>
-                  <th style={{ width: '25%' }}>Cedula</th>
                   <th style={{ width: '25%' }}>Nombre</th>
                   <th style={{ width: '25%' }}>Email</th>
                   <th style={{ width: '25%' }}>Tipo</th>
-                  <th style={{ width: '25%' }}>Tipo</th>
+                  <th style={{ width: '25%' }}>Acciones</th>
                 </tr>
               </thead>
 
@@ -97,17 +97,16 @@ const HomeUsuario = () => {
                   usuario.map(
                     item =>
                       <tr key={item._id}>
-                        <td className="text-center">{item.cedula}</td>
                         <td className="text-center">{item.nombre}</td>
                         <td className="text-center">{item.email}</td>
                         <td className="text-center" >{item.tipoUsuario}</td>
                         
                         <td>
-                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <div className="inline-flex rounded-md shadow-sm" role="group">
                             <Link
-                            to={`/crear-admin`}
+                            to={`/crear-admin/${item._id}`}
                             className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
-                          >Admin</Link>
+                          >Admin</Link>&nbsp;&nbsp;
                         
                           <Link
                             to={`/actualizar-usuario/${item._id}`}

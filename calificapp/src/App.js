@@ -8,8 +8,9 @@ import Home from './components/Home.js';
 import CrearInicio  from  './components/CrearInicio'
 
 //Usuario
-import CrearCuentaIn from "./components/usuario/CrearCuentaIn";
-import HomeUsuario from "./components/usuario/HomeUsuario.js";
+
+import CrearCuenta from './components/usuario/CrearCuenta.js';
+import HomeUsuario from './components/usuario/HomeUsuario.js';
 import MenuUsuarios from './components/usuario/MenuUsuarios.js'
 import ActualizarUsuario from './components/usuario/ActualizarUsuario.js';
 
@@ -22,6 +23,7 @@ import HomeAdmin from './components/Admin/HomeAdmin.js';
 //Acudiente
 import CrearAcudiente from './components/Acudiente/CrearAcudiente.js';
 import HomeAcudiente from './components/Acudiente/HomeAcudiente.js'
+import ActualizarAcudiente from './components/Acudiente/ActualizarAcudiente.js'
 
 //Alumno
 import CrearAlumno from './components/Alumno/CrearAlumno.js';
@@ -57,25 +59,26 @@ function App() {
                 <Route path="/crear-inicio" exact element= {<CrearInicio/>} />
 
                 <Route path="/menu-usuarios" exact element={<MenuUsuarios/>} />
-                <Route path="/crear-cuentaIn" exact element={<CrearCuentaIn/>} />
+                
+                <Route path="/crear-cuenta" exact element={<CrearCuenta/>} />
                 <Route path="/home-usuario" exact element={<HomeUsuario/>} />
                 <Route path="/actualizar-usuario/:idUsuario" exact element= {<ActualizarUsuario/>} />
                 <Route path="/actualizar-usuario/:tipoUsuario" exact element= {<ActualizarUsuario/>} />
-
-                <Route path="/crear-admin" exact element={<CrearAdmin />} />   
-                <Route path="/crear-admin/:usuarioSistema" exact element= {<CrearAdmin/>} />
-                <Route path="/actualizar-admin/:usuarioSistema" exact element= {<ActualizarAdmin/>} />
+ 
+                <Route path="/crear-admin/:idUsuario" exact element= {<CrearAdmin/>} />
+                <Route path="/actualizar-admin/:idAdmin" exact element= {<ActualizarAdmin/>} />
                 <Route path="/consultar-admin/:usuarioSistema" exact element= {<ConsultarAdmin/>} />
                 <Route path="/home-admin" exact element= {<HomeAdmin/>} />
                 
                 
                 <Route path="/home-acudiente" exact element= {<HomeAcudiente/>} />
-                <Route path="/crear-acudiente" exact element={<CrearAcudiente/>} />
+                <Route path="/crear-acudiente/:idUsuario" exact element={<CrearAcudiente/>} />
+                <Route path="/actualizar-acudiente/:idAcudiente" exact element={<ActualizarAcudiente/>} />
 
                 
                 <Route path="/crear-alumno" exact element={<CrearAlumno/>} />
                 <Route path="/home-alumno" exact element={<HomeAlumno/>} />
-                <Route path="/actualizar-alumno/:id" exact element={<ActualizarAlumno/>} />
+                <Route path="/actualizar-alumno/:idAlumno" exact element={<ActualizarAlumno/>} />
                 
                 <Route path="/menu-materia" exact element={<MenuMateria/>} />
                 <Route path="/crear-materia" exact element={<CrearMateria/>} />

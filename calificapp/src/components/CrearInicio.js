@@ -9,7 +9,6 @@ import crud from '../utils/crud';
 const CrearInicio = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
-        cedula:'',
         nombre: '',
         email: '',
         password: '',
@@ -17,7 +16,7 @@ const CrearInicio = () => {
         tipoUsuario: ''
     })
 
-    const { cedula, nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
+    const {  nombre, email, password, confirmar, tipoUsuario } = usuario;  //para back
 
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
@@ -51,7 +50,6 @@ const CrearInicio = () => {
 
         } else {
             const data = {
-                cedula: usuario.cedula,
                 nombre: usuario.nombre,
                 email: usuario.email,
                 password: usuario.password,
@@ -102,7 +100,6 @@ const CrearInicio = () => {
                 })
 
                 setUsuario({  //limpiar las cajas
-                    cedula:'',
                     nombre: '',
                     email: '',
                     password: '',
@@ -143,16 +140,7 @@ const CrearInicio = () => {
                 className='my-10 bg-white shadow rounded-lg p-10'
             >
            <div className='my-5'>
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Cedula</label>
-                <input
-                    type="number"
-                    id="cedula"
-                    name="cedula"
-                    placeholder='Ingrese la cedula'
-                    className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                    value={cedula}
-                    onChange={onChange}
-                />  
+                  
                 <label className='uppercase text-gray-600 block text-xl font-bold' >Nombre</label>
                 <input
                     type="nombre"
@@ -216,7 +204,7 @@ const CrearInicio = () => {
             />
             <Link 
             to={"/login"}
-            className="block text-center my-5 text-blue-600 uppercase text-sm"
+            className="text-slate-600 mb-3 hover:text-slate-500 block text-center text-sm font-bold uppercase"
             >Regresar</Link>
          </form>
         </div>

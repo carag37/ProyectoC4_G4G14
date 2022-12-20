@@ -1,8 +1,9 @@
-import React, { useState }  from 'react';
-import Header from './Header';
-import Sidebar from './Sidebar'; 
-import crud from '../conexiones/crud';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState }  from 'react';
+import Header from '../Header.js';
+import Sidebar from '../Sidebar.js';
+import crud from '../../utils/crud.js';
+import {useNavigate, useParams } from 'react-router-dom';
+import swal from 'sweetalert'; 
 
 const ActualizarAcudiente = () => {
   const navigate = useNavigate(); 
@@ -11,7 +12,6 @@ const ActualizarAcudiente = () => {
   console.log(idAcudiente);
 
     const [acudiente, setAcudiente] = useState({
-        cedula:'',
         nombre: '',
         direccion: '',
         telefono: '',
@@ -22,13 +22,13 @@ const ActualizarAcudiente = () => {
       const cargarAcudiente = async () =>{
         const response = await crud.GET(`/api/acudientes/${idAcudiente}`);
        // console.log(response);
-        setCategoria(response.acudiente;
+        setAcudiente(response.acudiente);
       }
       useEffect(() =>{ 
-        cargarCategoria();
+        cargarAcudiente();
       },[]);
 
-    let { cedula, nombre, direccion, telefono, parentesco } = acudiente;
+    let { nombre, direccion, telefono, parentesco } = acudiente;
 
       const onChange = (e) =>{
         setAcudiente({
@@ -39,11 +39,10 @@ const ActualizarAcudiente = () => {
 
       const actualizarAcudiente = async () =>{
         const data = {
-            cedula: acudiente.cedula,
             nombre: acudiente.nombre,
             direccion: acudiente.direccion,
             telefono: acudiente.telefono,
-            //alumno:'' ,
+            //alumno: acudiente.alumno,
             parentesco: acudiente.parentesco
         }
         const response = await crud.PATCH(`/api/acudiente/${idAcudiente}`, data);
@@ -80,7 +79,7 @@ const ActualizarAcudiente = () => {
         <Sidebar/>
         <main className='flex-1'>
         <div className='mt-10 flex justify-center'>
-        <h1 className="inline bg-gradient-to-r from-indigo-200 via-violet-700 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
+        <h1 className='text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
               Actualizar Acudiente
             </h1>
         </div>
@@ -91,16 +90,7 @@ const ActualizarAcudiente = () => {
                     onSubmit={onSubmit}
                 >
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600 block text-xl font-bold'>Cédula</label>
-                        <input
-                            type="number"
-                            id="cedula"
-                            name="cedula"
-                            placeholder='Digite la Cedula'
-                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                            value={cedula}
-                            //onChange={onChange}
-                        />
+                      
                         <label className='uppercase text-gray-600 block text-xl font-bold'>Nombre</label>
                         <input
                             type="text"
@@ -145,13 +135,9 @@ const ActualizarAcudiente = () => {
 
                         <input 
                             type="submit"
-                            value="Crear Acudiente"
+                            value="Actualizar  Acudiente"
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
-
-                        <Link to={"/home-admin"}
-                           className="block text-center my-5 text-violet-600 uppercase text-sm"
-                        >Regresar</Link>
                     </div>
             </form>
         </div >
@@ -159,11 +145,6 @@ const ActualizarAcudiente = () => {
 
         </main>
       </div>
-      
-      
-    
-      
-      
       </>
     );
 }

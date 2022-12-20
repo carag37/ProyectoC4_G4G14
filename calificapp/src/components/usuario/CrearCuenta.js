@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import swalt from 'sweetalert/dist/sweetalert.min.js';
-import crud from '../utils/crud';
+import crud from '../../utils/crud';
+import Header from '../Header';
+import Sidebar from '../Sidebar';
 
 
 
@@ -126,7 +128,10 @@ const CrearCuenta = () => {
 
 
     return (
-
+    <>
+      <Header />
+      <div className='md:flex md:min-h-screen'>
+        <Sidebar />
         <main className="containter mx-auto mt-5 md:mt-20 p- md:flex md:justify-center">
             <div className="md:w-2/3 lg:w-2/5">
                 <h1 className="text-3xl block text-center font-bold text-slate-200">
@@ -136,7 +141,6 @@ const CrearCuenta = () => {
                 <form onSubmit={onSubmit} className="my-10 bg-white shadow-blue-300 rounded-lg p-6">
 
                     <div className="my-5">
-
                         <label className="text-2xl font-bold uppercase text-slate-600 block">Nombre</label>
                         <input
                             type="text"
@@ -208,8 +212,8 @@ const CrearCuenta = () => {
 
             </div>
         </main>
-
-
+        </div>
+   </>
 
     )
 

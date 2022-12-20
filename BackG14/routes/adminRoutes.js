@@ -1,12 +1,12 @@
 import express from "express";
 import loginMiddleware from "../middleware/loginMiddleware.js";
-import { leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin, leerAdminUser } from "../controllers/adminController.js";
+import { leerAdmin, crearAdmin, actualizarAdmin, borrarAdmin, leerAdminId } from "../controllers/adminController.js";
 
 const router = express.Router();
  
 
 router.get("/", loginMiddleware, leerAdmin);
-router.get("/:id", loginMiddleware,leerAdminUser);
+router.get("/:id", loginMiddleware,leerAdminId);
 
 router.post( "/", loginMiddleware,crearAdmin);
 

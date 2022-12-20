@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import crud from '../../utils/crud.js';
 import swal from 'sweetalert';
 import Header from '../Header.js';
@@ -10,16 +10,20 @@ function CrearAcudiente() {
 
     const navigate = useNavigate();
 
+    const {idUsuario} = useParams();
+    console.log(idUsuario);
+
+
     //variables de entorno, son las que van a capturar lo que se escriba en las cajas
     const [acudiente, setAcudiente] = useState({
-        cedula:'',
         nombre:'',
         direccion:'',
         telefono:'',
         parentesco:'',
+        usuarioSistema:'',
     })
 
-    const {cedula,nombre,direccion,telefono, parentesco} = acudiente;
+    const {nombre,direccion,telefono, parentesco} = acudiente;
 
     //funcion que permite leer el evento dentro del formulario
     const onChange = (e) =>{  
@@ -30,13 +34,13 @@ function CrearAcudiente() {
        })
     }
 
-    const nuevoAcudiente = async() =>{
+    const crearAcudiente = async() =>{
         const data = {
-            cedula: acudiente.cedula,
             nombre: acudiente.nombre,
             direccion: acudiente.direccion,
             telefono: acudiente.telefono,
-            parentesco: acudiente.parentesco
+            parentesco: acudiente.parentesco,
+            usuarioSistema: idUsuario
           }
 
         console.log(data);
@@ -77,22 +81,16 @@ function CrearAcudiente() {
                   }
                 });      
                }
-               setAcudiente({
-                nombre:'',
-                direccion:'',
-                telefono:'',
-                parentesco:'',
-            
-              })
+               
               //redireccionar a la pantalla de admin
-              navigate("/admin"); 
+              navigate("/home-acudiente"); 
 
         }
     
       
     const onSubmit = (e) => {
        e.preventDefault();  //no deja que la pagina se recargue
-        nuevoAcudiente();      //funcion que genera el evento del boton
+        crearAcudiente();      //funcion que genera el evento del boton
       }
 
         
@@ -115,16 +113,7 @@ function CrearAcudiente() {
                     onSubmit={onSubmit}
                 >
                     <div className='my-5'>
-                        <label className='uppercase text-gray-600 block text-xl font-bold'>Cédula</label>
-                        <input
-                            type="number"
-                            id="cedula"
-                            name="cedula"
-                            placeholder='Digite la Cedula'
-                            className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                            value={cedula}
-                            onChange={onChange}
-                        />
+                        
                         <label className='uppercase text-gray-600 block text-xl font-bold'>Nombre</label>
                         <input
                             type="text"
@@ -173,7 +162,7 @@ function CrearAcudiente() {
                             className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
                         />
 
-                        <Link to={"/home-admin"}
+                        <Link to={"/home-acudiente"}
                            className="block text-center my-5 text-violet-600 uppercase text-sm"
                         >Regresar</Link>
                     </div>

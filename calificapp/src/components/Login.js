@@ -31,7 +31,7 @@ function Login() {
             password: usuario.password
         }
         console.log(data);
-        const response = await crud.POST('/api/login', data);
+        const response = await crud.POST(`/api/login`, data);
         const mensaje = response.msg;
         console.log(mensaje);
         if (mensaje === 'El usuario no existe') {
@@ -138,7 +138,7 @@ function Login() {
 
                         <Link 
                             className="text-slate-600 mb-3 hover:text-slate-500 block text-center text-sm font-bold uppercase" 
-                            to={"/login"}>Regresar
+                            to={"/crear-inicio"}>Regresar
                         </Link>
 
 

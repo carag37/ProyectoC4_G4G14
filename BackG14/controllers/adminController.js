@@ -11,16 +11,19 @@ async function leerAdmin (req,res) {
     
 }
 
-async function leerAdminUser (req,res) {
+async function leerAdminId (req,res) {
     
-    const {id} = req.params;
-    const admin = await Admin.find().where("usuarioSistema").equals(id);
-    res.json(admin);
-        
+    const {id} = req.params
+    try{
+        const admin = await Admin.findById(id);
+        res.json({admin});
+    }catch(error){
+        console.log(error);
     }
+ }
 async function crearAdmin (req,res) {
 
-    const {cedula,nombre,direccion,telefono,estado,usuarioSistema} =req.body;
+    const {nombre,direccion,telefono,estado,usuarioSistema} =req.body;
 
     try{
         let admin = await Admin.findOne({usuarioSistema});
@@ -48,7 +51,7 @@ async function actualizarAdmin (req,res) {
         return res.status(400).json({msg:"El administrador no ha sido encontrado"});
 
     }
-    admin.cedula = req.body.cedula || admin.cedula;
+    
     admin.nombre = req.body.nombre || admin.nombre;
     admin.direccion = req.body.direccion || admin.direccion;
     admin.telefono = req.body.telefono || admin.telefono;
@@ -76,4 +79,4 @@ async function borrarAdmin (req,res) {
     } 
 }
 
-export {leerAdmin, crearAdmin, actualizarAdmin, leerAdminUser, borrarAdmin}
+export {leerAdmin, crearAdmin, actualizarAdmin, leerAdminId, borrarAdmin}

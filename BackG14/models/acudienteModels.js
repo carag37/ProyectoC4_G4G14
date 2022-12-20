@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const AcudienteSchema = mongoose.Schema({
-    cedula:{type: Number, Required:true, trim:true},
     nombre: { type: String, required: true, trim: true},
     direccion: { type: String, required: true, trim: true},
     telefono: { type: Number, required: true, trim: true},

@@ -13,9 +13,16 @@ async function leerUsuario (req,res) {
 
 async function leerUserId (req,res) {
     
-    const {id} = req.params;
-    const usuario = await Usuario.find().where("_id").equals(id);
-    res.json(usuario);
+    const {id} = req.params
+    try{
+        const usuario = await Usuario.findById(id);
+        res.json({usuario});
+    }catch(error){
+        console.log(error);
+    }
+
+        //const usuario = await Usuario.find().where("_id").equals(id);
+    
         
     }
 
@@ -24,12 +31,13 @@ async function leerTipo (req,res) {
         const {tipoUsuario} = req.params;
         const usuario = await Usuario.find().where("tipoUsuario").equals(tipoUsuario);
         res.json(usuario);
+        console.log(usuario);
             
         }
     
     
 async function crearUsuario (req,res) {
-    const { cedula, nombre, password, email} = req.body;  
+    const {  nombre, password, email} = req.body;  
     
     const salt = await bcrypt.genSalt(10);
     //const passwordCrypt = await bcrypt.hash(password,salt);
@@ -46,6 +54,7 @@ async function crearUsuario (req,res) {
          //hash
          usuario.password = await bcrypt.hash(password, salt);
 
+         //Guardar Usuario en la base de datos
         const usuarioGuardado = await usuario.save();
         res.json(usuarioGuardado);
 
@@ -64,7 +73,6 @@ async function actualizarUsuario (req,res) {
         return res.status(400).json({msg:"El usuario no ha sido encontrado"});
 
     }
-    usuario.cedula = req.body.cedula || usuario.cedula; 
     usuario.nombre = req.body.nombre || usuario.nombre;
     usuario.password = req.body.password || usuario.password;
     usuario.email = req.body.email || usuario.email;

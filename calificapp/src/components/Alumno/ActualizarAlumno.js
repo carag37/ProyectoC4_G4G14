@@ -8,11 +8,11 @@ import swal from 'sweetalert';
 const ActualizarAlumno = () => {
     const navigate = useNavigate(); 
 
-  const {idAlumno} = useParams();
-    console.log(idAlumno);
+  const {id} = useParams();
+    console.log(id);
     
     const [alumno, setAlumno] = useState({
-        id:'',
+        idAlumno:'',
         nombre:'',
         direccion:'',
         telefono:'',
@@ -21,8 +21,8 @@ const ActualizarAlumno = () => {
       })
 
       const cargarAlumno = async () =>{
-        const response = await crud.GET( `/api/admins/${idAlumno} `);
-        console.log(response);
+        const response = await crud.GET( `/api/alumnos/${id} `);
+        console.log(response.alumno);
         setAlumno(response.alumno);
      } 
       useEffect(() =>{          
@@ -31,7 +31,7 @@ const ActualizarAlumno = () => {
       },[]);
 
       
-    let {id, nombre, direccion, telefono, edad } = alumno;
+    let {idAlumno, nombre, direccion, telefono, edad } = alumno;
 
       const onChange = (e) =>{
         setAlumno({
@@ -42,7 +42,7 @@ const ActualizarAlumno = () => {
 
       const actualizarAlumno = async () =>{
         const data = {
-            id:alumno._id,
+            idAlumno:alumno.idAlumno,
             nombre: alumno.nombre,
             direccion: alumno.direccion,
             telefono: alumno.telefono,
@@ -102,8 +102,8 @@ const ActualizarAlumno = () => {
                                     name="id"
                                     placeholder="Ingrese Id"
                                     className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600 "
-                                    value={id}
-                                    //onChange={onChange}
+                                    value={idAlumno}
+                                    onChange={onChange}
                                 />
 
                                 <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Nombre</label>
