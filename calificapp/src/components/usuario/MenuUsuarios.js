@@ -20,7 +20,7 @@ const MenuUsuarios = () => {
     }
 
     const crearDocente = () => {
-        navigate("/home-usuario")
+        navigate("/ver-docente")
     }
 
     const crearAlumno = () => {
@@ -55,7 +55,7 @@ const MenuUsuarios = () => {
 
                                 <input
                                     type="submit"
-                                    value="Aministrador"
+                                    value="Administrador"
                                     className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                                     onClick = {crearAdmin  }
                                 />

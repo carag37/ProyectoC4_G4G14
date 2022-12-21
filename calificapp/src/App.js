@@ -108,7 +108,7 @@ function App() {
                 <Route path="/menu-docente" exact element={<MenuDocente />} />
                 <Route path="/crear-docente" exact element={<CrearDocente />} />
                 <Route path="/ver-docente" exact element={<VerDocente />} />
-                <Route path="/actualizar-docente" exact element={<ActualizarDocente />} />
+                <Route path="/actualizar-docente/:idDocente" exact element={<ActualizarDocente />} />
 
                 <Route path="/panel-docente" exact element= {<PanelDocente/>} />
                 <Route path="/panel-acudiente" exact element= {<PanelAcudiente/>} />

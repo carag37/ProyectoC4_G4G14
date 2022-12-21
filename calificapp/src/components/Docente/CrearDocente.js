@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
-import crud from "../../utils/crud";
+import crud from "../../utils/crud.js";
 import swalt from 'sweetalert/dist/sweetalert.min.js';
 
 const CrearDocente = () => {

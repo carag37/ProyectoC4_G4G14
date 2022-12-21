@@ -15,10 +15,6 @@ const MenuDocente = () => {
         navigate("/ver-docente")
     }
 
-    const actualizarDocente = () => {
-        navigate("/actualizar-docente")
-    }
-
     return (
         <>
             <Header className="-z-10" />
@@ -46,18 +42,11 @@ const MenuDocente = () => {
 
                                 <input
                                     type="submit"
-                                    value="Ver Docente"
+                                    value="Ver Docentes"
                                     className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                                     onClick = { verDocente }
                                 />
-
-                                <input
-                                    type="submit"
-                                    value="Actualizar Docente"
-                                    className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
-                                    onClick = { actualizarDocente }
-                                />
-
+                                
                             </div>
 
                         </form>

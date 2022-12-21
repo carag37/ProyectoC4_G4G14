@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import Header from "../Header";
-import Sidebar from "../Sidebar";
-import crud from "../../utils/crud";
-import swalt from 'sweetalert/dist/sweetalert.min.js';
+import Header from '../Header.js';
+import Sidebar from '../Sidebar.js';
+import crud from '../../utils/crud.js';
+import swal from 'sweetalert';
 
 const VerDocente = () => {
 
@@ -26,125 +26,108 @@ const VerDocente = () => {
 
     const cargarDocentes = async () => {
 
-        const response = await crud.GET('/api/docentes/all');
-        setDocentes(response)
+        const response = await crud.GET('/api/docentes');
+        setDocentes(response.docente)
     }
 
 
     useEffect(() => {
         cargarDocentes();
-    })
+    }, [navigate]);
 
     const borrarDocente = async (IdCategoria, nombre) => {
-
-           
+        swal({
+            title: "Estas seguro de eliminar el docente?",
+            text: "Una vez eliminado, no se podra recuperar este usuario",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          
+          .then((willDelete) => {
+            if (willDelete) {
             const data = {
                 "_id": IdCategoria,               
             }
             
-            const response = await crud.DELETE('/api/docentes', data)
+            const response = crud.DELETE(`/api/docentes/${IdCategoria}`);
 
-            if(response.msg === "El docente " + IdCategoria + " eliminado correctamente"){
-
-                console.log("ok")
-
-                new swalt({
-                            title: 'Información',
-                            text: "El docente " + nombre + " eliminado correctamente",
-                            icon: 'success',
-                            button: {
-                                confirm: {
-                                    text: 'OK',
-                                    value: true,
-                                    visible: true,
-                                    className: 'btn btn-primary',
-                                    closeModal: true
-                                }
-                            }
-                        })
+            if (response) {
+                swal("El docente ha sido borrado", {
+                  icon: "success",
+                });
+              }
+              cargarDocentes();
+    
+            } else {
+              swal("Se canceló la acción");
             }
-                    
-           
-
-
+          });                 
     }
 
-    const editarDocente = async (IdCategoria, nombre) => {
-
-           
-        const data = {
-            "_id": IdCategoria,
-            "nombre": nombre               
-        }
-
-        console.log(data)
-        navigate("/actualizar-docente")        
-       
-
-
-}
 
     return (
         <>
-            <Header className="-z-10" />
-            <div className="z-0 md:flex md:min-h-screen">
+            <Header  />
+            <div className="md:flex md:min-h-screen">
                 <Sidebar />
-                <main className="flex-1 text-slate-200 text-3xl mt-8 p-5 w-1/3 text-center">
-                    <div>
-
-                        <h1> Docente</h1>
-                        <h3> Listado de Docentes</h3>
-
-                        <table className="table table-bordered">
-                            <thead>
+                <main className="flex-1">
+                <div className="mt-10 mx-5" >
+                    <Link
+                    to={`/crear-docente`}
+                    className="bg-blue-600 p-3  text-slate-200 uppercase font-bold   text-center rounded-lg"
+                    >Crear Docente
+                    </Link>
+                </div>
+                <h1 className='text-4xl mt-10 text-slate-200 font-bold text-center mb-9 md:mb-0'>
+                Listado de Docentes
+                </h1>
+                    <br></br>
+                        <div className = "mx-10">
+                         <table className = "rounded-xl border" >
+                            <thead className='bg-slate-400'>
                                 <tr>
                                     <th style={{ width: '20%' }}>Id</th>
-                                    <th style={{ width: '30%' }}>Nombre</th>
-                                    <th style={{ width: '50%' }}>Materias</th>
+                                    <th style={{ width: '10%' }}>Nombre</th>
+                                    <th style={{ width: '55%' }}>Materias</th>
+                                    <th style={{ width: '35%' }}>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-slate-200 text-slate-700 text-sm">
+
+                            <tbody className="bg-slate-300 rounded-t-xl border">
                                 {
                                     docente.map(
                                         item =>
                                             <tr key={item._id}>
-                                                <td>{item._id}</td>
-                                                <td>{item.nombre}</td>
-                                                <td>{item.materias}</td>
+                                                <td className="text-center p-1">{item._id}</td>
+                                                <td className="text-center p-1">{item.nombre}</td>
+                                                <td className="text-center p-1">{item.materias}</td>
                                                 <td>
-                                                    <button onClick={()=>editarDocente(item._id, item.nombre)}>
-                                                       Editar 
-                                                    </button>
-                                                    <button onClick={()=>borrarDocente(item._id, item.nombre)}>
-                                                        Eliminar 
-                                                    </button>
-                                                 
-                                                </td>
+                                                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                        <Link
+                                                        to={`/actualizar-docente/${item._id}`}
+                                                        className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
+                                                        >Editar</Link>
+                                                        
+                                                        <button
+                                                        onClick={() => borrarDocente(item._id)}
+                                                        className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
+                                                        >Eliminar</button>
+                                                    </div>
+                                                    </td>
 
                                             </tr>
-
-
                                     )
-
-
                                 }
-
-                            </tbody>
-
-                        </table>
-
-                        <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-materia"}>Regresar</Link>
-
+                        </tbody>
+                    </table>
                     </div>
 
+                        <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-docente"}>Regresar</Link>                   
                 </main>
-
             </div>
-
         </>
-
     )
-
 }
 
 export default VerDocente;

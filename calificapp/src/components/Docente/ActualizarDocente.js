@@ -5,50 +5,50 @@ import crud from '../../utils/crud.js';
 import { useNavigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert'; 
 
-const ActualizarAdmin = () => {
+const ActualizarDocente = () => {
     
   const navigate = useNavigate(); 
 
-  const {idAdmin} = useParams();
-    console.log(idAdmin);
+  const {idDocente} = useParams();
+    console.log(idDocente);
     
-    const [admin, setAdmin] = useState({
-        nombre:'',
-        direccion:'',
-        telefono:'',
-        estado:'',
-        
+    const [docente, setDocente] = useState({
+      nombre: '',
+      direccion: '',
+      telefono: 57,
+      materias: [],
       })
-      const cargarAdmin = async () =>{
-        const response = await crud.GET(`/api/admins/${idAdmin}`);
-        console.log(response.admin);
-        setAdmin(response.admin);
+      const cargarDocente = async () =>{
+        const response = await crud.GET(`/api/docentes/${idDocente}`);
+        console.log(response.docente);
+        setDocente(response.docente);
       }
       useEffect(() =>{ 
-        cargarAdmin();
+        cargarDocente();
       },[]);
 
       
-    let { nombre, direccion, telefono, estado } = admin;
+    let { nombre, direccion, telefono, materias } = docente;
 
       const onChange = (e) =>{
-        setAdmin({
-          ...admin,
+        setDocente({
+          ...docente,
           [e.target.name]: e.target.value
         })
       }
 
-      const actualizarAdmin = async () =>{
+      const actualizarDocente = async () =>{
         const data = {
-            nombre: admin.nombre,
-            direccion: admin.direccion,
-            telefono: admin.telefono,
-            estado: admin.estado
+          nombre: docente.nombre,
+          direccion: docente.direccion,
+          materias: [docente.materias],
+          telefono: docente.telefono,
+                 
         }
-       //console.log(data, idAdmin);
-          const response = await crud.PATCH(`/api/admins/${idAdmin}`, data);
+       //console.log(data, idocente);
+          const response = await crud.PATCH(`/api/docentes/${idDocente}`, data);
           console.log(response);
-          const mensaje1 = "El usuario Administrador se actualizo correctamente";
+          const mensaje1 = "El docente se actualizó correctamente";
           swal({
             title:'Información',
             text: mensaje1,
@@ -66,14 +66,14 @@ const ActualizarAdmin = () => {
             
           });
           
-          navigate("/home-admin");
+          navigate("/ver-docente");
           window.location.reload();
          
       }
     
       const onSubmit = (e) => {
         e.preventDefault();
-        actualizarAdmin();
+        actualizarDocente();
       }
       
      
@@ -86,7 +86,7 @@ const ActualizarAdmin = () => {
                 <main className='flex-1'>
                     <div className='mt-10 flex justify-center'>
                     <h1 className= 'text-4xl text-blue-600 font-bold text-center mb-5 md:mb-0'>
-                        Actualizar Usuario Administrador
+                        Actualizar Docente
                     </h1>
         </div>
         
@@ -108,7 +108,7 @@ const ActualizarAdmin = () => {
                   onChange={onChange}
                 />
 
-                <label className='uppercase text-gray-600 block text-xl font-bold' >Direccion</label>
+                <label className='text-2xl font-bold uppercase text-gray-600 block' >Direccion</label>
                 <input
                   type="text"
                   id="direccion"
@@ -119,7 +119,7 @@ const ActualizarAdmin = () => {
                   onChange={onChange}
                 />
 
-              <label className='uppercase text-gray-600 block text-xl font-bold' >Telefono</label>
+              <label className='text-2xl font-bold uppercase text-gray-600 block' >Telefono</label>
                 <input
                   type="number"
                   id="telefono"
@@ -130,21 +130,21 @@ const ActualizarAdmin = () => {
                   onChange={onChange}
                 />
               
-              <label className='uppercase text-gray-600 block text-xl font-bold' >Estado</label>
+              <label className='text-2xl font-bold uppercase text-gray-600 block' >Materias</label>
                 <input
-                  type="boolean"
-                  id="estado"
-                  name="estado"
-                  placeholder='Estado de Usuario'
+                  type="text"
+                  id="materias"
+                  name="materias"
+                  placeholder='Materias del docente'
                   className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                  value={estado}
+                  value={materias}
                   onChange={onChange}
                 />
               </div>
               <input 
                 type="submit"
-                value="Actualizar Admin"
-                className="bg-violet-600 mb-5 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-violet-400 transition-colors"
+                value="Actualizar docente"
+                className="bg-blue-600 mt-10 text-2xl w-5/5 p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                 />
             </form>
         </div >
@@ -156,4 +156,4 @@ const ActualizarAdmin = () => {
     );
 }
 
-export default ActualizarAdmin;
+export default ActualizarDocente;
