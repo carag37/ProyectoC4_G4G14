@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Academia from '../assets/img/Academia.png';
+import Academia from '../../assets/img/Academia.png';
 
-const Header = () => { //nombre del archivo
+const HeaderDocente = () => { //nombre del archivo
     
     const navigate = useNavigate();
 
@@ -16,8 +16,7 @@ const Header = () => { //nombre del archivo
             <div className='md:flex md:justify-between'>
             <img src={Academia} size='40px' width="150" height="100" alt="LogoInstitución"/>
                 <h2 className="text-3xl flex justify-center rounded-lg text-blue-600 font-bold p-5 md:mb-0 uppercase" >
-                    CalificAPP - Academia Infantil - Panel Administrador
-                </h2>
+                    CalificAPP - Academia Infantil - Panel De Docentes                </h2>
                 <div className="flex flex-col md:flex-row items-center gap-4">
                     <input type="submit" value="Cerrar sesión" onClick={cerrarSesion}
                         className="bg-blue-600 w-full p-2 rounded-lg hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase" />
@@ -29,4 +28,4 @@ const Header = () => { //nombre del archivo
 
 }
 
-export default Header;
+export default HeaderDocente;

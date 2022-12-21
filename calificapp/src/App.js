@@ -48,6 +48,10 @@ import CrearBoletin from "./components/Boletin/CrearBoletin";
 import VerBoletin from "./components/Boletin/VerBoletin";
 import ActualizarBoletin from "./components/Boletin/ActualizarBoletin";
 
+//Paneles Usuarios
+import PanelDocente from "./components/PanelDocente/PanelDocente.js";
+import PanelAcudiente from "./components/PanelAcudiente/PanelAcudiente.js";
+
 function App() {
     return (
         <Router>
@@ -94,6 +98,9 @@ function App() {
                 <Route path="/crear-boletin" exact element={<CrearBoletin/>} />
                 <Route path="/ver-boletin" exact element={<VerBoletin/>} />
                 <Route path="/actualizar-boletin" exact element={<ActualizarBoletin/>} />
+
+                <Route path="/panel-docente" exact element= {<PanelDocente/>} />
+                <Route path="/panel-acudiente" exact element= {<PanelAcudiente/>} />
             </Routes>
         </Router>
 

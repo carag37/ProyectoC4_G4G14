@@ -4,6 +4,7 @@ import crud from '../utils/crud.js';
 import swal from 'sweetalert';
 
 
+
 function Login() {
 
     const navigate = useNavigate();
@@ -32,6 +33,10 @@ function Login() {
         }
         console.log(data);
         const response = await crud.POST(`/api/login`, data);
+        
+
+        console.log(response.usuario);
+        
         const mensaje = response.msg;
         console.log(mensaje);
         if (mensaje === 'El usuario no existe') {
@@ -72,8 +77,14 @@ function Login() {
 
             localStorage.setItem('token', jwt);
             //redireccionar a la pantalla de admistrador
+            
+           // const response2 = await crud.GET(`/api/usuarios/${usuario.email}`);
+            //console.log(response2.usuario)
+            //if(response2.usuario.tipo === "Administrador" || response2.usuario.tipo === "administrador"){
+                navigate("/admin");    
+           // }
 
-            navigate("/admin");
+           
 
         }
     }

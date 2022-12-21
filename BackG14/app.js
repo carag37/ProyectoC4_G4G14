@@ -10,18 +10,6 @@ import loginRoutes from "./routes/loginRoutes.js";
 import cursoRoutes from  "./routes/cursoRoutes.js";
 import cors from "cors";
 import boletinRoutes from "./routes/boletinRoutes.js";
-//const cors =require("cors");
-
-
-// mongoose.connect("mongodb+srv://calificAPP:rootcalificAPP@clustercalificapp.c6gvwmq.mongodb.net/calificAPP-db?retryWrites=true&w=majority", (err)=>{
-//     if (err) {
-//         console.log(err);
-//     } else{
-       
-//         console.log("Se ha conectado a la base de datos MongoDB");
-//     }
-// })
-
 //crear la app como express
 const app = express();
 

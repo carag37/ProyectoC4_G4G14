@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'; 
 import { useNavigate} from 'react-router-dom';
-import Header from './Header';
-import Sidebar from './Sidebar';
+import HeaderAcudiente from './HeaderAcudiente.js';
+import SidebarAcudiente from './SidebarAcudiente.js';
 
-const Admin = () => {
+const PanelAcudiente = () => {
   
   const navigate = useNavigate(); 
 
@@ -20,17 +20,16 @@ const Admin = () => {
 
   return (
     <>
-        <Header className="-z-10" />
+        <HeaderAcudiente className="-z-10" />
         <div className="z-0 md:flex md:min-h-screen">
-            <Sidebar/>
+            <SidebarAcudiente/>
             <main className="flex-1 text-slate-50 text-3xl mt-8 p-5 block text-center">
-              <p>
+            <p>
                  Bienvenido
                  <br></br>
                  "La Educación es el arma más poderosa que puedes usar para cambiar el mundo. (Nelson Mandela)"
 
               </p>
-                 
             </main>
             
         </div>
@@ -43,4 +42,4 @@ const Admin = () => {
     );
 }
 
-export default Admin;
+export default PanelAcudiente;

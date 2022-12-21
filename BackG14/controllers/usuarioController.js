@@ -26,12 +26,16 @@ async function leerUserId (req,res) {
         
     }
 
-async function leerTipo (req,res) {
+async function leerEmail (req,res) {
     
-        const {tipoUsuario} = req.params;
-        const usuario = await Usuario.find().where("tipoUsuario").equals(tipoUsuario);
-        res.json(usuario);
+    const {email} = req.params
+    try{
+        const usuario = await Usuario.find(email);
+        res.json({usuario});
         console.log(usuario);
+    }catch(error){
+        console.log(error);
+    }
             
         }
     
@@ -100,4 +104,4 @@ async function borrarUsuario (req,res) {
   } 
 }
 
-export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario,leerUserId, leerTipo }
+export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario,leerUserId, leerEmail }

@@ -111,7 +111,7 @@ const CrearCuenta = () => {
 
                 //redireccionar a la pantalla de Login
 
-                navigate("/login")
+                navigate("/home-usuario")
 
 
              }
@@ -125,20 +125,23 @@ const CrearCuenta = () => {
         crearCuenta();   //nueva función para crear un arreglo de data para enviar al Back
     }
 
-
+//className="containter mx-auto mt-5 md:mt-20 p- md:flex md:justify-center"
 
     return (
     <>
       <Header />
       <div className='md:flex md:min-h-screen'>
         <Sidebar />
-        <main className="containter mx-auto mt-5 md:mt-20 p- md:flex md:justify-center">
-            <div className="md:w-2/3 lg:w-2/5">
+        <main  className= 'flex-1 md:justify-center'>
+            <div className="md:w-2/5 lg:w-2/5">
                 <h1 className="text-3xl block text-center font-bold text-slate-200">
                     CalificAPP - Crear Cuenta
                 </h1>
 
-                <form onSubmit={onSubmit} className="my-10 bg-white shadow-blue-300 rounded-lg p-6">
+                <form 
+                    onSubmit={onSubmit} 
+                    className='my-10 bg-white shadow rounded-lg p-10'
+                >
 
                     <div className="my-5">
                         <label className="text-2xl font-bold uppercase text-slate-600 block">Nombre</label>
@@ -202,9 +205,15 @@ const CrearCuenta = () => {
 
                     </div>
 
-                    <input type="submit" value="Crear Cuenta" className="bg-blue-600 mb-3 text-2xl w-full p-2 border rounded-lg hover:cursor-pointer hover:bg-blue-500 text-slate-200 font-bold uppercase" />
+                    <input type="submit" 
+                        value="Crear Cuenta" 
+                        className="bg-blue-600 mb-3 text-2xl w-full p-2 border rounded-lg hover:cursor-pointer hover:bg-blue-500 text-slate-200 font-bold uppercase" 
+                    />
 
-                    <Link className="text-slate-600 mb-3 hover:text-slate-500 block text-center text-sm font-bold uppercase"  to={"/login"}>Regresar</Link>
+                    <Link className="text-slate-600 mb-3 hover:text-slate-500 block text-center text-sm font-bold uppercase"  
+                        to={"/home-usuario"}
+                        >Regresar
+                    </Link>
 
                 </form>
 

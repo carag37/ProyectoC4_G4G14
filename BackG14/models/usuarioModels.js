@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const tipo = ["Administrador", "Docente", "Acudiente"];
+const tipo = ["Administrador", "Docente", "Acudiente", "administrador", "docente", "acudiente"];
 
 const UsuarioSchema = mongoose.Schema({
     nombre: { type: String, required: true, trim: true},
