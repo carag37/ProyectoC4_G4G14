@@ -10,6 +10,7 @@ router.post("/", crearDocente)
 //GET
 router.get("/:id", leerDocente)
 router.get("/", leerDocentes)
+router.get("/all", leerDocentes)
 
 
 //Actualizar Docente

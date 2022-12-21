@@ -26,7 +26,10 @@ const Sidebar = () => { //nombre del archivo
                 to={"/menu-boletin"}
             className="bg-blue-600 block w-full text-center p-4 text-slate-200 hover:bg-blue-500 text-3xl font-bold">
             Boletines</Link>
-            
+            <Link 
+                to={"/menu-docente"}
+            className="bg-blue-600 block w-full text-center p-4 text-slate-200 hover:bg-blue-500 text-3xl font-bold">
+            Docentes</Link>
             </div>
         </aside>
         
