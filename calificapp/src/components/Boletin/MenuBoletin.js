@@ -15,9 +15,9 @@ const MenuBoletin = () => {
         navigate("/ver-boletin")
     }
 
-    const actualizarBoletin = () => {
-        navigate("/actualizar-boletin")
-    }
+    // const actualizarBoletin = () => {
+    //     navigate("/actualizar-boletin")
+    // }
 
     return (
         <>
@@ -51,12 +51,12 @@ const MenuBoletin = () => {
                                     onClick = { verBoletin }
                                 />
 
-                                <input
+                                {/* <input
                                     type="submit"
                                     value="Actualizar Boletin"
                                     className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                                     onClick = { actualizarBoletin }
-                                />
+                                /> */}
 
                             </div>
 

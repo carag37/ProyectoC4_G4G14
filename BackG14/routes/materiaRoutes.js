@@ -1,5 +1,5 @@
 import express from "express";
-import { leerMateria, crearMateria, actualizarMateria, borrarMateria, leerMaterias } from "../controllers/materiaController.js";
+import { leerMateriaId, crearMateria, actualizarMateria, borrarMateria, leerMaterias } from "../controllers/materiaController.js";
 import loginMiddleware from "../middleware/loginMiddleware.js";
 
 const materiaRoutes = express.Router()
@@ -10,11 +10,11 @@ const materiaRoutes = express.Router()
 materiaRoutes.post("/", loginMiddleware, crearMateria)
 //Leer
 //GET
-materiaRoutes.get("/", loginMiddleware,  leerMateria)
+materiaRoutes.get("one/:id", loginMiddleware,  leerMateriaId)
 materiaRoutes.get("/all",  loginMiddleware,  leerMaterias)
 //Actualizar
 //PUT
-materiaRoutes.patch("/", loginMiddleware, actualizarMateria)
+materiaRoutes.patch("/:id", loginMiddleware, actualizarMateria)
 //Eliminar
 //DELETE
 materiaRoutes.delete("/", loginMiddleware, borrarMateria)

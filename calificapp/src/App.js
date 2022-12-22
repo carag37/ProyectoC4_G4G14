@@ -99,12 +99,12 @@ function App() {
                 <Route path="/menu-curso" exact element={<MenuCurso/>} />
                 <Route path="/crear-curso" exact element={<CrearCurso/>} />
                 <Route path="/ver-curso" exact element={<VerCurso/>} />
-                <Route path="/actualizar-curso" exact element={<ActualizarCurso/>} />
+                <Route path="/actualizar-curso/:idCurso" exact element={<ActualizarCurso/>} />
 
                 <Route path="/menu-boletin" exact element={<MenuBoletin/>} />
                 <Route path="/crear-boletin" exact element={<CrearBoletin/>} />
                 <Route path="/ver-boletin" exact element={<VerBoletin/>} />
-                <Route path="/actualizar-boletin" exact element={<ActualizarBoletin/>} />
+                <Route path="/actualizar-boletin/:idBoletin" exact element={<ActualizarBoletin/>} />
 
                 <Route path="/menu-docente" exact element={<MenuDocente />} />
                 <Route path="/crear-docente" exact element={<CrearDocente />} />
