@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams} from 'react-router-dom';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
 import crud from '../../utils/crud.js';
-import swal from 'sweetalert';
 
 
 
-const HomeUsuario = () => {
+const ConsultarUSistemaA = () => {
 
   const navigate = useNavigate();
+  const {tipoUsuario} = useParams();
 
+  console.log(tipoUsuario)
   useEffect(() => {
     const autenticarUsuario = async () => {
       const token = localStorage.getItem("token")
-      //console.log(token)
+      console.log(token)
       if (!token) {
         navigate("/login");
       }
@@ -24,41 +25,20 @@ const HomeUsuario = () => {
 
   const [usuario, setUsuario] = useState([]);
 
-  const cargarUsuarios = async () => {
-    const response = await crud.GET(`/api/usuarios`);
+  console.log(usuario);
+  const cargarUsuarios = async (tipoUsuario) => {
+  
+    const response = await crud.GET(`/api/usuarios/${tipoUsuario}}`);
     console.log(response.usuario);
-    setUsuario(response.usuario);
+  
+    setUsuario(response.tipoUsuario);
   }
 
   useEffect(() => {
     cargarUsuarios();
   }, [])
 
-  const borrarUsuario = async (idUsuario) => {
-    swal({
-      title: "Estas seguro de eliminar el usuario?",
-      text: "una vez eliminado, no se podra recuperar este usuario",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          const response = crud.DELETE(`/api/usuarios/${idUsuario}`);
-
-          if (response) {
-            swal("El usuario ha sido borrado", {
-              icon: "success",
-            });
-          }
-          cargarUsuarios();
-
-        } else {
-          swal("se cancelo la acción");
-        }
-      });
-  }
-
+  
 
   return (
     <>
@@ -69,16 +49,12 @@ const HomeUsuario = () => {
         <main className='flex-1'>
 
           <div className="mt-10 mx-5" >
-            <Link
-              to={`/crear-cuenta`}
-              className="bg-blue-600 p-3  text-slate-200 uppercase font-bold   text-center rounded-lg"
-            >Crear Usuario
-            </Link>
+            
           </div>
 
 
           <h1 className='text-4xl text-slate-200 font-bold text-center mb-5 md:mb-0'>
-            Listado de Usuarios del Sistema
+            Listado de Usuarios del Sistema Perfil Administrador
           </h1>
           <br></br>
           <div className="mx-10">
@@ -106,17 +82,9 @@ const HomeUsuario = () => {
                             <Link
                             to={`/crear-admin/${item._id}`}
                             className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
-                          >Admin</Link>&nbsp;&nbsp;
+                          >Admin
+                          </Link>;
                         
-                          <Link
-                            to={`/actualizar-usuario/${item._id}`}
-                            className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
-                          >Editar</Link>
-                        
-                          <button
-                            onClick={() => borrarUsuario(item._id)}
-                            className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
-                          >Eliminar</button>
                           </div>
                         </td>
                       </tr>
@@ -132,4 +100,4 @@ const HomeUsuario = () => {
   );
 }
 
-export default HomeUsuario;
+export default ConsultarUSistemaA;

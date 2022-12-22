@@ -132,12 +132,12 @@ const CrearCuenta = () => {
       <Header />
       <div className='md:flex md:min-h-screen'>
         <Sidebar />
-        <main  className= 'flex-1 md:justify-center'>
-            <div className="md:w-2/5 lg:w-2/5">
+        <main  className="containter mx-auto mt-5 md:mt-20 p- md:flex md:justify-center">
+            <div className="md:w-2/3 lg:w-2/5">
                 <h1 className="text-3xl block text-center font-bold text-slate-200">
                     CalificAPP - Crear Cuenta
                 </h1>
-
+            <div className='mt-10 flex justify-center'>
                 <form 
                     onSubmit={onSubmit} 
                     className='my-10 bg-white shadow rounded-lg p-10'
@@ -216,7 +216,7 @@ const CrearCuenta = () => {
                     </Link>
 
                 </form>
-
+            </div>
 
 
             </div>

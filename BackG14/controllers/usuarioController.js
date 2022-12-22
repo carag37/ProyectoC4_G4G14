@@ -20,11 +20,20 @@ async function leerUserId (req,res) {
     }catch(error){
         console.log(error);
     }
-
-        //const usuario = await Usuario.find().where("_id").equals(id);
-    
-        
+        //const usuario = await Usuario.find().where("_id").equals(id);        
     }
+
+    async function leerUserTipo (req,res) {
+    
+        const {tipoUsuario} = req.params
+        try{
+            const usuario = await Usuario.find().where("tipoUsuario").equals(tipoUsuario);
+            res.json({usuario});
+        }catch(error){
+            console.log(error);
+        }        
+    }
+       
 
 async function leerEmail (req,res) {
     
@@ -104,4 +113,4 @@ async function borrarUsuario (req,res) {
   } 
 }
 
-export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario,leerUserId, leerEmail }
+export {leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario,leerUserId, leerEmail, leerUserTipo }

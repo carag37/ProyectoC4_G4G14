@@ -14,11 +14,13 @@ import HomeUsuario from './components/usuario/HomeUsuario.js';
 import MenuUsuarios from './components/usuario/MenuUsuarios.js'
 import ActualizarUsuario from './components/usuario/ActualizarUsuario.js';
 
+
 //Administrador
-import CrearAdmin from './components/Admin/CrearAdmin.js';
-import ActualizarAdmin from './components/Admin/ActualizarAdmin.js';
-import ConsultarAdmin from './components/Admin/ConsultarAdmin.js';
-import HomeAdmin from './components/Admin/HomeAdmin.js';
+import CrearAdmin from './components/AdminUser/CrearAdmin.js';
+import ActualizarAdmin from './components/AdminUser/ActualizarAdmin.js';
+import ConsultarAdmin from './components/AdminUser/ConsultarAdmin.js';
+import HomeAdmin from './components/AdminUser/HomeAdmin.js';
+import ConsultarUSistemaA from './components/AdminUser/ConsultarUSistemaA.js';
 
 //Acudiente
 import CrearAcudiente from './components/Acudiente/CrearAcudiente.js';
@@ -52,6 +54,7 @@ import ActualizarBoletin from "./components/Boletin/ActualizarBoletin";
 import PanelDocente from "./components/PanelDocente/PanelDocente.js";
 import PanelAcudiente from "./components/PanelAcudiente/PanelAcudiente.js";
 
+
 function App() {
     return (
         <Router>
@@ -67,7 +70,8 @@ function App() {
                 <Route path="/crear-cuenta" exact element={<CrearCuenta/>} />
                 <Route path="/home-usuario" exact element={<HomeUsuario/>} />
                 <Route path="/actualizar-usuario/:idUsuario" exact element= {<ActualizarUsuario/>} />
-                <Route path="/actualizar-usuario/:tipoUsuario" exact element= {<ActualizarUsuario/>} />
+                <Route path="/buscar-usuario/:tipoUsuario" exact element= {<ActualizarUsuario/>} />
+                <Route path="/consultar-usistemaa/:tipoUsuario" exact element= {<ConsultarUSistemaA/>} />
  
                 <Route path="/crear-admin/:idUsuario" exact element= {<CrearAdmin/>} />
                 <Route path="/actualizar-admin/:idAdmin" exact element= {<ActualizarAdmin/>} />

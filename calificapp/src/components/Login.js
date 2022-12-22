@@ -79,8 +79,8 @@ function Login() {
             //redireccionar a la pantalla de admistrador
             
            // const response2 = await crud.GET(`/api/usuarios/${usuario.email}`);
-            //console.log(response2.usuario)
-            //if(response2.usuario.tipo === "Administrador" || response2.usuario.tipo === "administrador"){
+           // console.log(usuario.tipoUsuario)
+            //if(usuario.tipoUsuario === "Administrador" || usuario.tipoUsuario === "administrador"){
                 navigate("/admin");    
            // }
 

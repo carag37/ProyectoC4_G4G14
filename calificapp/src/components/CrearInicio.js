@@ -133,7 +133,7 @@ const CrearInicio = () => {
                   </h1>
               </div>
 
-       <div className='mt-10 flex justify-center' >
+            <div className='mt-5 flex justify-center' >
         
             <form 
                 onSubmit={onSubmit}

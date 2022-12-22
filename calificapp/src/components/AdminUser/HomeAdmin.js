@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Header from '../Header.js';
 import Sidebar from '../Sidebar.js';
 import crud from '../../utils/crud.js';
-//import ConsultarAdmin from  './ConsultarAdmin.js'
 import swal from 'sweetalert';
 
 
@@ -27,7 +26,7 @@ const HomeAdmin = () => {
 
 
   const [admin, setAdmins] = useState([]);
-
+  
   const cargarAdmins = async () => {
     const response = await crud.GET(`/api/admins`);
     //console.log(response.admin);
@@ -76,7 +75,7 @@ const HomeAdmin = () => {
 
           <div className="mt-10 mx-5" >
             <Link
-              to={`/home-usuario`}
+              to={`/consultar-usistemaa/${'Administrador'}`}
               className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
             >Crear Administrador
             </Link>
@@ -92,7 +91,6 @@ const HomeAdmin = () => {
           <table className = "rounded-xl border" >
             <thead className='bg-slate-400'>
               <tr>
-                <th style={{ width: '25%' }}>idAdmin</th>
                 <th style={{ width: '25%' }}>Nombre</th>
                 <th style={{ width: '25%' }}>Direccion</th>
                 <th style={{ width: '25%' }}>Telefono</th>
@@ -107,14 +105,13 @@ const HomeAdmin = () => {
                 admin.map(
                   item =>
                     <tr key={item._id}>
-                      <td className="text-center p-1">{item._id}</td>
                       <td className="text-center p-1">{item.nombre}</td>
                       <td className="text-center p-1">{item.direccion}</td>
                       <td className="text-center p-1" >{item.telefono}</td>
 
                      
                       <td>
-                      <div class="inline-flex rounded-md shadow-sm" role="group">
+                      <div className="inline-flex rounded-md shadow-sm" role="group">
                         <Link
                           to={`/actualizar-admin/${item._id}`}
                           className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
