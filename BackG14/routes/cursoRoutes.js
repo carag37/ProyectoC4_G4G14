@@ -1,5 +1,5 @@
 import express from "express";
-import { leerCurso, crearCurso, actualizarCurso, borrarCurso } from "../controllers/cursoController.js";
+import { leerCursoId, crearCurso, actualizarCurso, borrarCurso, leerCurso } from "../controllers/cursoController.js";
 import loginMiddleware from "../middleware/loginMiddleware.js";
 
 const cursoRoutes = express.Router()
@@ -10,7 +10,9 @@ const cursoRoutes = express.Router()
 cursoRoutes.post("/", loginMiddleware, crearCurso)
 //Leer
 //GET
-cursoRoutes.get("/", loginMiddleware, leerCurso)
+cursoRoutes.get("/one/:id", loginMiddleware, leerCursoId)
+cursoRoutes.get("/all", loginMiddleware, leerCurso)
+
 //Actualizar
 //PUT
 cursoRoutes.patch("/", loginMiddleware, actualizarCurso)

@@ -35,13 +35,13 @@ const VerCurso = () => {
 
     useEffect(() => {
         cargarCursos();
-    })
+    },[])
 
-    const borrarCurso = async (IdCurso, nombre) => {
+    const borrarCurso = async (IdCurso, descripcion) => {
 
         swalt({
             title: "Está seguro?",
-            text: "Una vez eliminada, no podrás recuperar la información de la Curso: " + nombre,
+            text: "Una vez eliminada, no podrás recuperar la información de la Curso: " + descripcion,
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -50,7 +50,7 @@ const VerCurso = () => {
                 if (willDelete) {
 
                     const data = {
-                        "_id": IdCurso,
+                        "descripcion": descripcion,
                     }
 
                     const response = crud.DELETE('/api/cursos', data)
@@ -61,7 +61,7 @@ const VerCurso = () => {
 
                         new swalt({
                             title: 'Información',
-                            text: "La curso " + nombre + " eliminada correctamente",
+                            text: "El curso " + descripcion + " eliminada correctamente",
                             icon: 'success',
                             button: {
                                 confirm: {
@@ -73,13 +73,15 @@ const VerCurso = () => {
                                 }
                             }
                         })
+
+                        cargarCursos()
                     }
 
                     //   swalt("La Curso " + nombre + " seleccionada se ha eliminado!", {
                     //     icon: "success",
                     //   });
                 } else {
-                    swalt("Curso " + nombre + " no ha sido eliminada");
+                    swalt("Curso " + descripcion + " no ha sido eliminada");
                 }
             });
 
@@ -125,7 +127,7 @@ const VerCurso = () => {
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
-                                to={`/crear-Acudiente`}
+                                to={`/crear-curso`}
                                 className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
                             >Crear Curso
                             </Link>
@@ -140,10 +142,10 @@ const VerCurso = () => {
                                 <thead className='bg-slate-400'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
-                                        <th style={{ width: '20%' }}>Nombre</th>
-                                        <th style={{ width: '20%' }}>Curso</th>
-                                        <th style={{ width: '20%' }}>Docente</th>
+                                        <th style={{ width: '20%' }}>Descripcion</th>
+                                        <th style={{ width: '60%' }}>Materia</th>
                                         <th style={{ width: '20%' }}>Acciones</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody className=" bg-slate-300 rounded-t-xl border">
@@ -152,16 +154,16 @@ const VerCurso = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td>{item.nombre}</td>
-                                                    <td>{item.curso[0]}<br></br>{item.curso[1]}</td>
-                                                    <td>{item.docente} </td>
+                                                    <td>{item.descripcion}</td>
+                                                   
+                                                    <td>{item.materia} </td>
                                                     <td>
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
-                                                            <button onClick={() => editarCurso(item._id, item.nombre)}
+                                                            <button onClick={() => editarCurso(item._id, item.descripcion)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
                                                                 Editar
                                                             </button>
-                                                            <button onClick={() => borrarCurso(item._id, item.nombre)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
+                                                            <button onClick={() => borrarCurso(item._id, item.descripcion)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
                                                                 Eliminar
                                                             </button>
                                                         </div>

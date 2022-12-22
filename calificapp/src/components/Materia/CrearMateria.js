@@ -15,6 +15,26 @@ const CrearMateria = () => {
 
     const { nombre, curso, docente } = materia;  //para back
 
+    // useEffect(() => {
+    //     async function getNames() {
+    //         let response = await crud.GET('/api/cursos');
+    //         let nombreCursos = [];
+    //         console.log(response);
+
+    //         for (let cursos = 0; cursos < response.length; cursos++) {
+    //             let temporal = { value: response[cursos].descripcion, label: response[cursos].descripcion }
+    //             nombreCursos.push(temporal);
+    //         }
+    //         console.log(lista);
+    //         setLista2(nombreCursos);
+    //     }
+    //     getNames();
+    //     // eslint-disable-next-line
+    // }, [])
+
+
+
+
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
         setMateria({    //el useState me limita a cambiar los valores de la variable por acá
