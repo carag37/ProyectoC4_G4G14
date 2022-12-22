@@ -15,9 +15,9 @@ const MenuCurso = () => {
         navigate("/ver-curso")
     }
 
-    const actualizarCurso = () => {
-        navigate("/actualizar-curso")
-    }
+    // const actualizarCurso = () => {
+    //     navigate("/actualizar-curso")
+    // }
 
     return (
         <>
@@ -51,12 +51,12 @@ const MenuCurso = () => {
                                     onClick = { verCurso }
                                 />
 
-                                <input
+                                {/* <input
                                     type="submit"
                                     value="Actualizar Curso"
                                     className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                                     onClick = { actualizarCurso }
-                                />
+                                /> */}
 
                             </div>
 

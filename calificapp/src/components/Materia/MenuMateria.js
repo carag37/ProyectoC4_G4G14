@@ -15,9 +15,9 @@ const MenuMateria = () => {
         navigate("/ver-materia")
     }
 
-    const actualizarMateria = () => {
-        navigate("/actualizar-materia")
-    }
+    // const actualizarMateria = () => {
+    //     navigate("/actualizar-materia/all")
+    // }
 
     return (
         <>
@@ -51,12 +51,12 @@ const MenuMateria = () => {
                                     onClick = { verMateria }
                                 />
 
-                                <input
+                                {/* <input
                                     type="submit"
                                     value="Actualizar Materia"
                                     className="bg-blue-600 mt-10 text-2xl w-full p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                                     onClick = { actualizarMateria }
-                                />
+                                /> */}
 
                             </div>
 

@@ -1,19 +1,75 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom'; //, useNavigate 
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import crud from "../../utils/crud";
 import swalt from 'sweetalert/dist/sweetalert.min.js';
+import Select from 'react-select';
 
 const CrearMateria = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [lista, setLista] = useState([]);
+    const [datos, setDatos] = useState([]);
+
+    const [listaD, setListaD] = useState([]);
+    const [datosD, setDatosD] = useState([]);
+
+    useEffect(() => {
+        async function getNames() {
+            const response = await crud.GET('/api/cursos/all');
+            let descripcionCursos = [];
+            console.log(response);
+
+            for (let curso = 0; curso < response.length; curso++) {
+                let temporal = { value: response[curso].descripcion, label: response[curso].descripcion }
+                descripcionCursos.push(temporal);
+            }
+            console.log(lista);
+            setLista(descripcionCursos);
+        }
+        getNames();
+        // eslint-disable-next-line
+    }, [])
+
+    const handleChange = selectedOption => {
+        console.log("Opciones", selectedOption)
+        setDatos(selectedOption.map(option => option.value));
+
+    };
+
+    useEffect(() => {
+        async function getNamesD() {
+            const responseD = await crud.GET('/api/docentes/all');
+            let nombreDocente = [];
+            console.log(responseD.docente);
+
+            for (let i = 0; i < responseD.docente.length; i++) {
+                let temporal = { value: responseD.docente[i]._id, label: responseD.docente[i].nombre }
+                nombreDocente.push(temporal);
+            }
+            console.log(listaD);
+            setListaD(nombreDocente);
+        }
+        getNamesD();
+        // eslint-disable-next-line
+    }, [])
+
+    const handleChangeD = selectedOptionD => {
+        console.log("Opciones", selectedOptionD)
+        setDatosD(selectedOptionD.map(optionD => optionD.value));
+
+    };
+
     const [materia, setMateria] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
         nombre: '',
-        curso: '',
-        docente: '',
+        cursos: [],
+        docentes: [],
     })
 
     const { nombre, curso, docente } = materia;  //para back
+
+
+
 
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
@@ -24,8 +80,8 @@ const CrearMateria = () => {
     }
 
     const crearMateria = async () => {
-        
-        if (nombre === "" || curso==="" || docente==="") {
+
+        if (nombre === "" || curso === "" || docente === "") {
             console.log("Debe diligenciar todos los campos")
             const mensaje = "Debe diligenciar todos los campos";
 
@@ -48,19 +104,19 @@ const CrearMateria = () => {
         } else {
             const data = {
                 nombre: materia.nombre,
-                curso: [materia.curso],
-                idDocente: materia.docente,
+                curso: datos,
+                Docente: datosD,
 
             }
 
             console.log(data);
-            
+
             const response = await crud.POST('/api/materias', data)
             const mensaje_res = response.msg;
             console.log(mensaje_res);
 
-            if (mensaje_res === "La materia " + data.nombre + " ya existe" || mensaje_res === "El docente " + data.idDocente + " no existe" ||mensaje_res === "El curso " + data.curso + " no existe") {
-                
+            if (mensaje_res === "La materia " + data.nombre + " ya existe" || mensaje_res === "El docente " + data.idDocente + " no existe" || mensaje_res === "El curso " + data.curso + " no existe") {
+
                 let mensaje = mensaje_res;
 
                 new swalt({
@@ -101,11 +157,11 @@ const CrearMateria = () => {
 
                 setMateria({  //limpiar las cajas
                     nombre: '',
-                    curso: '',
-                    docente: '',
+                    cursos: [],
+                    docentes: [],
                 })
 
-                
+                navigate("/ver-materia")
 
             }
         }
@@ -145,25 +201,24 @@ const CrearMateria = () => {
                                     onChange={onChange}
                                 />
 
-                                <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Cursos</label>
-                                <input
-                                    type="text"
-                                    id="curso"
-                                    name="curso"
-                                    placeholder="Ingrese su cursos separados por coma"
-                                    className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600"
-                                    value={curso}
-                                    onChange={onChange}
+                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Cursos</label>
+                                <Select
+                                    isMulti
+                                    name="cursos"
+                                    options={lista}
+                                    className="basic-multi-select text-slate-600 block"
+                                    classNamePrefix="select"
+                                    onChange={handleChange}
                                 />
-                                <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Docentes</label>
-                                <input
-                                    type="text"
-                                    id="docente"
-                                    name="docente"
-                                    placeholder="Ingrese docentes separados por una coma"
-                                    className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600"
-                                    value={docente}
-                                    onChange={onChange}
+
+                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Docentes</label>
+                                <Select
+                                    isMulti
+                                    name="docentes"
+                                    options={listaD}
+                                    className="basic-multi-select text-slate-600 block"
+                                    classNamePrefix="select"
+                                    onChange={handleChangeD}
                                 />
 
                                 <input

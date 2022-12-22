@@ -35,7 +35,9 @@ const VerMateria = () => {
 
     useEffect(() => {
         cargarMaterias();
-    })
+         // eslint-disable-next-line
+    },[]);
+
 
     const borrarMateria = async (IdMateria, nombre) => {
 
@@ -74,6 +76,7 @@ const VerMateria = () => {
                             }
                         })
                     }
+                    cargarMaterias();
 
                     //   swalt("La Materia " + nombre + " seleccionada se ha eliminado!", {
                     //     icon: "success",
@@ -121,7 +124,7 @@ const VerMateria = () => {
             <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className='flex-1'>
+                <main className="min-h-screen">
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
@@ -135,11 +138,11 @@ const VerMateria = () => {
                             Listado de Materias
                         </h1>
 
-                        <div className="mx-10">
-                            <table className="rounded-xl border" >
+                        <div className="mx-10 inline-block">
+                            <table className="rounded-xl border table-fixed w-full" >
                                 <thead className='bg-slate-400'>
                                     <tr>
-                                        <th style={{ width: '20%' }}>Id</th>
+                                        {/* <th style={{ width: '20%' }}>Id</th> */}
                                         <th style={{ width: '20%' }}>Nombre</th>
                                         <th style={{ width: '20%' }}>Curso</th>
                                         <th style={{ width: '20%' }}>Docente</th>
@@ -151,12 +154,12 @@ const VerMateria = () => {
                                         materia.map(
                                             item =>
                                                 <tr key={item._id}>
-                                                    <td>{item._id}</td>
+                                                    {/* <td>{item._id}</td> */}
                                                     <td>{item.nombre}</td>
-                                                    <td>{item.curso + " "}</td>
+                                                    <td>{item.curso[0]}<br></br>{item.curso[1]}</td>
                                                     <td>{item.docente} </td>
                                                     <td>
-                                                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                        <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarMateria(item._id, item.nombre)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
                                                                 Editar
@@ -166,32 +169,18 @@ const VerMateria = () => {
                                                             </button>
                                                         </div>
                                                     </td>
-
                                                 </tr>
-
-
                                         )
-
-
                                     }
-
                                 </tbody>
-
                             </table>
                         </div>
-
                         <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-materia"}>Regresar</Link>
-
                     </div>
-
                 </main>
-
             </div>
-
         </>
-
     )
-
 }
 
 export default VerMateria;

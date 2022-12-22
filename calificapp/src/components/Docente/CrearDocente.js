@@ -25,6 +25,7 @@ const CrearDocente = () => {
         setLista(nombreMaterias);
     }
     getNames(); 
+    // eslint-disable-next-line
     },[])
     
     const handleChange = selectedOption => {
@@ -203,7 +204,7 @@ const CrearDocente = () => {
                                     isMulti
                                     name="materias"
                                     options={lista}
-                                    className="basic-multi-select"
+                                    className="basic-multi-select text-slate-600"
                                     classNamePrefix="select"
                                     onChange={handleChange}
                                 />

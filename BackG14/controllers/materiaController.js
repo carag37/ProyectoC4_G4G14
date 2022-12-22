@@ -1,4 +1,4 @@
-import MateriaSchema from "../models/materiaModels.js";
+import MateriasSchema from "../models/materiaModels.js";
 import CursoSchema from "../models/cursoModels.js";
 import DocenteSchema from "../models/docenteModels.js";
 import { usuarioAutenticado } from "./loginController.js";
@@ -7,12 +7,12 @@ import { usuarioAutenticado } from "./loginController.js";
 
 async function crearMateria(req, res) {
 
-    const { nombre, curso, idDocente } = req.body;
+    const { nombre, curso, Docente } = req.body;
     let cursoV = [];
     let docenteV
     let docMateria;
 
-
+    //console.log(req.body)
 
     if (curso != null) {
 
@@ -24,28 +24,28 @@ async function crearMateria(req, res) {
     }
 
     let idCurso =[]
-    console.log(cursoV)
+    //console.log(cursoV)
     for (let i = 0; i < cursoV.length; i++) {
         if(cursoV[i][0]==null){return res.status(400).json({ msg: "El curso " + curso[i] + " no existe"})}
          idCurso.push(cursoV[i][0]._id)
         
         }
 
-    
+    //console.log(Docente)
 
-    if (idDocente != null) {
+    if (Docente != null) {
         try {
-            docenteV = await DocenteSchema.find({ "_id": idDocente })
-        } catch (error) { return res.status(400).json({ msg: "El docente " + idDocente + " no existe" }) }
+            docenteV = await DocenteSchema.find({ "_id": Docente })
+        } catch (error) { return res.status(400).json({ msg: "El docente " + Docente + " no existe" }) }
     }
 
 
     try {
-        docMateria = await MateriaSchema.create({
+        docMateria = await MateriasSchema.create({
 
             "nombre": nombre,
             "curso": idCurso,
-            "docente": idDocente,
+            "docente": Docente,
             "creador": req.usuario.id
 
         })
@@ -58,28 +58,23 @@ async function crearMateria(req, res) {
 
     res.status(201);  //código de algo creado
     res.json(docMateria); //envío el objeto creado como un JSON
-    console.log(docMateria)
+    //console.log(docMateria)
 }
 
 //--------------------------READ---------------------------------------------
 
-async function leerMateria(req, res) {
+async function leerMateriaId(req, res) {
 
-    const { nombre } = req.body
+    const { id } = req.params
     let docMateria;
-
 
     try {
 
-        docMateria = await MateriaSchema.find({
-            "nombre": nombre,
-        })
+        docMateria = await MateriasSchema.findById(id)
 
-        console.log(docMateria)
+        //console.log(docMateria)
 
        // docDocente = await CursoSchema.find({docMateria.curso})
-
-
 
     } catch (error) {
         res.status(400)
@@ -102,7 +97,7 @@ async function leerMaterias(req, res) {
 
     try {
 
-        docMateria = await MateriaSchema.find()
+        docMateria = await MateriasSchema.find()
 
 
 
@@ -115,7 +110,7 @@ async function leerMaterias(req, res) {
     if (docMateria.length == 0) { return res.status(400).json({ msg: "No hay Materias" }); }
 
     //docCurso = await CursoSchema.find(docMateria.curso[0])
-    //console.log(docMateria[0].curso[0])
+    //console.log(docMateria.curso[0])
 
     res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     res.json(docMateria); //envío el objeto creado como un JSON
@@ -126,37 +121,40 @@ async function leerMaterias(req, res) {
 
 async function actualizarMateria(req, res) {
 
-    const { nombre, cambios } = req.body;
-
-    let docMateria = await MateriaSchema.find({ "nombre": nombre })
-
-    if (docMateria.length == 0) { return res.status(400).json({ msg: "La materia " + nombre + " no existe" }); }
-
-    if (cambios == null) { return res.status(200).json({ msg: "No se solicitaron cambios" }); }
-
+    const { id } = req.params;
+   
+    //console.log(req.params)
     
-    docMateria[0].nombre = cambios.nombre || docMateria[0].nombre  //en caso de que exista se actualiza la descripción
+    const{nombreC, cursosC, idDocenteC} = req.body;
+
+    let docMateria
+
+    try {  docMateria = await MateriasSchema.findById({ "_id": id })
+    }
+    catch (error) { return res.status(400).json({ msg: "La materia no existe" }) }
+ 
+   //console.log(docMateria.nombre)
+
+    if (docMateria.length == 0) { return res.status(400).json({ msg: "La materia no existe" }); }
+    docMateria.nombre = nombreC || docMateria.nombre  //en caso de que exista se actualiza la descripción
     
     let docenteV
-
-    if (cambios.docente != null) {
+    if (idDocenteC != null) {
         try {
-            docenteV = await DocenteSchema.find({ "_id": cambios.docente })
-        } catch (error) { return res.status(400).json({ msg: "El docente " + cambios.docente + " no existe" }) }
+            docenteV = await DocenteSchema.find({ "_id": idDocenteC })
+        } catch (error) { return res.status(400).json({ msg: "El docente " + idDocenteC + " no existe" }) }
     }
 
-    docMateria[0].docente = cambios.docente || docMateria[0].docente
+    docMateria.docente = idDocenteC || docMateria.docente
 
     let cursoV = [];
-
-    if (cambios.curso != null) {
-        for (let i = 0; i < cambios.curso.length; i++) {
+    //console.log(cursosC)
+    if (cursosC != null) {
+        for (let i = 0; i < cursosC.length; i++) {
             try {
-                cursoV[i] = await CursoSchema.find({ "_id": cambios.curso[i] })
-
-            } catch (error) { return res.status(400).json({ msg: "El curso " + cambios.curso[i] + " no existe" }) }
-
-            if (cursoV[i].length == 0) { return res.status(400).json({ msg: "El curso " + cambios.curso[i] + " no existe" }) }
+                cursoV[i] = await CursoSchema.find({ "_id": cursosC[i] })
+            } catch (error) { return res.status(400).json({ msg: "El curso " + cursosC[i] + " no existe" }) }
+            if (cursoV[i].length == 0) { return res.status(400).json({ msg: "El curso " + cursosC[i] + " no existe" }) }
         }
 
         let curso = []
@@ -164,33 +162,40 @@ async function actualizarMateria(req, res) {
         let mensaje = ""
 
 
-        for (let i = 0; i < cambios.curso.length; i++) {
-            for (let j = 0; j < docMateria[0].curso.length; j++) {
+        for (let i = 0; i < cursosC.length; i++) {
+            for (let j = 0; j < docMateria.curso.length; j++) {
                 //console.log(cambios.curso[i])
-                //console.log(docMateria[0].curso[j].toString())
-                if (cambios.curso[i].toString() == docMateria[0].curso[j].toString()) { contador = contador + 1; }
+                //console.log(docMateria.curso[j].toString())
+                if (cursosC[i].toString() == docMateria.curso[j].toString()) { contador = contador + 1; }
                 //console.log(contador)
             }
 
+            console.log(cursosC)
+
             if (contador == 0) {
-                curso.push(cambios.curso[i])
+                console.log(cursosC[i])
+                curso.push(cursosC[i])
             } else {
-                mensaje = mensaje + cambios.curso[i] + " ";
+                mensaje = mensaje + cursosC[i] + " ";
                 contador = 0
             }
 
         }
 
-        console.log(mensaje + " ya en materia")
+        //console.log(mensaje + " ya en materia")
+
+        console.log(curso.length)
 
         for (let i = 0; i < curso.length; i++) {
+            console.log(curso[i])
             let mats = curso[i]
-            docMateria[0].curso.push(mats)
+            console.log(mats)
+            //docMateria.curso.push(mats)
         }
 
     }
 
-    docMateria[0].save();
+    docMateria.save();
     res.status(200).json({ docMateria })
 }
 
@@ -203,7 +208,7 @@ async function borrarMateria(req, res) {
     
 
     try {
-        docMateria = await MateriaSchema.findOneAndDelete({  //el find one busca un valor que debe ser único, solo permite consultar con elementos que estén definidos en el modelo
+        docMateria = await MateriasSchema.findOneAndDelete({  //el find one busca un valor que debe ser único, solo permite consultar con elementos que estén definidos en el modelo
             "_id": _id
         })
 
@@ -213,7 +218,7 @@ async function borrarMateria(req, res) {
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
-    console.log(docMateria)
+    //console.log(docMateria)
     
     if (!docMateria) {
         return res.status(400).json({ msg: "La materia " + _id + " no ha sido encontrado" });
@@ -222,4 +227,4 @@ async function borrarMateria(req, res) {
 
 }
 
-export { leerMateria, crearMateria, actualizarMateria, borrarMateria, leerMaterias }
+export { leerMateriaId, crearMateria, actualizarMateria, borrarMateria, leerMaterias }

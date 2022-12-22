@@ -43,7 +43,7 @@ async function crearBoletin(req, res) {
     res.json(docBoletin); //envío el objeto creado como un JSON
 }
 
-//--------------------------READ---------------------------------------------
+//--------------------------READONE---------------------------------------------
 
 async function leerBoletin(req, res) {
 
@@ -71,6 +71,31 @@ async function leerBoletin(req, res) {
         res.json(error.message);
         return  //return para evitar enviar 2 respuestas por ejecución
     }
+
+    res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
+    res.json(docBoletin); //envío el objeto creado como un JSON
+}
+
+//-----------------------LEER TODAS-----------------------------------------
+
+async function leerBoletines(req, res) {
+
+    let docBoletin;
+
+    try {
+
+        docBoletin = await BoletinSchema.find()
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    if (docBoletin.length == 0) { return res.status(400).json({ msg: "No hay Boletines" }); }
+
+    //docCurso = await CursoSchema.find(docBoletin.curso[0])
+    //console.log(docBoletin.curso[0])
 
     res.status(200);  //código de Ok, si es SendStatus no hace más consultas.
     res.json(docBoletin); //envío el objeto creado como un JSON
@@ -157,4 +182,4 @@ async function borrarBoletin(req, res) {
 
 }
 
-export { leerBoletin, crearBoletin, actualizarBoletin, borrarBoletin }
+export { leerBoletin, leerBoletines, crearBoletin, actualizarBoletin, borrarBoletin }
