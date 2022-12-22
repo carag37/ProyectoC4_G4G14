@@ -64,8 +64,7 @@ const VerDocente = () => {
             }
           });                 
     }
-
-
+    
     return (
         <>
             <Header  />

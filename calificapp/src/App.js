@@ -53,6 +53,7 @@ import MenuDocente from "./components/Docente/MenuDocente";
 import CrearDocente from "./components/Docente/CrearDocente";
 import VerDocente from "./components/Docente/VerDocente";
 import ActualizarDocente from "./components/Docente/ActualizarDocente";
+import HomeDocente from './components/Docente/HomeDocente.js';
 
 //Paneles Usuarios
 import PanelDocente from "./components/PanelDocente/PanelDocente.js";
@@ -109,6 +110,7 @@ function App() {
                 <Route path="/crear-docente" exact element={<CrearDocente />} />
                 <Route path="/ver-docente" exact element={<VerDocente />} />
                 <Route path="/actualizar-docente/:idDocente" exact element={<ActualizarDocente />} />
+                <Route path="/home-docente" exact element={<HomeDocente/>} />
 
                 <Route path="/panel-docente" exact element= {<PanelDocente/>} />
                 <Route path="/panel-acudiente" exact element= {<PanelAcudiente/>} />

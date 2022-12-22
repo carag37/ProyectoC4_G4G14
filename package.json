@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "react-router-dom": "^6.4.5"
-  }
+  },
+  "name": "proyectoc4_g4g14",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carag37/ProyectoC4_G4G14.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carag37/ProyectoC4_G4G14/issues"
+  },
+  "homepage": "https://github.com/carag37/ProyectoC4_G4G14#readme",
+  "description": ""
 }
