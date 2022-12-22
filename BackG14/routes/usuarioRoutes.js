@@ -6,8 +6,8 @@ import { leerUsuario, crearUsuario, actualizarUsuario, borrarUsuario, leerUserId
 
 router.get("/", loginMiddleware,leerUsuario);
 router.get("/:id", loginMiddleware,leerUserId);
-router.get("/:email", loginMiddleware,leerEmail);
-router.get("/:tipoUsuario", loginMiddleware,leerUserTipo);
+router.get("/email/:email", loginMiddleware,leerEmail);
+router.get("/tipo/:tipoUsuario", loginMiddleware,leerUserTipo);
 
 router.post( "/", crearUsuario);
 

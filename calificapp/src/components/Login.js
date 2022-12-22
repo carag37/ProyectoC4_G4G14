@@ -35,10 +35,10 @@ function Login() {
         const response = await crud.POST(`/api/login`, data);
         
 
-        console.log(response.usuario);
+        console.log(response);
         
         const mensaje = response.msg;
-        console.log(mensaje);
+        
         if (mensaje === 'El usuario no existe') {
             const mensaje = 'El usuario no existe';
             swal({
@@ -76,13 +76,20 @@ function Login() {
             const jwt = response.token;
 
             localStorage.setItem('token', jwt);
-            //redireccionar a la pantalla de admistrador
-            
-           // const response2 = await crud.GET(`/api/usuarios/${usuario.email}`);
-           // console.log(usuario.tipoUsuario)
-            //if(usuario.tipoUsuario === "Administrador" || usuario.tipoUsuario === "administrador"){
+            //redireccionar al panel segun perfil del usuario 
+
+           // console.log(usuario.email);
+            const response2 = await crud.GET(`/api/usuarios/email/${usuario.email}`);
+            //console.log(response2.usuario[0].tipoUsuario);
+
+          if(response2.usuario[0].tipoUsuario === 'Administrador' || response2.usuario[0].tipoUsuario === 'administrador' ){
                 navigate("/admin");    
-           // }
+            } else if(response2.usuario[0].tipoUsuario === 'Acudiente' || response2.usuario[0].tipoUsuario === 'acudiente'){
+                navigate("/panel-acudiente");    
+            } else{
+                navigate("/panel-docente");    
+            } 
+
 
            
 

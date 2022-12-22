@@ -26,6 +26,8 @@ async function leerUserId (req,res) {
     async function leerUserTipo (req,res) {
     
         const {tipoUsuario} = req.params
+        console.log(tipoUsuario);
+
         try{
             const usuario = await Usuario.find().where("tipoUsuario").equals(tipoUsuario);
             res.json({usuario});
@@ -39,9 +41,9 @@ async function leerEmail (req,res) {
     
     const {email} = req.params
     try{
-        const usuario = await Usuario.find(email);
+        const usuario = await Usuario.find().where("email").equals(email);;
         res.json({usuario});
-        console.log(usuario);
+        //console.log(usuario);
     }catch(error){
         console.log(error);
     }

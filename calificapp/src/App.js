@@ -21,11 +21,23 @@ import ActualizarAdmin from './components/AdminUser/ActualizarAdmin.js';
 import ConsultarAdmin from './components/AdminUser/ConsultarAdmin.js';
 import HomeAdmin from './components/AdminUser/HomeAdmin.js';
 import ConsultarUSistemaA from './components/AdminUser/ConsultarUSistemaA.js';
+import CrearSistemaA from './components/AdminUser/CrearSistemaA.js';
 
 //Acudiente
 import CrearAcudiente from './components/Acudiente/CrearAcudiente.js';
 import HomeAcudiente from './components/Acudiente/HomeAcudiente.js'
 import ActualizarAcudiente from './components/Acudiente/ActualizarAcudiente.js'
+import ConsultarUSistemaAc from './components/Acudiente/ConsultarUSistemaAc.js';
+import CrearSistemaAc from './components/Acudiente/CrearSistemaAc.js';
+
+//Docente
+import MenuDocente from "./components/Docente/MenuDocente";
+import CrearDocente from "./components/Docente/CrearDocente";
+import VerDocente from "./components/Docente/VerDocente";
+import ActualizarDocente from "./components/Docente/ActualizarDocente";
+import HomeDocente from './components/Docente/HomeDocente.js';
+import ConsultarUSistemaD from './components/Docente/ConsultarUSistemaD';
+import CrearSistemaD    from './components/Docente/CrearSistemaD.js'
 
 //Alumno
 import CrearAlumno from './components/Alumno/CrearAlumno.js';
@@ -50,12 +62,6 @@ import CrearBoletin from "./components/Boletin/CrearBoletin";
 import VerBoletin from "./components/Boletin/VerBoletin";
 import ActualizarBoletin from "./components/Boletin/ActualizarBoletin";
 
-//Docente
-import MenuDocente from "./components/Docente/MenuDocente";
-import CrearDocente from "./components/Docente/CrearDocente";
-import VerDocente from "./components/Docente/VerDocente";
-import ActualizarDocente from "./components/Docente/ActualizarDocente";
-import HomeDocente from './components/Docente/HomeDocente.js';
 
 //Paneles Usuarios
 import PanelDocente from "./components/PanelDocente/PanelDocente.js";
@@ -79,8 +85,11 @@ function App() {
                 <Route path="/actualizar-usuario/:idUsuario" exact element= {<ActualizarUsuario/>} />
                 <Route path="/buscar-usuario/:tipoUsuario" exact element= {<ActualizarUsuario/>} />
                 <Route path="/consultar-usistemaa/:tipoUsuario" exact element= {<ConsultarUSistemaA/>} />
+                <Route path="/consultar-usistemaac/:tipoUsuario" exact element= {<ConsultarUSistemaAc/>} />
+                <Route path="/consultar-usistemad/:tipoUsuario" exact element= {<ConsultarUSistemaD/>} />
  
                 <Route path="/crear-admin/:idUsuario" exact element= {<CrearAdmin/>} />
+                <Route path="/crear-sistema" exact element= {<CrearSistemaA/>} />
                 <Route path="/actualizar-admin/:idAdmin" exact element= {<ActualizarAdmin/>} />
                 <Route path="/consultar-admin/:usuarioSistema" exact element= {<ConsultarAdmin/>} />
                 <Route path="/home-admin" exact element= {<HomeAdmin/>} />
@@ -89,6 +98,7 @@ function App() {
                 <Route path="/home-acudiente" exact element= {<HomeAcudiente/>} />
                 <Route path="/crear-acudiente/:idUsuario" exact element={<CrearAcudiente/>} />
                 <Route path="/actualizar-acudiente/:idAcudiente" exact element={<ActualizarAcudiente/>} />
+                <Route path="/crear-sistemaac" exact element= {<CrearSistemaAc/>} />
 
                 
                 <Route path="/crear-alumno" exact element={<CrearAlumno/>} />
@@ -115,6 +125,7 @@ function App() {
                 <Route path="/ver-docente" exact element={<VerDocente />} />
                 <Route path="/actualizar-docente/:idDocente" exact element={<ActualizarDocente />} />
                 <Route path="/home-docente" exact element={<HomeDocente/>} />
+                <Route path="/crear-sistemad" exact element= {<CrearSistemaD/>} />
 
                 <Route path="/panel-docente" exact element= {<PanelDocente/>} />
                 <Route path="/panel-acudiente" exact element= {<PanelAcudiente/>} />

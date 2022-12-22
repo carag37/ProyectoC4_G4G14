@@ -59,6 +59,19 @@ async function actualizarAcudiente (req,res) {
     acudiente.parentesco = req.body.parentesco || acudiente.parentesco;
     acudiente.estado =req.body.estado || acudiente.estado;
     acudiente.usuarioSistema = req.body.usuarioSistema || acudiente.usuarioSistema;
+    if(req.body.alumno == undefined){
+        acudiente.alumno=acudiente.alumno; 
+        res.json({acudiente}); 
+       }else 
+        if (flag==true)
+            res.json({msg:"El alumno  ya existe"});
+        else {
+            acudiente.alumno.push({_id:req.body.alumno});
+            //console.log(acudiente.alumno);
+            res.json({acudiente});
+           } 
+   
+
     acudiente.save();
     res.json({acudiente});
 }

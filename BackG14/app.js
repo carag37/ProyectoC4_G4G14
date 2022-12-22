@@ -32,6 +32,8 @@ app.use(express.json({ extended : true }));
 
 //rutas o routes
 app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/usuarios/email", usuarioRoutes);
+app.use("/api/usuarios/tipo", usuarioRoutes);
 app.use("/api/materias", materiaRoutes);
 app.use("/api/admins", adminRoutes);
 app.use("/api/alumnos", alumnoRoutes);

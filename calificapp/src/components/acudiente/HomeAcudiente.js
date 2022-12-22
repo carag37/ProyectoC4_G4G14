@@ -72,10 +72,13 @@ const HomeAcudiente = () => {
 
           <div className="mt-10 mx-5" >
             <Link
-              to={`/crear-Acudiente`}
+              to={`/consultar-usistemaac/${'Acudiente'}`}
               className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
-            >Crear Acudiente
+            >Crear Usuario Sistema
             </Link>
+            <p className='text-2xs mt-8 text-slate-200 font-bold text-center mb-9 md:mb-0'>
+              Para crear el Acudiente, debe primero crear el Usuario en el Sistema
+            </p>
           </div>
 
           <h1 className='text-4xl mt-10 text-slate-200 font-bold text-center mb-20 md:mb-0'>
@@ -87,14 +90,12 @@ const HomeAcudiente = () => {
           <table className = "rounded-xl border" >
             <thead className='bg-slate-400'>
               <tr>
-                <th style={{ width: '10%' }}>idAcudiente</th>
                 <th style={{ width: '10%' }}>Nombre</th>
                 <th style={{ width: '10%' }}>Direccion</th>
                 <th style={{ width: '10%' }}>Telefono</th>
-                <th style={{ width: '10%' }}>Alumno</th>
+                <th style={{ width: '50%' }}>Alumno</th>
                 <th style={{ width: '10%' }}>Parentezco</th>
-                {/* <th style={{ width: '10%' }}>Estado</th> */}
-                <th style={{ width: '40%' }}>Acciones</th>
+                <th style={{ width: '10%' }}>Acciones</th>
 
 
               </tr>
@@ -106,16 +107,11 @@ const HomeAcudiente = () => {
                   
                   item =>
                     <tr key={item._id}>
-                      <td className="text-center p-1">{item._id}</td>
                       <td className="text-center p-1">{item.nombre}</td>
                       <td className="text-center p-1">{item.direccion}</td>
                       <td className="text-center p-1" >{item.telefono}</td>
                       <td className="text-center p-1" >{item.alumno}</td>
-                      <td className="text-center p-1" >{item.parentesco}</td>
-              
-                      {/* <td className="text-center p-1" >{item.estado}</td> */}
-
-
+                      <td className="text-center p-1" >{item.parentesco}</td>         
                       <td>
                       <div class="inline-flex rounded-md shadow-sm" role="group">
                         <Link

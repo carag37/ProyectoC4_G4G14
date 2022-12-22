@@ -6,7 +6,7 @@ import crud from '../../utils/crud.js';
 
 
 
-const ConsultarUSistemaA = () => {
+const ConsultarUSistemaAc = () => {
 
   const navigate = useNavigate();
   const {tipoUsuario} = useParams();
@@ -49,17 +49,16 @@ const ConsultarUSistemaA = () => {
         <main className='flex-1'>
 
           <div className="mt-10 mx-5" >
-          <Link
-              to={`/crear-sistema`}
+            <Link
+              to={`/crear-sistemaac`}
               className="bg-blue-600 p-3  text-slate-200 uppercase font-bold   text-center rounded-lg"
             >Crear Usuario
             </Link>
-            
           </div>
 
 
           <h1 className='text-4xl text-slate-200 font-bold text-center mb-5 md:mb-0'>
-            Listado de Usuarios del Sistema Perfil Administrador
+            Listado de Usuarios del Sistema Perfil Acudiente
           </h1>
           <br></br>
           <div className="mx-10">
@@ -85,9 +84,9 @@ const ConsultarUSistemaA = () => {
                         <td>
                         <div className="inline-flex rounded-md shadow-sm" role="group">
                             <Link
-                            to={`/crear-admin/${item._id}`}
+                            to={`/crear-acudiente/${item._id}`}
                             className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"
-                          >Crear Admin
+                          >Crear Acudiente
                           </Link>
                         
                           </div>
@@ -105,4 +104,4 @@ const ConsultarUSistemaA = () => {
   );
 }
 
-export default ConsultarUSistemaA;
+export default ConsultarUSistemaAc;

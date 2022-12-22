@@ -77,8 +77,11 @@ const HomeAdmin = () => {
             <Link
               to={`/consultar-usistemaa/${'Administrador'}`}
               className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
-            >Crear Administrador
+            >Crear Usuario Sistema
             </Link>
+            <p className='text-2xs mt-8 text-slate-200 font-bold text-center mb-9 md:mb-0'>
+              Para crear el Administrador, debe primero crear el Usuario en el Sistema
+            </p>
           </div>
 
 
