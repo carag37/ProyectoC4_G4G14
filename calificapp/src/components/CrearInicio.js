@@ -3,9 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import swalt from 'sweetalert/dist/sweetalert.min.js';
 import crud from '../utils/crud';
 
-
-
-
 const CrearInicio = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)

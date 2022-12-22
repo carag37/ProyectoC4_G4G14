@@ -50,6 +50,13 @@ import CrearBoletin from "./components/Boletin/CrearBoletin";
 import VerBoletin from "./components/Boletin/VerBoletin";
 import ActualizarBoletin from "./components/Boletin/ActualizarBoletin";
 
+//Docente
+import MenuDocente from "./components/Docente/MenuDocente";
+import CrearDocente from "./components/Docente/CrearDocente";
+import VerDocente from "./components/Docente/VerDocente";
+import ActualizarDocente from "./components/Docente/ActualizarDocente";
+import HomeDocente from './components/Docente/HomeDocente.js';
+
 //Paneles Usuarios
 import PanelDocente from "./components/PanelDocente/PanelDocente.js";
 import PanelAcudiente from "./components/PanelAcudiente/PanelAcudiente.js";
@@ -102,6 +109,12 @@ function App() {
                 <Route path="/crear-boletin" exact element={<CrearBoletin/>} />
                 <Route path="/ver-boletin" exact element={<VerBoletin/>} />
                 <Route path="/actualizar-boletin" exact element={<ActualizarBoletin/>} />
+
+                <Route path="/menu-docente" exact element={<MenuDocente />} />
+                <Route path="/crear-docente" exact element={<CrearDocente />} />
+                <Route path="/ver-docente" exact element={<VerDocente />} />
+                <Route path="/actualizar-docente/:idDocente" exact element={<ActualizarDocente />} />
+                <Route path="/home-docente" exact element={<HomeDocente/>} />
 
                 <Route path="/panel-docente" exact element= {<PanelDocente/>} />
                 <Route path="/panel-acudiente" exact element= {<PanelAcudiente/>} />
