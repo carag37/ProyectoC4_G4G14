@@ -22,26 +22,26 @@ const VerBoletin = () => {
 
     }, [navigate]);
 
-    const [boletin, setBoletins] = useState([]);
+    const [boletin, setBoletines] = useState([]);
 
-    const cargarBoletins = async () => {
+    const cargarBoletines = async () => {
 
-        const response = await crud.GET('/api/boletins/all');
+        const response = await crud.GET('/api/boletines/all');
         //console.log(response)
         //const mensaje_res = response.msg;
-        setBoletins(response)
+        setBoletines(response)
     }
 
 
     useEffect(() => {
-        cargarBoletins();
-    })
+        cargarBoletines();
+    },[])
 
     const borrarBoletin = async (IdBoletin, nombre) => {
 
         swalt({
             title: "Está seguro?",
-            text: "Una vez eliminada, no podrás recuperar la información de la Boletin: " + nombre,
+            text: "Una vez eliminada, no podrás recuperar la información del Boletin",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -53,7 +53,7 @@ const VerBoletin = () => {
                         "_id": IdBoletin,
                     }
 
-                    const response = crud.DELETE('/api/boletins', data)
+                    const response = crud.DELETE('/api/Boletines', data)
 
                     //if(response.msg === "La boletin " + IdCategoria + " eliminado correctamente"){
                     if (response) {
@@ -61,7 +61,7 @@ const VerBoletin = () => {
 
                         new swalt({
                             title: 'Información',
-                            text: "La boletin " + nombre + " eliminada correctamente",
+                            text: "El boletín se ha eliminado correctamente",
                             icon: 'success',
                             button: {
                                 confirm: {
@@ -74,9 +74,10 @@ const VerBoletin = () => {
                             }
                         })
                     }
+                    cargarBoletines();
 
                 } else {
-                    swalt("Boletin " + nombre + " no ha sido eliminada");
+                    swalt("Boletin no ha sido eliminado");
                 }
             });
 
@@ -112,7 +113,7 @@ const VerBoletin = () => {
                         </div>
 
                         <h1 className='text-4xl mt-10 text-slate-200 font-bold text-center mb-9 md:mb-0'>
-                            Listado de Boletins
+                            Listado de Boletines
                         </h1>
 
                         <div className="mx-10 inline-block">
@@ -120,9 +121,10 @@ const VerBoletin = () => {
                                 <thead className='bg-slate-400'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
-                                        <th style={{ width: '20%' }}>Nombre</th>
-                                        <th style={{ width: '20%' }}>Curso</th>
-                                        <th style={{ width: '20%' }}>Docente</th>
+                                        <th style={{ width: '20%' }}>Materia</th>
+                                        <th style={{ width: '20%' }}>Alumno</th>
+                                        <th style={{ width: '20%' }}>Notas</th>
+                                        <th style={{ width: '20%' }}>Observaciones</th>
                                         <th style={{ width: '20%' }}>Acciones</th>
                                     </tr>
                                 </thead>
@@ -132,9 +134,11 @@ const VerBoletin = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td>{item.nombre}</td>
-                                                    <td>{item.curso[0]}<br></br>{item.curso[1]}</td>
-                                                    <td>{item.docente} </td>
+                                                    <td>{item.materia}</td>
+                                                    <td>{item.alumno}</td>
+                                                    <td>{item.notas} </td>
+                                                    <td>{item.observaciones} </td>
+
                                                     <td>
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarBoletin(item._id, item.nombre)}

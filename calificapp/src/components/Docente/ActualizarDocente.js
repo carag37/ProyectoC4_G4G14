@@ -19,7 +19,7 @@ const ActualizarDocente = () => {
       materias: [],
       })
       const cargarDocente = async () =>{
-        const response = await crud.GET(`/api/docentes/${idDocente}`);
+        const response = await crud.GET(`/api/docentes/one/${idDocente}`);
         console.log(response.docente);
         setDocente(response.docente);
       }
@@ -46,7 +46,7 @@ const ActualizarDocente = () => {
                  
         }
        //console.log(data, idocente);
-          const response = await crud.PATCH(`/api/docentes/${idDocente}`, data);
+          const response = await crud.PATCH(`/api/docentes/one/${idDocente}`, data);
           console.log(response);
           const mensaje1 = "El docente se actualizó correctamente";
           swal({

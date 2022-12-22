@@ -26,7 +26,7 @@ const VerDocente = () => {
 
     const cargarDocentes = async () => {
 
-        const response = await crud.GET('/api/docentes');
+        const response = await crud.GET('/api/docentes/all');
         setDocentes(response.docente)
     }
 
@@ -102,7 +102,7 @@ const VerDocente = () => {
                                                 <td className="text-center p-1">{item.nombre}</td>
                                                 <td className="text-center p-1">{item.materias}</td>
                                                 <td>
-                                                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                    <div className="inline-flex rounded-md shadow-sm" role="group">
                                                         <Link
                                                         to={`/actualizar-docente/${item._id}`}
                                                         className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg"

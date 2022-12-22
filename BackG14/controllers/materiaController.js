@@ -7,12 +7,12 @@ import { usuarioAutenticado } from "./loginController.js";
 
 async function crearMateria(req, res) {
 
-    const { nombre, curso, idDocente } = req.body;
+    const { nombre, curso, Docente } = req.body;
     let cursoV = [];
     let docenteV
     let docMateria;
 
-
+    //console.log(req.body)
 
     if (curso != null) {
 
@@ -31,12 +31,12 @@ async function crearMateria(req, res) {
         
         }
 
-    
+    //console.log(Docente)
 
-    if (idDocente != null) {
+    if (Docente != null) {
         try {
-            docenteV = await DocenteSchema.find({ "_id": idDocente })
-        } catch (error) { return res.status(400).json({ msg: "El docente " + idDocente + " no existe" }) }
+            docenteV = await DocenteSchema.find({ "_id": Docente })
+        } catch (error) { return res.status(400).json({ msg: "El docente " + Docente + " no existe" }) }
     }
 
 
@@ -45,7 +45,7 @@ async function crearMateria(req, res) {
 
             "nombre": nombre,
             "curso": idCurso,
-            "docente": idDocente,
+            "docente": Docente,
             "creador": req.usuario.id
 
         })

@@ -76,6 +76,7 @@ const VerMateria = () => {
                             }
                         })
                     }
+                    cargarMaterias();
 
                     //   swalt("La Materia " + nombre + " seleccionada se ha eliminado!", {
                     //     icon: "success",

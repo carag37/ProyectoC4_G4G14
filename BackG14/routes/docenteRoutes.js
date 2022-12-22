@@ -9,8 +9,8 @@ const router=express.Router()
 router.post("/", loginMiddleware,crearDocente)
 //Visualizar Docente
 //GET
-router.get("/:id",loginMiddleware, leerDocente)
-router.get("/", loginMiddleware,leerDocentes)
+router.get("/one/:id",loginMiddleware, leerDocente)
+//router.get("/", loginMiddleware,leerDocentes)
 router.get("/all",loginMiddleware, leerDocentes)
 
 
