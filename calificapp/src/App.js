@@ -123,6 +123,7 @@ function App() {
                 <Route path="/menu-docente" exact element={<MenuDocente />} />
                 <Route path="/crear-docente" exact element={<CrearDocente />} />
                 <Route path="/ver-docente" exact element={<VerDocente />} />
+                <Route path="/crear-docente/:idUsuario" exact element={<CrearDocente />} />
                 <Route path="/actualizar-docente/:idDocente" exact element={<ActualizarDocente />} />
                 <Route path="/home-docente" exact element={<HomeDocente/>} />
                 <Route path="/crear-sistemad" exact element= {<CrearSistemaD/>} />

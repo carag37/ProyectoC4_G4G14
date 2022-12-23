@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'; //, useNavigate 
+import { Link, useNavigate, useParams } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import crud from "../../utils/crud.js";
@@ -7,6 +7,10 @@ import swalt from 'sweetalert/dist/sweetalert.min.js';
 import Select from 'react-select';
 
 const CrearDocente = () => {
+    const navigate = useNavigate();
+
+    const {idUsuario} = useParams();
+    console.log("usuario",idUsuario);
     //const navigate = useNavigate();
     const [lista, setLista]=useState([]);
     const [datos, setDatos]=useState([]);
@@ -33,6 +37,8 @@ const CrearDocente = () => {
         setDatos(selectedOption.map(option => option.value));
 
       };
+    
+
 
     const [docente, setDocente] = useState({
         nombre:'',
@@ -44,7 +50,7 @@ const CrearDocente = () => {
     })
 
     
-    const {nombre, direccion, telefono, materias, usuarioSistema} = docente;
+    const {nombre, direccion, telefono, materias} = docente;
 
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
@@ -56,7 +62,7 @@ const CrearDocente = () => {
 
     const crearDocente = async () => {
         
-        if (nombre === "" || direccion==="" || telefono==="" || materias===""  || usuarioSistema==="") {
+        if (nombre === "" || direccion==="" || telefono==="" || materias==="") {
             console.log("Debe diligenciar todos los campos")
             const mensaje = "Debe diligenciar todos los campos";
 
@@ -83,7 +89,7 @@ const CrearDocente = () => {
             direccion: docente.direccion,
             telefono: docente.telefono,
             materias: datos,
-            usuarioSistema:docente.usuarioSistema,
+            usuarioSistema:idUsuario,
             estado:docente.estado
             }
 
@@ -143,6 +149,7 @@ const CrearDocente = () => {
                   })              
             }
         }
+        navigate("/menu-docente"); 
 
     }
 
@@ -207,16 +214,6 @@ const CrearDocente = () => {
                                     className="basic-multi-select text-slate-600"
                                     classNamePrefix="select"
                                     onChange={handleChange}
-                                />
-                                <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Usuario Sistema</label>
-                                <input
-                                    type="text"
-                                    id="usuarioSistema"
-                                    name="usuarioSistema"
-                                    placeholder="Ingrese usuario del Sistema"
-                                    className="w-full text-2xl mt-3 p-4 border rounded-lg bg-gray-100 text-slate-600"
-                                    value={usuarioSistema}
-                                    onChange={onChange}
                                 />
 
                                 <input

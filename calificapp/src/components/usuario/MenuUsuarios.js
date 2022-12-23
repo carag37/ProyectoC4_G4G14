@@ -20,7 +20,7 @@ const MenuUsuarios = () => {
     }
 
     const crearDocente = () => {
-        navigate("/ver-docente")
+        navigate("/home-docente")
     }
 
     const crearAlumno = () => {

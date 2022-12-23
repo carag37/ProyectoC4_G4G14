@@ -56,18 +56,21 @@ async function actualizarDocente(req,res){
         docente.usuarioSistema = req.body.usuarioSistema || docente.usuarioSistema;
         docente.estado = req.body.estado || docente.estado;
         docente.telefono = req.body.telefono || docente.telefono;
-        const flag = docente.materias.includes(req.body.materia)
+        const flag = docente.materias.includes(req.body.materias)
     
     
-      if(req.body.materia == undefined){
+      if(req.body.materias == undefined){
          docente.materias=docente.materias; 
          res.json({docente}); 
         }else 
          if (flag==true)
              res.json({msg:"La materia ya existe"});
          else {
-             docente.materias.push({_id:req.body.materia});
-             //console.log(docente.materias);
+            let seleccionadas=req.body.materias;
+            for (let i = 0; i < seleccionadas.length; i++) {
+                docente.materias.push(seleccionadas[i])
+                
+            }
              res.json({docente});
             } 
     

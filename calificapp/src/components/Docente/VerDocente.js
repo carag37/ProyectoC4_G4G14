@@ -30,12 +30,11 @@ const VerDocente = () => {
         setDocentes(response.docente)
     }
 
-
     useEffect(() => {
         cargarDocentes();
     }, [navigate]);
 
-    const borrarDocente = async (IdCategoria, nombre) => {
+    const borrarDocente = async (IdCategoria) => {
         swal({
             title: "Estas seguro de eliminar el docente?",
             text: "Una vez eliminado, no se podra recuperar este usuario",
@@ -46,23 +45,22 @@ const VerDocente = () => {
           
           .then((willDelete) => {
             if (willDelete) {
-            const data = {
-                "_id": IdCategoria,               
-            }
-            
+                        
             const response = crud.DELETE(`/api/docentes/${IdCategoria}`);
 
             if (response) {
                 swal("El docente ha sido borrado", {
                   icon: "success",
-                });
+                });        
               }
               cargarDocentes();
+              navigate("/ver-docente")
     
             } else {
               swal("Se canceló la acción");
             }
-          });                 
+          });   
+                      
     }
     
     return (
@@ -100,7 +98,7 @@ const VerDocente = () => {
                                             <tr key={item._id}>
                                                 <td className="text-center p-1">{item._id}</td>
                                                 <td className="text-center p-1">{item.nombre}</td>
-                                                <td className="text-center p-1">{item.materias}</td>
+                                                <td className="text-center p-1">{item.materias.join(", ")}</td>
                                                 <td>
                                                     <div className="inline-flex rounded-md shadow-sm" role="group">
                                                         <Link

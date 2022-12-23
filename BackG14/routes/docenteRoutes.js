@@ -16,7 +16,7 @@ router.get("/all",loginMiddleware, leerDocentes)
 
 //Actualizar Docente
 //PUT
-router.patch("/:id",loginMiddleware, actualizarDocente)
+router.patch("/one/:id",loginMiddleware, actualizarDocente)
 //Eliminar Docente
 //DELETE
 router.delete("/:id",loginMiddleware,borrarDocente)

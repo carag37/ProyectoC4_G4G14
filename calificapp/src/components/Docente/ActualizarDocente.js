@@ -2,34 +2,84 @@ import React, { useEffect, useState }  from 'react';
 import Header from '../Header.js';
 import Sidebar from '../Sidebar.js';
 import crud from '../../utils/crud.js';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,Link } from 'react-router-dom';
 import swal from 'sweetalert'; 
+import Select from 'react-select';
 
 const ActualizarDocente = () => {
-    
-  const navigate = useNavigate(); 
+
+  let navigate = useNavigate(); 
+
+  useEffect(() => {
+    const autenticarUsuario = async () => {
+
+        const token = localStorage.getItem("token")
+        //console.log(token)
+        if (!token) {
+            navigate("/login");
+        }
+    }
+    autenticarUsuario()
+
+}, [navigate]);
 
   const {idDocente} = useParams();
-    console.log(idDocente);
-    
+     
+
+      const cargarDocente = async () =>{
+        const response = await crud.GET(`/api/docentes/one/${idDocente}`);        
+        setDocente(response.docente);
+      }
+     
+  useEffect(() => {
+        cargarDocente();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [navigate]);
+
     const [docente, setDocente] = useState({
       nombre: '',
       direccion: '',
       telefono: 57,
       materias: [],
       })
-      const cargarDocente = async () =>{
-        const response = await crud.GET(`/api/docentes/one/${idDocente}`);
-        console.log(response.docente);
-        setDocente(response.docente);
+      const [lista, setLista]=useState([]);
+      const [datos, setDatos]=useState([]);
+  
+      useEffect( () =>{
+          async function getNames(){
+          const response =  await crud.GET('/api/materias/all');
+          let nombreMaterias = [];
+          console.log(response);
+                 
+          for (let materia = 0; materia < response.length; materia++) {
+              let temporal={value:response[materia].nombre, label:response[materia].nombre}
+              nombreMaterias.push(temporal); 
+         }
+          console.log(lista);
+          setLista(nombreMaterias);
       }
-      useEffect(() =>{ 
-        cargarDocente();
-      },[]);
-
+      getNames(); 
+      // eslint-disable-next-line
+      },[])
       
-    let { nombre, direccion, telefono, materias } = docente;
+      const handleChange = selectedOption => {
+          
+          setDatos(selectedOption.map(option => option.value));
+          console.log("Seleccionadas",selectedOption)  
+        };
+    
+       
+    const { nombre, direccion, telefono } = docente;
+    let tempo = docente.materias;
 
+    console.log("materias:",tempo)
+    
+    let anterioresMaterias = [];
+    for (let i = 0; i < tempo.length; i++) {
+      let temporal={value:tempo[i], label:tempo[i]}
+      anterioresMaterias.push(temporal); 
+      }
+      
       const onChange = (e) =>{
         setDocente({
           ...docente,
@@ -37,14 +87,15 @@ const ActualizarDocente = () => {
         })
       }
 
+      
       const actualizarDocente = async () =>{
         const data = {
           nombre: docente.nombre,
-          direccion: docente.direccion,
-          materias: [docente.materias],
+          direccion: docente.direccion,        
           telefono: docente.telefono,
-                 
+          materias: datos,                 
         }
+        console.log("Pruebas",data);
        //console.log(data, idocente);
           const response = await crud.PATCH(`/api/docentes/one/${idDocente}`, data);
           console.log(response);
@@ -64,11 +115,18 @@ const ActualizarDocente = () => {
               
             }
             
-          });
+          })
           
-          navigate("/ver-docente");
-          window.location.reload();
-         
+          setDocente({
+            nombre:'',
+            direccion:'',
+            telefono: 57,
+            materias:[],
+            usuarioSistema:'',
+            estado:true
+        
+          })   
+          navigate("/ver-docente")
       }
     
       const onSubmit = (e) => {
@@ -76,7 +134,8 @@ const ActualizarDocente = () => {
         actualizarDocente();
       }
       
-     
+      console.log("Actualizar:", anterioresMaterias);
+
       
   return (
     <>
@@ -131,21 +190,22 @@ const ActualizarDocente = () => {
                 />
               
               <label className='text-2xl font-bold uppercase text-gray-600 block' >Materias</label>
-                <input
-                  type="text"
-                  id="materias"
-                  name="materias"
-                  placeholder='Materias del docente'
-                  className='w-full mt-3 p-3 border rounded-lg bg-gray-50'
-                  value={materias}
-                  onChange={onChange}
-                />
-              </div>
+              <Select
+                defaultValue={tempo[0]}
+                isMulti
+                name="materias"
+                options={lista}
+                className="basic-multi-select text-slate-600"
+                classNamePrefix="select"
+                onChange={handleChange}
+                 />
               <input 
                 type="submit"
                 value="Actualizar docente"
                 className="bg-blue-600 mt-10 text-2xl w-5/5 p-3 border rounded-xl hover:cursor-pointer hover:bg-blue-500 text-white font-bold uppercase"
                 />
+            </div >
+            <Link className="text-gray-700 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-docente"}>Regresar</Link>
             </form>
         </div >
 
