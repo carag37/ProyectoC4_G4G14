@@ -14,7 +14,7 @@ boletinRoutes.get("/one/:id", loginMiddleware, leerBoletin)
 boletinRoutes.get("/all", loginMiddleware, leerBoletines)
 //Actualizar
 //PUT
-boletinRoutes.patch("/", loginMiddleware, actualizarBoletin)
+boletinRoutes.patch("/:id", loginMiddleware, actualizarBoletin)
 //Eliminar
 //DELETE
 boletinRoutes.delete("/", loginMiddleware, borrarBoletin)
