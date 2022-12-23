@@ -70,6 +70,7 @@ const HomeAlumno = () => {
                     className="bg-blue-600 p-3  text-white uppercase font-bold   text-center rounded-lg"
                     >Crear Alumno
                 </Link>
+                
             </div>
             
             <main className= 'flex-1'>
@@ -82,11 +83,12 @@ const HomeAlumno = () => {
                     <table className = "rounded-xl border" >
                     <thead className='bg-slate-400'>
                   <tr>
-                    <th style={{ width: '20%' }}>ID</th>
                     <th style={{ width: '20%' }}>Nombre</th>
                     <th style={{ width: '20%' }}>Direccion</th>
                     <th style={{ width: '20%' }}>Telefono</th>
                     <th style={{ width: '20%' }}>Edad</th>
+                    <th style={{ width: '20%' }}>Curso</th>
+                    <th style={{ width: '20%' }}>Acciones</th>
                   </tr>
                 </thead>
         
@@ -95,11 +97,11 @@ const HomeAlumno = () => {
                     alumno.map(
                     item =>
                         <tr key={item._id}>
-                            <td className="text-center">{item._id}</td>
                             <td  className="text-center">{item.nombre}</td>
                             <td  className="text-center">{item.direccion}</td>
                             <td  className="text-center">{item.telefono}</td>
                             <td className="text-center" >{item.edad}</td>
+                            <td className="text-center" >{item.curso}</td>
                             <td>    
                                 <Link
                                  to={`/crear-curso`}
@@ -123,6 +125,11 @@ const HomeAlumno = () => {
                     }
                 </tbody>
                 </table>
+
+                <Link className="text-white  mt-5 block text-center text-lg font-bold uppercase" 
+                  to={"/menu-usuarios"}
+                  >Regresar
+                </Link>
                 </div>
             </main>
         </div>      

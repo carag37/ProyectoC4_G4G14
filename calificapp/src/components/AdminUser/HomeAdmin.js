@@ -132,6 +132,10 @@ const HomeAdmin = () => {
               }
             </tbody>
           </table>
+          <Link className="text-white  mt-5 block text-center text-lg font-bold uppercase" 
+                  to={"/menu-usuarios"}
+                  >Regresar
+          </Link>
           </div>
         </main>
       </div>
