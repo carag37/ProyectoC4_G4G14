@@ -64,17 +64,19 @@ const HomeAlumno = () => {
         <Header/>
         <div className='md:flex md:min-h-screen'>
             <Sidebar/>
-            <div>
+            
+            <main className= 'flex-1'>
+
+            <div className="mt-10 mx-5">
                 <Link 
                     to={`/crear-alumno`}
-                    className="bg-blue-600 p-3  text-white uppercase font-bold   text-center rounded-lg"
+                    className="bg-blue-600 p-3 mt-15 text-white uppercase font-bold   text-center rounded-lg"
                     >Crear Alumno
                 </Link>
                 
             </div>
-            
-            <main className= 'flex-1'>
-                <h1 className= 'text-4xl text-blue-600 font-bold text-center mb-9 md:mb-0'>
+
+                <h1 className= 'text-4xl text-slate-200 font-bold text-center mb-9 md:mb-0'>
                     Listado de Alumnos
                 </h1>
                 <br></br>
@@ -83,6 +85,7 @@ const HomeAlumno = () => {
                     <table className = "rounded-xl border" >
                     <thead className='bg-slate-400'>
                   <tr>
+                  <th style={{ width: '20%' }}>ID</th>
                     <th style={{ width: '20%' }}>Nombre</th>
                     <th style={{ width: '20%' }}>Direccion</th>
                     <th style={{ width: '20%' }}>Telefono</th>
@@ -97,28 +100,24 @@ const HomeAlumno = () => {
                     alumno.map(
                     item =>
                         <tr key={item._id}>
+                            <td  className="text-center">{item.idAlumno}</td>
                             <td  className="text-center">{item.nombre}</td>
                             <td  className="text-center">{item.direccion}</td>
                             <td  className="text-center">{item.telefono}</td>
                             <td className="text-center" >{item.edad}</td>
                             <td className="text-center" >{item.curso}</td>
-                            <td>    
-                                <Link
-                                 to={`/crear-curso`}
-                                 className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
-                                >Asignar Curso</Link>
-                            </td>
-                            <td>    
+                            <td> 
+                            <div className="inline-flex rounded-md shadow-sm" role="group">  
+                                
                                 <Link
                                  to={`/actualizar-alumno/${item._id}`}
-                                 className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
+                                 className="bg-blue-600 w-full mx-1 p-2 text-white uppercase font-bold block  text-center rounded-lg"
                                 >Editar</Link>
-                            </td>
-                            <td>  
                                 <button  
                                     onClick={()=>borrarAlumno(item._id)}
-                                    className="bg-blue-600 w-full p-3 text-white uppercase font-bold block  text-center rounded-lg"
+                                    className="bg-blue-600 w-full p-2 text-white uppercase font-bold block  text-center rounded-lg"
                                 >Eliminar</button>
+                              </div> 
                             </td>
                         </tr>
                     )

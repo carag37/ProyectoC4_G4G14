@@ -19,7 +19,7 @@ class crud{
             }
         }
         const url = `${back.api.baseURL}${resource}`
-        //const url = `${"http://localhost:4000"}${resource}`       
+             
         let response = (await (await fetch(url, data)).json())
         return response
 

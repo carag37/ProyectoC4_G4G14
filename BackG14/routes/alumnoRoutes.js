@@ -6,6 +6,7 @@ import { leerAlumno, crearAlumno, actualizarAlumno, borrarAlumno, leerAlumnoId }
 
 router.get("/", loginMiddleware,leerAlumno);
 router.get("/:id", loginMiddleware,leerAlumnoId);
+//router.get("/id/:idAlumno", loginMiddleware, leerAlumnoId);
 
 router.post( "/", loginMiddleware,crearAlumno);
 

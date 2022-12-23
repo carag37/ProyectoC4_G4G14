@@ -4,19 +4,29 @@ import Sidebar from '../Sidebar.js';
 import crud from '../../utils/crud.js';
 import {Link, useNavigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert'; 
+import Select from 'react-select';
 
 const ActualizarAlumno = () => {
-    const navigate = useNavigate(); 
 
-  const {id} = useParams();
+    const navigate = useNavigate(); 
+    const [lista, setLista] = useState([]);
+    const [datos, setDatos] = useState([]);
+    const {id} = useParams();
     console.log(id);
     
+    const handleChange = selectedOption => {
+      console.log("Opciones", selectedOption)
+      setDatos(selectedOption.map(option => option.value));
+  
+    };
+
     const [alumno, setAlumno] = useState({
         idAlumno:'',
         nombre:'',
         direccion:'',
         telefono:'',
         edad:'',
+        curso:'',
         
       })
 
@@ -25,13 +35,27 @@ const ActualizarAlumno = () => {
         console.log(response.alumno);
         setAlumno(response.alumno);
      } 
+
+     async function getNames() {
+      const response = await crud.GET('/api/cursos/all');
+      let descripcionCursos = [];
+      console.log(response);
+
+      for (let curso = 0; curso < response.length; curso++) {
+        let temporal = { value: response[curso].descripcion, label: response[curso].descripcion }
+        descripcionCursos.push(temporal);
+      }
+      console.log(lista);
+      setLista(descripcionCursos);
+    }
       useEffect(() =>{          
          cargarAlumno();
+         getNames();
          // eslint-disable-next-line react-hooks/exhaustive-deps
       },[]);
 
       
-    let {idAlumno, nombre, direccion, telefono, edad } = alumno;
+    let {idAlumno, nombre, direccion, telefono, edad, curso } = alumno;
 
       const onChange = (e) =>{
         setAlumno({
@@ -42,14 +66,16 @@ const ActualizarAlumno = () => {
 
       const actualizarAlumno = async () =>{
         const data = {
+            id: alumno.id,
             idAlumno:alumno.idAlumno,
             nombre: alumno.nombre,
             direccion: alumno.direccion,
             telefono: alumno.telefono,
-            edad: alumno.edad
+            edad: alumno.edad,
+            curso: datos[0]
         }
-       //console.log(data, idAlumno);
-          const response = await crud.PATCH(`/api/alumnos/${idAlumno}`, data);
+        console.log(curso);
+          const response = await crud.PATCH(`/api/alumnos/${id}`, data);
           console.log(response);
           const mensaje1 = "El alumno se actualizo correctamente";
           swal({
@@ -148,6 +174,15 @@ const ActualizarAlumno = () => {
                                     value={edad}
                                     onChange={onChange}
                                 />
+                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Cursos</label>
+                                  <Select
+                                    isMulti
+                                    name="cursos"
+                                    options={lista}
+                                    className="basic-multi-select text-slate-600 block"
+                                    classNamePrefix="select"
+                                    onChange={handleChange}
+                                  />
 
                                 <input
                                     type="submit"
@@ -158,7 +193,7 @@ const ActualizarAlumno = () => {
                             </div>
 
                             <Link className="text-gray-700 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" 
-                                to={"/menu-alumno"}>Regresar</Link>
+                                to={"/home-alumno"}>Regresar</Link>
 
                         </form>
 
