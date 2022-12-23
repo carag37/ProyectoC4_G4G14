@@ -29,7 +29,7 @@ async function crearAlumno (req,res) {
         const {idAlumno,nombre,direccion,telefono,edad,curso} =req.body;
     
         //const alumnoId = req.body.idAlumno;
-        console.log(idAlumno);
+        console.log(req.body);
 
         try{
             let alumno = await Alumno.findOne({idAlumno});

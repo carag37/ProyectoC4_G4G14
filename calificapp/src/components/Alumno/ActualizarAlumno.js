@@ -158,7 +158,7 @@ const ActualizarAlumno = () => {
                             </div>
 
                             <Link className="text-gray-700 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" 
-                                to={"/menu-alumno"}>Regresar</Link>
+                                to={"/home-alumno"}>Regresar</Link>
 
                         </form>
 
