@@ -57,9 +57,10 @@ async function actualizarAcudiente (req,res) {
     acudiente.direccion = req.body.direccion || acudiente.direccion;
     acudiente.telefono = req.body.telefono || acudiente.telefono;
     acudiente.parentesco = req.body.parentesco || acudiente.parentesco;
+    acudiente.alumno = req.body.alumno || acudiente.alumno;
     acudiente.estado =req.body.estado || acudiente.estado;
     acudiente.usuarioSistema = req.body.usuarioSistema || acudiente.usuarioSistema;
-    if(req.body.alumno == undefined){
+   /* if(req.body.alumno == undefined){
         acudiente.alumno=acudiente.alumno; 
         res.json({acudiente}); 
        }else 
@@ -71,7 +72,7 @@ async function actualizarAcudiente (req,res) {
             res.json({acudiente});
            } 
    
-
+*/
     acudiente.save();
     res.json({acudiente});
 }

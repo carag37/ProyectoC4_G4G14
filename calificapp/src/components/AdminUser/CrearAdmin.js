@@ -11,6 +11,7 @@ function CrearAdmin() {
     const navigate = useNavigate();
 
     const {idUsuario} = useParams();
+    
     console.log(idUsuario);
 
 
@@ -41,11 +42,12 @@ function CrearAdmin() {
             telefono: admin.telefono,
             usuarioSistema: idUsuario,
           }
-          console.log(idUsuario);
-          console.log(data);
+          //console.log(idUsuario);
+
+          //console.log(data);
         const response =await crud.POST(`/api/admins`,data);
         const mensaje = response.msg; 
-        console.log(mensaje);
+        //console.log(mensaje);
         if(mensaje === "El administrador ya existe"){
             const mensaje = "El administrador ya existe";
             swal({

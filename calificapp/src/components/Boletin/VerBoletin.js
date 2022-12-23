@@ -53,7 +53,7 @@ const VerBoletin = () => {
                         "_id": IdBoletin,
                     }
 
-                    const response = crud.DELETE('/api/Boletines', data)
+                    const response = crud.DELETE('/api/boletines', data)
 
                     //if(response.msg === "La boletin " + IdCategoria + " eliminado correctamente"){
                     if (response) {
@@ -74,6 +74,8 @@ const VerBoletin = () => {
                             }
                         })
                     }
+
+                    cargarBoletines();
                     cargarBoletines();
 
                 } else {
@@ -106,7 +108,7 @@ const VerBoletin = () => {
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
-                                to={`/crear-Acudiente`}
+                                to={`/crear-boletin`}
                                 className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
                             >Crear Boletin
                             </Link>
@@ -121,11 +123,11 @@ const VerBoletin = () => {
                                 <thead className='bg-slate-400'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
-                                        <th style={{ width: '20%' }}>Materia</th>
-                                        <th style={{ width: '20%' }}>Alumno</th>
+                                        <th style={{ width: '15%' }}>Materia</th>
+                                        <th style={{ width: '15%' }}>ID Alumno</th>
                                         <th style={{ width: '20%' }}>Notas</th>
                                         <th style={{ width: '20%' }}>Observaciones</th>
-                                        <th style={{ width: '20%' }}>Acciones</th>
+                                        <th style={{ width: '30%' }}>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody className=" bg-slate-300 rounded-t-xl border">
@@ -136,14 +138,14 @@ const VerBoletin = () => {
                                                     {/* <td>{item._id}</td> */}
                                                     <td>{item.materia}</td>
                                                     <td>{item.alumno}</td>
-                                                    <td>{item.notas} </td>
+                                                    <td>{item.notas.join(", ")} </td>
                                                     <td>{item.observaciones} </td>
 
                                                     <td>
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarBoletin(item._id, item.nombre)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
-                                                                Editar
+                                                                Agregar Nota / Observacion
                                                             </button>
                                                             <button onClick={() => borrarBoletin(item._id, item.nombre)} className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
                                                                 Eliminar

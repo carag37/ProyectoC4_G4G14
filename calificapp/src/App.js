@@ -97,13 +97,13 @@ function App() {
                 
                 <Route path="/home-acudiente" exact element= {<HomeAcudiente/>} />
                 <Route path="/crear-acudiente/:idUsuario" exact element={<CrearAcudiente/>} />
-                <Route path="/actualizar-acudiente/:idAcudiente" exact element={<ActualizarAcudiente/>} />
+                <Route path="/actualizar-acudiente/:id" exact element={<ActualizarAcudiente/>} />
                 <Route path="/crear-sistemaac" exact element= {<CrearSistemaAc/>} />
 
                 
                 <Route path="/crear-alumno" exact element={<CrearAlumno/>} />
                 <Route path="/home-alumno" exact element={<HomeAlumno/>} />
-                <Route path="/actualizar-alumno/:idAlumno" exact element={<ActualizarAlumno/>} />
+                <Route path="/actualizar-alumno/:id" exact element={<ActualizarAlumno/>} />
                 
                 <Route path="/menu-materia" exact element={<MenuMateria/>} />
                 <Route path="/crear-materia" exact element={<CrearMateria/>} />

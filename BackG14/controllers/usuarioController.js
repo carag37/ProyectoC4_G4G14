@@ -26,7 +26,7 @@ async function leerUserId (req,res) {
     async function leerUserTipo (req,res) {
     
         const {tipoUsuario} = req.params
-        console.log(tipoUsuario);
+       // console.log(tipoUsuario);
 
         try{
             const usuario = await Usuario.find().where("tipoUsuario").equals(tipoUsuario);

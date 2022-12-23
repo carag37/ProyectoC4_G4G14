@@ -7,11 +7,11 @@ import genKey from "../utils/keyGenerator.js";
 
 const BoletinSchema = mongoose.Schema ({
     "id": {type: String, default:() => genKey(5), set:() => genKey(5), immutable:true},
-    "materia":{ type: mongoose.Schema.Types.ObjectId, required:true, ref: "materias"},
+    "materia":{ type: mongoose.Schema.Types.String, required:true, ref: "materias"},
     "notas": {type:[Number], min:0, max:5, required:true},
-    "alumno": { type: mongoose.Schema.Types.ObjectId, ref: "alumnos", required:true},
+    "alumno": { type: mongoose.Schema.Types.String, ref: "alumnos", required:true},
     "creador":{ type: mongoose.Schema.Types.ObjectId, ref: "usuarios" },
-    "observaciones": { type: String, maxLength:40, trim: true},
+    "observaciones": { type: String, trim: true},
     
 },{timestamps:true})
 

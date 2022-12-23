@@ -7,28 +7,38 @@ import { usuarioAutenticado } from "./loginController.js";
 
 async function crearBoletin(req, res) {
 
-    const { materia, notas, alumno, observaciones } = req.body
+    const { materia, notas, idAlumno, observaciones } = req.body
     let docBoletin;
-    let alumnoV = await AlumnoSchema.find({"_id": alumno}) 
-    let materiaV = await MateriaSchema.find({"_id": materia})
+    let notasNum;
+    let alumnoV = await AlumnoSchema.find({ "idAlumno": idAlumno })
+    let materiaV = await MateriaSchema.find({ "nombre": materia })
 
-    if (alumnoV.length==0 || materiaV==0){ return res.status(400).json({ msg: "La materia o el alumno no existen"}); }
-    
-    const boletin = await BoletinSchema.find({ 
+    if (notas == ! null) {
+        notasNum = notas.split(",").map(function (str) { return parseInt(str); });
+        console.log(notasNum)
+    }
+
+
+
+    if (alumnoV.length == 0 || materiaV == 0) { return res.status(400).json({ msg: "La materia o el alumno no existen" }); }
+
+    const boletin = await BoletinSchema.find({
         "materia": materia,
-        "alumno": alumno
+        "alumno": idAlumno
     });
-    
-    if (boletin.length!=0) {        
-        return res.status(400).json({ msg: "El boletin ya existe para el alumno " + alumnoV[0].nombre +  " con id " + alumnoV[0].idAlumno + " para la materia " + materiaV[0].nombre});
+
+
+
+    if (boletin.length != 0) {
+        return res.status(400).json({ msg: "El boletin ya existe para ese alumno y materia" });
     }
 
     try {
         docBoletin = await BoletinSchema.create({
 
             "materia": materia,
-            "notas": notas,
-            "alumno": alumno,
+            "notas": notasNum,
+            "alumno": idAlumno,
             "observaciones": observaciones,
             "creador": req.usuario.id
 
@@ -36,6 +46,7 @@ async function crearBoletin(req, res) {
     } catch (error) {
         res.status(400)
         res.json(error.message);
+        console.log(error.message)
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
@@ -47,24 +58,13 @@ async function crearBoletin(req, res) {
 
 async function leerBoletin(req, res) {
 
-    const {nombreMateria, idAlumno} = req.body
-    
+    const { id } = req.params
+
     let docBoletin
-    let alumnoV = await AlumnoSchema.find({"idAlumno": idAlumno}) 
-    let materiaV = await MateriaSchema.find({"nombre": nombreMateria})
-
-    if (alumnoV.length==0 || materiaV==0){ return res.status(400).json({ msg: "La materia o el alumno no existen"}); }
-
-    let materia = materiaV[0]._id;
-    let alumno = alumnoV[0]._id
 
     try {
 
-        docBoletin = await BoletinSchema.find({
-            "materia": materia,
-            "alumno": alumno
-
-        })
+        docBoletin = await BoletinSchema.findById(id)
 
     } catch (error) {
         res.status(400)
@@ -105,53 +105,48 @@ async function leerBoletines(req, res) {
 
 async function actualizarBoletin(req, res) {
 
-    const {nombreMateria, idAlumno, cambios} = req.body
-    
+    const { id } = req.params
+    const { notas, observaciones } = req.body
+
+    console.log(req.body)
+
+
+    let date = new Date().toJSON();
+    let notasNum
     let docBoletin
-    let alumnoV = await AlumnoSchema.find({"idAlumno": idAlumno}) 
-    let materiaV = await MateriaSchema.find({"nombre": nombreMateria})
-
-    if (alumnoV.length==0 || materiaV==0){ return res.status(400).json({ msg: "La materia o el alumno no existen"}); }
-
-    let materia = materiaV[0]._id;
-    let alumno = alumnoV[0]._id
 
     try {
-        docBoletin = await BoletinSchema.find({  //el updateone busca y edita un valor que debe ser único de elementos definidos en el modelo
-            "materia": materia,
-            "alumno": alumno  //Lo que está entre comillas se debe llamar igual al parámetro en la DB.
-        })//{"edad":123})  //Primer parámetro para buscar, segundo parámetro para editar (objeto Json). //Método 2
-   
+        docBoletin = await BoletinSchema.findById(id)
     } catch (error) {
         res.status(400)
         res.json(error.message);
-
         return  //return para evitar enviar 2 respuestas por ejecución
     }
 
-
     if (docBoletin.length == 0) {
-        return res.status(400).json({ msg: "El boletin no existe para el alumno " + alumnoV[0].nombre +  " con id " + alumnoV[0].idAlumno + " para la materia " + materiaV[0].nombre });
+        return res.status(400).json({ msg: "El boletin no existe para el alumno y materia indicados" });
     }
 
-    if (cambios==null){return res.status(200).json({ msg: "No se solicitaron cambios"});}
+    let updateObs = " / " + observaciones + " Editado en: " + date
 
-    docBoletin[0].materia = cambios.materia || docBoletin[0].materia
-    docBoletin[0].alumno = cambios.alumno || docBoletin[0].alumno
-    docBoletin[0].observaciones = cambios.observaciones || docBoletin[0].observaciones
+    if (notas !== null || observaciones !== null) { docBoletin.observaciones = docBoletin.observaciones + updateObs }
 
-   
+    console.log(docBoletin.observaciones)
+    console.log(notas)
 
-    if (docBoletin[0].notas.length != 0 && cambios.notas != null){
-    
-    for (let i = 0; i<cambios.notas.length; i++){ 
-        let nota=cambios.notas[i]
-        docBoletin[0].notas.push(nota)
+    if (notas !== null) {
+        notasNum = notas.split(",").map(function (str) { return parseInt(str); });
+        console.log(notasNum)
+        for (let i = 0; i < notasNum.length; i++) {
+            let nota = notasNum[i]
+            docBoletin.notas.push(nota)
+        }
     }
-    }
+
+    console.log(docBoletin.notas)
 
 
-    docBoletin[0].save();
+    docBoletin.save();
     res.status(200).json({ docBoletin })
 
 }

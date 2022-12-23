@@ -90,12 +90,12 @@ const HomeAcudiente = () => {
           <table className = "rounded-xl border" >
             <thead className='bg-slate-400'>
               <tr>
-                <th style={{ width: '10%' }}>Nombre</th>
-                <th style={{ width: '10%' }}>Direccion</th>
-                <th style={{ width: '10%' }}>Telefono</th>
-                <th style={{ width: '50%' }}>Alumno</th>
-                <th style={{ width: '10%' }}>Parentezco</th>
-                <th style={{ width: '10%' }}>Acciones</th>
+                <th style={{ width: '12%' }}>Nombre</th>
+                <th style={{ width: '12%' }}>Direccion</th>
+                <th style={{ width: '12%' }}>Telefono</th>
+                <th style={{ width: '30%' }}>ID Alumno</th>
+                <th style={{ width: '12%' }}>Parentezco</th>
+                <th style={{ width: '12%' }}>Acciones</th>
 
 
               </tr>
@@ -131,6 +131,11 @@ const HomeAcudiente = () => {
               }
             </tbody>
           </table>
+
+          <Link className="text-white  mt-5 block text-center text-lg font-bold uppercase" 
+                  to={"/menu-usuarios"}
+                  >Regresar
+                </Link>
           </div>
 
         </main>

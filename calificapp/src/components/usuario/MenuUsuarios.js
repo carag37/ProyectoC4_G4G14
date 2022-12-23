@@ -36,7 +36,7 @@ const MenuUsuarios = () => {
                 <main className="flex-1 text-slate-200 text-3xl mt-8 p-5 w-1/3 text-center">
                     <div>
 
-                        <h1> Creación de cuentas de Usuario</h1>
+                        <h1> Creación de cuentas de Usuario y Perfiles</h1>
                         <h3> Seleccione la opción deseada</h3>
 
                         <form
