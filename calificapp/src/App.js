@@ -97,7 +97,7 @@ function App() {
                 
                 <Route path="/home-acudiente" exact element= {<HomeAcudiente/>} />
                 <Route path="/crear-acudiente/:idUsuario" exact element={<CrearAcudiente/>} />
-                <Route path="/actualizar-acudiente/:idAcudiente" exact element={<ActualizarAcudiente/>} />
+                <Route path="/actualizar-acudiente/:id" exact element={<ActualizarAcudiente/>} />
                 <Route path="/crear-sistemaac" exact element= {<CrearSistemaAc/>} />
 
                 

@@ -5,9 +5,6 @@ import crud from '../../utils/crud';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
 
-
-
-
 const CrearCuenta = () => {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState({  //{varible, función} el use state también me inicaliza las variables en las cajas según necesidad (traductor, cambios de moneda, etc.)
