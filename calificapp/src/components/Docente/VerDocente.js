@@ -34,6 +34,23 @@ const VerDocente = () => {
         cargarDocentes();
     }, [navigate]);
 
+    const [materia, setMaterias] = useState([]);
+
+    const cargarMaterias = async () => {
+
+        const response = await crud.GET('/api/materias/all');
+        //console.log(response)
+        //const mensaje_res = response.msg;
+        setMaterias(response)
+        
+    }
+
+
+    useEffect(() => {
+        cargarMaterias();
+         // eslint-disable-next-line
+    },[]);
+
     const borrarDocente = async (IdCategoria) => {
         swal({
             title: "Estas seguro de eliminar el docente?",
@@ -96,9 +113,9 @@ const VerDocente = () => {
                                     docente.map(
                                         item =>
                                             <tr key={item._id}>
-                                                <td className="text-center p-1">{item._id}</td>
-                                                <td className="text-center p-1">{item.nombre}</td>
-                                                <td className="text-center p-1">{item.materias.join(", ")}</td>
+                                                <td className="text-center p-1 border">{item._id}</td>
+                                                <td className="text-center p-1 border">{item.nombre}</td>
+                                                <td className="px-2 border">{materia.filter(function(element){ return element.docente.includes(item._id) }).map(ModArr=>ModArr.nombre).join(", ")}</td>
                                                 <td>
                                                     <div className="inline-flex rounded-md shadow-sm" role="group">
                                                         <Link

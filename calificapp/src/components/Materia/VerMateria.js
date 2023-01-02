@@ -144,22 +144,22 @@ const VerMateria = () => {
             <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="min-h-screen">
+                <main className="min-h-screen w-full rounded-lg">
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
-                                to={`/crear-Acudiente`}
+                                to={`/crear-materia`}
                                 className="bg-blue-600 p-3 text-white uppercase font-bold text-center rounded-lg"
                             >Crear Materia
                             </Link>
                         </div>
 
-                        <h1 className='text-4xl mt-10 text-slate-200 font-bold text-center mb-9 md:mb-0'>
+                        <h1 className='text-4xl mt-10 text-white font-bold text-center mb-9 md:mb-0'>
                             Listado de Materias
                         </h1>
 
-                        <div className="mx-10 inline-block">
-                            <table className="rounded-xl border table-fixed w-full" >
+                        <div className="w-full px-20 my-5">
+                            <table className="rounded-xl border table-auto text-lg w-full rounded-t-xl" >
                                 <thead className='bg-slate-400'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
@@ -169,16 +169,17 @@ const VerMateria = () => {
                                         <th style={{ width: '20%' }}>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody className=" bg-slate-300 rounded-t-xl border">
+                                <tbody className=" bg-slate-300 border">
+                                    
                                     {
                                         materia.map(
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td>{item.nombre}</td>
-                                                    <td>{cursos.filter(function(element){ return element.materia.includes(item.nombre) }).map(ModArr=>ModArr.descripcion).join(", ")}</td>
-                                                    <td>{item.docente} </td>
-                                                    <td>
+                                                    <td className="px-2 border">{item.nombre}</td>
+                                                    <td className="px-2 border">{cursos.filter(function(element){ return element.materia.includes(item.nombre) }).map(ModArr=>ModArr.descripcion).join(", ")}</td>
+                                                    <td className="px-2 border">{item.docente} </td>
+                                                    <td className="p-2 border">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarMateria(item._id, item.nombre)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
@@ -195,7 +196,7 @@ const VerMateria = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-materia"}>Regresar</Link>
+                        <Link className="text-white mb-20 hover:text-gray-300 block text-center text-xl font-bold uppercase" to={"/menu-materia"}>Regresar</Link>
                     </div>
                 </main>
             </div>

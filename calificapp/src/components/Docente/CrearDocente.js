@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, /*useEffect*/ } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom'; //, useNavigate 
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import crud from "../../utils/crud.js";
 import swalt from 'sweetalert/dist/sweetalert.min.js';
-import Select from 'react-select';
+//import Select from 'react-select';
 
 const CrearDocente = () => {
     const navigate = useNavigate();
 
     const {idUsuario} = useParams();
-    console.log("usuario",idUsuario);
+    //console.log("usuario",idUsuario);
     //const navigate = useNavigate();
-    const [lista, setLista]=useState([]);
-    const [datos, setDatos]=useState([]);
+    // const [lista, setLista]=useState([]);
+    // const [datos, setDatos]=useState([]);
 
-    useEffect( () =>{
-        async function getNames(){
-        const response =  await crud.GET('/api/materias/all');
-        let nombreMaterias = [];
-        console.log(response);
+    // useEffect( () =>{
+    //     async function getNames(){
+    //     const response =  await crud.GET('/api/materias/all');
+    //     let nombreMaterias = [];
+    //     //console.log(response);
                
-        for (let materia = 0; materia < response.length; materia++) {
-            let temporal={value:response[materia].nombre, label:response[materia].nombre}
-            nombreMaterias.push(temporal); 
-       }
-        console.log(lista);
-        setLista(nombreMaterias);
-    }
-    getNames(); 
-    // eslint-disable-next-line
-    },[])
+    //     for (let materia = 0; materia < response.length; materia++) {
+    //         let temporal={value:response[materia].nombre, label:response[materia].nombre}
+    //         nombreMaterias.push(temporal); 
+    //    }
+    //     //console.log(lista);
+    //     setLista(nombreMaterias);
+    // }
+    // getNames(); 
+    // // eslint-disable-next-line
+    // },[])
     
-    const handleChange = selectedOption => {
-        console.log("Opciones",selectedOption)
-        setDatos(selectedOption.map(option => option.value));
+    // const handleChange = selectedOption => {
+    //     console.log("Opciones",selectedOption)
+    //     setDatos(selectedOption.map(option => option.value));
 
-      };
+    //   };
     
 
 
@@ -63,7 +63,7 @@ const CrearDocente = () => {
     const crearDocente = async () => {
         
         if (nombre === "" || direccion==="" || telefono==="" || materias==="") {
-            console.log("Debe diligenciar todos los campos")
+            //console.log("Debe diligenciar todos los campos")
             const mensaje = "Debe diligenciar todos los campos";
 
             new swalt({
@@ -83,21 +83,21 @@ const CrearDocente = () => {
             })
 
         } else {
-            console.log("Pruebas", datos)
+            //console.log("Pruebas", datos)
             const data = {
             nombre: docente.nombre,
             direccion: docente.direccion,
             telefono: docente.telefono,
-            materias: datos,
+            //materias: datos,
             usuarioSistema:idUsuario,
             estado:docente.estado
             }
 
-            console.log(data);
+            //console.log(data);
             
             const response = await crud.POST('/api/docentes', data)
             const mensaje = response.msg;
-            console.log(mensaje);
+            //console.log(mensaje);
 
             if(mensaje === 'El docente ya existe'){
                 const mensaje ="El docente ya existe";
@@ -206,7 +206,7 @@ const CrearDocente = () => {
                                     value={telefono}
                                     onChange={onChange}
                                 />
-                                <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Materias</label>
+                                {/* <label className="text-2xl mt-5 font-bold uppercase text-gray-600 block">Materias</label>
                                  <Select
                                     isMulti
                                     name="materias"
@@ -214,7 +214,7 @@ const CrearDocente = () => {
                                     className="basic-multi-select text-slate-600"
                                     classNamePrefix="select"
                                     onChange={handleChange}
-                                />
+                                /> */}
 
                                 <input
                                     type="submit"

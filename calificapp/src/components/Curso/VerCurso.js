@@ -120,11 +120,11 @@ const VerCurso = () => {
 
     return (
         <>
-            <Header />
+             <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="min-h-screen">
-                    <div>
+                <main className="min-h-screen w-full mx-auto">
+                    <div className="w-full">
                         <div className="mt-10 mx-5" >
                             <Link
                                 to={`/crear-curso`}
@@ -137,9 +137,9 @@ const VerCurso = () => {
                             Listado de Cursos
                         </h1>
 
-                        <div className="mx-10 inline-block">
-                            <table className="rounded-xl border table-fixed w-full" >
-                                <thead className='bg-slate-400'>
+                        <div className="mx-10 inline-block my-10">
+                            <table className="rounded-xl border table-auto w-full text-xl" >
+                                <thead className='bg-slate-500 border-b text-slate-50'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
                                         <th style={{ width: '20%' }}>Descripcion</th>
@@ -154,10 +154,10 @@ const VerCurso = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td>{item.descripcion}</td>
+                                                    <td className="p-2 border">{item.descripcion}</td>
                                                    
-                                                    <td>{item.materia.join(", ")} </td>
-                                                    <td>
+                                                    <td className="p-2 border">{item.materia.join(", ")} </td>
+                                                    <td className="p-2 border">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarCurso(item._id, item.descripcion)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">

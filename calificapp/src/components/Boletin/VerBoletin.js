@@ -104,7 +104,7 @@ const VerBoletin = () => {
             <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="min-h-screen">
+                <main className="min-h-screen w-full text-center">
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
@@ -118,9 +118,9 @@ const VerBoletin = () => {
                             Listado de Boletines
                         </h1>
 
-                        <div className="mx-10 inline-block">
-                            <table className="rounded-xl border table-fixed w-full" >
-                                <thead className='bg-slate-400'>
+                        <div className="mx-10 inline-block my-10">
+                            <table className="rounded-xl border table-auto w-full text-xl text-center" >
+                                <thead className='bg-slate-500 border-b text-slate-50'>
                                     <tr>
                                         {/* <th style={{ width: '20%' }}>Id</th> */}
                                         <th style={{ width: '15%' }}>Materia</th>
@@ -136,12 +136,12 @@ const VerBoletin = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td>{item.materia}</td>
-                                                    <td>{item.alumno}</td>
-                                                    <td>{item.notas.join(", ")} </td>
-                                                    <td>{item.observaciones} </td>
+                                                    <td className="p-2 border">{item.materia}</td>
+                                                    <td className="p-2 border">{item.alumno}</td>
+                                                    <td className="p-2 border">{item.notas.join(", ")} </td>
+                                                    <td className="text-md p-2 border">{item.observaciones} </td>
 
-                                                    <td>
+                                                    <td className="text-md border p-2">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarBoletin(item._id, item.nombre)}
                                                                 className="bg-blue-600 w-full p-3 mx-1 text-white uppercase font-bold block  text-center rounded-lg">
@@ -158,7 +158,7 @@ const VerBoletin = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-boletin"}>Regresar</Link>
+                        <Link className="text-white hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-boletin"}>Regresar</Link>
                     </div>
                 </main>
             </div>
