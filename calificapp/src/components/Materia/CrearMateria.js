@@ -8,8 +8,8 @@ import Select from 'react-select';
 
 const CrearMateria = () => {
     const navigate = useNavigate();
-    const [lista, setLista] = useState([]);
-    const [datos, setDatos] = useState([]);
+    //const [lista, setLista] = useState([]);
+    // const [datos, setDatos] = useState([]);
 
     const [listaD, setListaD] = useState([]);
     const [datosD, setDatosD] = useState([]);
@@ -18,36 +18,36 @@ const CrearMateria = () => {
         async function getNames() {
             const response = await crud.GET('/api/cursos/all');
             let descripcionCursos = [];
-            console.log(response);
+            //console.log(response);
 
             for (let curso = 0; curso < response.length; curso++) {
                 let temporal = { value: response[curso].descripcion, label: response[curso].descripcion }
                 descripcionCursos.push(temporal);
             }
-            console.log(lista);
-            setLista(descripcionCursos);
+            //console.log(lista);
+            //setLista(descripcionCursos);
         }
         getNames();
         // eslint-disable-next-line
     }, [])
 
-    const handleChange = selectedOption => {
-        console.log("Opciones", selectedOption)
-        setDatos(selectedOption.map(option => option.value));
+    // const handleChange = selectedOption => {
+    //     console.log("Opciones", selectedOption)
+    //     setDatos(selectedOption.map(option => option.value));
 
-    };
+    // };
 
     useEffect(() => {
         async function getNamesD() {
             const responseD = await crud.GET('/api/docentes/all');
             let nombreDocente = [];
-            console.log(responseD.docente);
+            //console.log(responseD.docente);
 
             for (let i = 0; i < responseD.docente.length; i++) {
                 let temporal = { value: responseD.docente[i]._id, label: responseD.docente[i].nombre }
                 nombreDocente.push(temporal);
             }
-            console.log(listaD);
+            //console.log(listaD);
             setListaD(nombreDocente);
         }
         getNamesD();
@@ -55,7 +55,7 @@ const CrearMateria = () => {
     }, [])
 
     const handleChangeD = selectedOptionD => {
-        console.log("Opciones", selectedOptionD)
+        //console.log("Opciones", selectedOptionD)
         setDatosD(selectedOptionD.map(optionD => optionD.value));
 
     };
@@ -104,16 +104,16 @@ const CrearMateria = () => {
         } else {
             const data = {
                 nombre: materia.nombre,
-                curso: datos,
+                //curso: datos,
                 Docente: datosD,
 
             }
 
-            console.log(data);
+            //console.log(data);
 
             const response = await crud.POST('/api/materias', data)
             const mensaje_res = response.msg;
-            console.log(mensaje_res);
+            //console.log(mensaje_res);
 
             if (mensaje_res === "La materia " + data.nombre + " ya existe" || mensaje_res === "El docente " + data.idDocente + " no existe" || mensaje_res === "El curso " + data.curso + " no existe") {
 
@@ -201,7 +201,7 @@ const CrearMateria = () => {
                                     onChange={onChange}
                                 />
 
-                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Cursos</label>
+                                {/* <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Cursos</label>
                                 <Select
                                     isMulti
                                     name="cursos"
@@ -209,7 +209,7 @@ const CrearMateria = () => {
                                     className="basic-multi-select text-slate-600 block"
                                     classNamePrefix="select"
                                     onChange={handleChange}
-                                />
+                                /> */}
 
                                 <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Docentes</label>
                                 <Select

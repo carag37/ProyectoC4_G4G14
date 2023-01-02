@@ -156,7 +156,7 @@ const VerCurso = () => {
                                                     {/* <td>{item._id}</td> */}
                                                     <td>{item.descripcion}</td>
                                                    
-                                                    <td>{item.materia} </td>
+                                                    <td>{item.materia.join(", ")} </td>
                                                     <td>
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarCurso(item._id, item.descripcion)}

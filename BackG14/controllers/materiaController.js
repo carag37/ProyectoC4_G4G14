@@ -199,6 +199,10 @@ async function actualizarMateria(req, res) {
     res.status(200).json({ docMateria })
 }
 
+//------------------------Actualizar Cursos en Materias---------------------
+
+async function cargarCursos(req, res) {console.log("Se están cargando Cursos")}
+
 //-------------------------DELETE-------------------------------------------
 
 async function borrarMateria(req, res) {
@@ -227,4 +231,4 @@ async function borrarMateria(req, res) {
 
 }
 
-export { leerMateriaId, crearMateria, actualizarMateria, borrarMateria, leerMaterias }
+export { leerMateriaId, crearMateria, actualizarMateria, borrarMateria, leerMaterias, cargarCursos}

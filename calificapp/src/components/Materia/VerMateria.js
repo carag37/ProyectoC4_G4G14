@@ -38,6 +38,26 @@ const VerMateria = () => {
          // eslint-disable-next-line
     },[]);
 
+    const [cursos, setCursos] = useState([]);
+
+    const cargarCursos = async () => {
+
+        const response = await crud.GET('/api/cursos/all');
+        //console.log(response)
+        setCursos(response)
+
+        
+        
+    }
+
+    useEffect(() => {
+        cargarCursos();
+                 // eslint-disable-next-line
+    },[]);
+
+
+
+
 
     const borrarMateria = async (IdMateria, nombre) => {
 
@@ -156,7 +176,7 @@ const VerMateria = () => {
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
                                                     <td>{item.nombre}</td>
-                                                    <td>{item.curso[0]}<br></br>{item.curso[1]}</td>
+                                                    <td>{cursos.filter(function(element){ return element.materia.includes(item.nombre) }).map(ModArr=>ModArr.descripcion).join(", ")}</td>
                                                     <td>{item.docente} </td>
                                                     <td>
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">

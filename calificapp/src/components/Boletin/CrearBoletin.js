@@ -70,7 +70,7 @@ const CrearBoletin = () => {
     const onChange = (e) => {    //Para leer el contenido que tengo en las cajas a traves de una variable
 
         setBoletin({    //el useState me limita a cambiar los valores de la variable por acá
-            ...boletin, //lo voy a cambiar con lo que se cargue en usuario
+            ...boletin, //lo voy a cambiar con lo que se cargue en boletin
             [e.target.name]: e.target.value  //target es una propiedad de Js que me lee todo lo que trae
         })   //Cargo todo el usuario en la e
     }

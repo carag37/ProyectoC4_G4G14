@@ -10,10 +10,13 @@ async function crearBoletin(req, res) {
     const { materia, notas, idAlumno, observaciones } = req.body
     let docBoletin;
     let notasNum;
+    let date = new Date().toJSON();
     let alumnoV = await AlumnoSchema.find({ "idAlumno": idAlumno })
     let materiaV = await MateriaSchema.find({ "nombre": materia })
 
-    if (notas == ! null) {
+    console.log(notas)
+
+    if (notas !== null) {
         notasNum = notas.split(",").map(function (str) { return parseInt(str); });
         console.log(notasNum)
     }
@@ -27,11 +30,12 @@ async function crearBoletin(req, res) {
         "alumno": idAlumno
     });
 
-
-
     if (boletin.length != 0) {
         return res.status(400).json({ msg: "El boletin ya existe para ese alumno y materia" });
     }
+
+    
+    let createObs = observaciones + " Creado en: " + date
 
     try {
         docBoletin = await BoletinSchema.create({
@@ -39,7 +43,7 @@ async function crearBoletin(req, res) {
             "materia": materia,
             "notas": notasNum,
             "alumno": idAlumno,
-            "observaciones": observaciones,
+            "observaciones": createObs,
             "creador": req.usuario.id
 
         })
@@ -132,9 +136,10 @@ async function actualizarBoletin(req, res) {
     if (notas !== null || observaciones !== null) { docBoletin.observaciones = docBoletin.observaciones + updateObs }
 
     console.log(docBoletin.observaciones)
-    console.log(notas)
+    console.log(typeof notas)
 
-    if (notas !== null) {
+    if (notas.length != 0 && typeof notas === 'string') {
+        // return res.status(400).json({ msg: "Se ingresaron notas" });
         notasNum = notas.split(",").map(function (str) { return parseInt(str); });
         console.log(notasNum)
         for (let i = 0; i < notasNum.length; i++) {
