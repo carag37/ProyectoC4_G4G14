@@ -144,7 +144,7 @@ const VerMateria = () => {
             <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="min-h-screen w-full rounded-lg">
+                <main className="min-h-screen w-full text-center">
                     <div>
                         <div className="mt-10 mx-5" >
                             <Link
@@ -176,9 +176,9 @@ const VerMateria = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td className="px-2 border">{item.nombre}</td>
-                                                    <td className="px-2 border">{cursos.filter(function(element){ return element.materia.includes(item.nombre) }).map(ModArr=>ModArr.descripcion).join(", ")}</td>
-                                                    <td className="px-2 border">{item.docente} </td>
+                                                    <td className="px-2 text-left border">{item.nombre}</td>
+                                                    <td className="px-2 text-left border">{cursos.filter(function(element){ return element.materia.includes(item.nombre) }).map(ModArr=>ModArr.descripcion).join(", ")}</td>
+                                                    <td className="px-2 text-left border">{item.docente} </td>
                                                     <td className="p-2 border">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarMateria(item._id, item.nombre)}

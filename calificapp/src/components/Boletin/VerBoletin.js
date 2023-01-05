@@ -136,10 +136,10 @@ const VerBoletin = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td className="p-2 border">{item.materia}</td>
-                                                    <td className="p-2 border">{item.alumno}</td>
-                                                    <td className="p-2 border">{item.notas.join(", ")} </td>
-                                                    <td className="text-md p-2 border">{item.observaciones} </td>
+                                                    <td className="p-2 text-left border">{item.materia}</td>
+                                                    <td className="p-2 text-left border">{item.alumno}</td>
+                                                    <td className="p-2 text-left border">{item.notas.join(", ")} </td>
+                                                    <td className="text-md text-left p-2 border">{item.observaciones} </td>
 
                                                     <td className="text-md border p-2">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">

@@ -82,12 +82,13 @@ const VerDocente = () => {
     
     return (
         <>
-            <Header  />
-            <div className="md:flex md:min-h-screen">
+            <Header />
+            <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="flex-1">
-                <div className="mt-10 mx-5" >
-                    <Link
+                <main className="min-h-screen w-full text-center">
+                    <div>
+                        <div className="mt-10 mx-5" >
+                            <Link
                     to={`/crear-docente`}
                     className="bg-blue-600 p-3  text-slate-200 uppercase font-bold   text-center rounded-lg"
                     >Crear Docente
@@ -113,9 +114,9 @@ const VerDocente = () => {
                                     docente.map(
                                         item =>
                                             <tr key={item._id}>
-                                                <td className="text-center p-1 border">{item._id}</td>
-                                                <td className="text-center p-1 border">{item.nombre}</td>
-                                                <td className="px-2 border">{materia.filter(function(element){ return element.docente.includes(item._id) }).map(ModArr=>ModArr.nombre).join(", ")}</td>
+                                                <td className="text-left p-1 border">{item._id}</td>
+                                                <td className="text-left p-1 border">{item.nombre}</td>
+                                                <td className="px-2 text-left border">{materia.filter(function(element){ return element.docente.includes(item._id) }).map(ModArr=>ModArr.nombre).join(", ")}</td>
                                                 <td>
                                                     <div className="inline-flex rounded-md shadow-sm" role="group">
                                                         <Link
@@ -138,6 +139,7 @@ const VerDocente = () => {
                     </div>
 
                         <Link className="text-slate-300 mt-5 hover:text-gray-500 block text-center text-lg font-bold uppercase" to={"/menu-docente"}>Regresar</Link>                   
+                </div>
                 </main>
             </div>
         </>

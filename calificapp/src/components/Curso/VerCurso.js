@@ -120,11 +120,11 @@ const VerCurso = () => {
 
     return (
         <>
-             <Header />
+            <Header />
             <div className='md:flex md:min-h-screen'>
                 <Sidebar />
-                <main className="min-h-screen w-full mx-auto">
-                    <div className="w-full">
+                <main className="min-h-screen w-full text-center">
+                    <div>
                         <div className="mt-10 mx-5" >
                             <Link
                                 to={`/crear-curso`}
@@ -154,9 +154,9 @@ const VerCurso = () => {
                                             item =>
                                                 <tr key={item._id}>
                                                     {/* <td>{item._id}</td> */}
-                                                    <td className="p-2 border">{item.descripcion}</td>
+                                                    <td className="p-2 text-left border">{item.descripcion}</td>
                                                    
-                                                    <td className="p-2 border">{item.materia.join(", ")} </td>
+                                                    <td className="p-2 text-left border">{item.materia.join(", ")} </td>
                                                     <td className="p-2 border">
                                                         <div className="inline-flex rounded-md shadow-sm" role="group">
                                                             <button onClick={() => editarCurso(item._id, item.descripcion)}
