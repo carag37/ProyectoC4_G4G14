@@ -30,12 +30,16 @@ const VerMateria = () => {
         //console.log(response)
         //const mensaje_res = response.msg;
         setMaterias(response)
+        //cargarCursos().then(putCursos());
+
     }
 
 
     useEffect(() => {
         cargarMaterias();
-         // eslint-disable-next-line
+        cargarCursos();
+        putCursos();
+        // eslint-disable-next-line
     },[]);
 
     const [cursos, setCursos] = useState([]);
@@ -45,18 +49,51 @@ const VerMateria = () => {
         const response = await crud.GET('/api/cursos/all');
         //console.log(response)
         setCursos(response)
-
-        
         
     }
 
-    useEffect(() => {
-        cargarCursos();
-                 // eslint-disable-next-line
-    },[]);
+    // useEffect(() => {
+    //     cargarCursos();
+    //     // eslint-disable-next-line
+    // },[]);
+    
+
+    const putCursos = async () => {
+        
+        console.log("Actualiza cursos en DB")
+        let materias = await crud.GET('/api/materias/all');
+        //console.log(materias)
+        let cursos = await crud.GET('/api/cursos/all');
+        //console.log(cursos)
+        let materiasMod = materias.map(item => 
+            cursos.filter(function(element){ 
+                return element.materia.includes(item.nombre)
+            }
+            ).map(ModArr=>ModArr.descripcion))
+        
+        let data = [];
+
+        for (let i = 0; i < materias.length; i++){
+            
+            data.push({  nombreC: materias[i].nombre, 
+                cursosC: materiasMod[i]
+            })
+
+            
+        }
+
+        console.log(data)
+
+        const response = await crud.PUT('/api/materias', data)
+        console.log(response)
+     
+    }
 
 
-
+    //  useEffect(() => {
+    //      putCursos();
+    //       // eslint-disable-next-line
+    //  },[]);
 
 
     const borrarMateria = async (IdMateria, nombre) => {

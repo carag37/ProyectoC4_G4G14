@@ -45,9 +45,43 @@ const VerDocente = () => {
         
     }
 
+        const putMaterias = async () => {
+        
+        console.log("Actualiza materias en DB")
+        let docentes = await crud.GET('/api/docentes/all');
+        //console.log(docentes)
+        let materias = await crud.GET('/api/materias/all');
+        //console.log(materias)
+        let docentesMod = docentes.docente.map(item => 
+            materias.filter(function(element){ 
+                return element.docente.includes(item._id) }).map(ModArr=>ModArr.nombre))
+            
+            //materia.filter(function(element){ return element.docente.includes(item._id) }).map(ModArr=>ModArr.nombre)
+        // console.log(docentesMod)
+        // console.log(docentes.docente.length)
+        let data = [];
+
+        for (let i = 0; i < docentes.docente.length; i++){
+            
+            data.push({  idD: docentes.docente[i]._id, 
+                materiasD: docentesMod[i]
+            })
+
+            
+        }
+
+        // console.log(data)
+
+        const response = await crud.PUT('/api/docentes', data)
+        console.log(response)
+     
+    }
+
+
 
     useEffect(() => {
         cargarMaterias();
+        putMaterias();
          // eslint-disable-next-line
     },[]);
 

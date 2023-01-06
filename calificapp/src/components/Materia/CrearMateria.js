@@ -56,7 +56,7 @@ const CrearMateria = () => {
 
     const handleChangeD = selectedOptionD => {
         //console.log("Opciones", selectedOptionD)
-        setDatosD(selectedOptionD.map(optionD => optionD.value));
+        setDatosD(selectedOptionD.value);
 
     };
 
@@ -211,12 +211,12 @@ const CrearMateria = () => {
                                     onChange={handleChange}
                                 /> */}
 
-                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Docentes</label>
+                                <label className="text-2xl mt-5 font-bold uppercase text-slate-600 block">Docente</label>
                                 <Select
-                                    isMulti
+                                    
                                     name="docentes"
                                     options={listaD}
-                                    className="basic-multi-select text-slate-600 block"
+                                    className="basic-single text-slate-600 block"
                                     classNamePrefix="select"
                                     onChange={handleChangeD}
                                 />

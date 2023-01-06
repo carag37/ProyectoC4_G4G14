@@ -201,7 +201,34 @@ async function actualizarMateria(req, res) {
 
 //------------------------Actualizar Cursos en Materias---------------------
 
-async function cargarCursos(req, res) {console.log("Se están cargando Cursos")}
+async function cargarCursos(req, res) {
+    
+    let nombreC = [];
+    let cursosC = [];
+    let docMateria;
+
+    for (let i = 0; i < req.body.length; i++){
+    
+    nombreC.push(req.body[i].nombreC);
+    cursosC.push(req.body[i].cursosC); 
+    
+    try {
+
+        docMateria = await MateriasSchema.updateOne({ nombre: req.body[i].nombreC }, { curso: req.body[i].cursosC})
+
+    } catch (error) {
+        res.status(400)
+        res.json(error.message);
+        return  //return para evitar enviar 2 respuestas por ejecución
+    }
+
+    //console.log(docMateria)
+
+    }
+
+}
+
+
 
 //-------------------------DELETE-------------------------------------------
 

@@ -15,13 +15,13 @@ const CrearCurso = () => {
         async function getNames() {
             const response = await crud.GET('/api/materias/all');
             let nombreMaterias = [];
-            console.log(response);
+            //console.log(response);
 
             for (let materia = 0; materia < response.length; materia++) {
                 let temporal = { value: response[materia].nombre, label: response[materia].nombre }
                 nombreMaterias.push(temporal);
             }
-            console.log(lista);
+            //console.log(lista);
             setLista(nombreMaterias);
         }
         getNames();
@@ -29,7 +29,7 @@ const CrearCurso = () => {
     }, [])
 
     const handleChange = selectedOption => {
-        console.log("Opciones", selectedOption)
+        //console.log("Opciones", selectedOption)
         setDatos(selectedOption.map(option => option.value));
 
     };
@@ -53,7 +53,7 @@ const CrearCurso = () => {
     const crearCurso = async () => {
 
         if (descripcion === "" || materias === "") {
-            console.log("Debe diligenciar todos los campos")
+            //console.log("Debe diligenciar todos los campos")
             const mensaje = "Debe diligenciar todos los campos";
 
             new swalt({
@@ -73,17 +73,17 @@ const CrearCurso = () => {
             })
 
         } else {
-            console.log("Pruebas", datos)
+            //console.log("Pruebas", datos)
             const data = {
                 descripcion: curso.descripcion,
                 materia: datos,
             }
 
-            console.log(data);
+            //console.log(data);
 
             const response = await crud.POST('/api/cursos', data)
             const mensaje = response.msg;
-            console.log(mensaje);
+            //console.log(mensaje);
 
             if (mensaje === 'El curso ya existe') {
                 const mensaje = "El curso ya existe";

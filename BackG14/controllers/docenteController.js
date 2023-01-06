@@ -77,6 +77,36 @@ async function actualizarDocente(req,res){
          docente.save(); 
     }
 
+
+
+    async function cargarMaterias(req, res) {
+    
+        let idD = [];
+        let materiasD = [];
+        let docDocente;
+    
+        for (let i = 0; i < req.body.length; i++){
+        
+        idD.push(req.body[i].idD);
+        materiasD.push(req.body[i].materiasD); 
+        
+        try {
+    
+            docDocente = await Docente.updateOne({ _id: req.body[i].idD }, { materias: req.body[i].materiasD})
+    
+        } catch (error) {
+            res.status(400)
+            res.json(error.message);
+            return  //return para evitar enviar 2 respuestas por ejecución
+        }
+    
+        console.log(idD)
+        console.log(materiasD)
+    
+        }
+    
+    }
+
 //Eliminar docente
 async function borrarDocente(req, res){
     const {id}= req.params;
@@ -93,4 +123,4 @@ async function borrarDocente(req, res){
     }
 }
 
-export{leerDocentes,leerDocente,crearDocente,actualizarDocente,borrarDocente}
+export{leerDocentes,leerDocente,crearDocente,actualizarDocente,borrarDocente, cargarMaterias}

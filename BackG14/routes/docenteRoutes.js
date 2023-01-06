@@ -1,5 +1,5 @@
 import express  from "express";
-import { leerDocente,leerDocentes, crearDocente, actualizarDocente, borrarDocente } from "../controllers/docenteController.js";
+import { leerDocente,leerDocentes, crearDocente, actualizarDocente, borrarDocente, cargarMaterias } from "../controllers/docenteController.js";
 import loginMiddleware from "../middleware/loginMiddleware.js";
 
 const router=express.Router()
@@ -17,6 +17,7 @@ router.get("/all",loginMiddleware, leerDocentes)
 //Actualizar Docente
 //PUT
 router.patch("/one/:id",loginMiddleware, actualizarDocente)
+router.put("/", loginMiddleware, cargarMaterias)
 //Eliminar Docente
 //DELETE
 router.delete("/:id",loginMiddleware,borrarDocente)

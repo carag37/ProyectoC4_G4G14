@@ -55,7 +55,7 @@ class crud{
         return response;
     }
 
-    async PUT(resource,body){
+    async PUT(resource, body){
         const token = localStorage.getItem("token");
         let bearer;
         if(token ===""){
