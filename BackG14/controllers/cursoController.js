@@ -147,6 +147,24 @@ async function actualizarCurso(req, res) {
     res.status(200).json({ docCurso })
 }
 
+async function actualizarMaterias(req, res) {
+
+    const { descripcion, materia } = req.body;
+
+    let docCurso = await CursoSchema.find({ "descripcion": descripcion })
+
+    if (docCurso.length == 0) { return res.status(400).json({ msg: "El curso " + descripcion + " no existe" }); }
+
+    if (materia != null) {
+            try {
+                await CursoSchema.findOneAndUpdate({ "descripcion": descripcion }, {materias:materia})
+
+            } catch (error) { return res.status(400).json(error.message) }
+        
+}
+
+}
+
 //-------------------------DELETE-------------------------------------------
 
 async function borrarCurso(req, res) {
@@ -173,4 +191,4 @@ async function borrarCurso(req, res) {
 
 }
 
-export { leerCurso, crearCurso, actualizarCurso, borrarCurso, leerCursoId }
+export { leerCurso, crearCurso, actualizarCurso, borrarCurso, leerCursoId, actualizarMaterias }

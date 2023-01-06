@@ -1,5 +1,5 @@
 import express from "express";
-import { leerCursoId, crearCurso, actualizarCurso, borrarCurso, leerCurso } from "../controllers/cursoController.js";
+import { leerCursoId, crearCurso, actualizarCurso, borrarCurso, leerCurso, actualizarMaterias } from "../controllers/cursoController.js";
 import loginMiddleware from "../middleware/loginMiddleware.js";
 
 const cursoRoutes = express.Router()
@@ -16,6 +16,8 @@ cursoRoutes.get("/all", loginMiddleware, leerCurso)
 //Actualizar
 //PUT
 cursoRoutes.patch("/", loginMiddleware, actualizarCurso)
+cursoRoutes.put("/", loginMiddleware, actualizarMaterias)
+
 //Eliminar
 //DELETE
 cursoRoutes.delete("/", loginMiddleware, borrarCurso)
